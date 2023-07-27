@@ -39,12 +39,23 @@ aziendale designato da Sync Lab a guidare e valutare il lavoro svolto dallo stag
 Inoltre al termine del periodo di stage, sotto la supervisione del tutor aziendale è stata pianificata una presentazione rivolta a tutti \textit{stakeholder} aziendali, mirata a 
 mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. D'altra parte tale presentazione sarà anche l'occasione 
 per un confronto per far emergere eventuali criticità o difetti,  e miglioramenti da apportare al prototipo sviluppato.
+\pagebreak
 \section{Il progetto di stage}
 \subsection{Descrizione del progetto}
-
+Le attività descritte nel seguente in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta dati basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati proonti per l'analisi.\\
+In generale una \gls{Data Pipeline}{} è costituita da tre elementi sostanziali: una origine, una o più fasi di trasformazione e una o più destinazioni.
+Inoltre per facilitare le operazioni di deploy è richiesto che il prototipo sia eseguibile con Docker Compose. \\
+Il progetto in sè fa parte di una rivoluzione tecnologica che Sync Lab sta portando avanti nel campo Data Processing e Data Analytics. \\
+In particolare il progetto di stage si pone come obiettivo quello di andare ad analizzare le prestazioni di Apache Druid rispetto ad un classico database relazionale, come PostgreSQL, in termini di velocità di esecuzione delle query e di scalabilità in relazione alle funzionalità di aggregazione fornite da tale strumento. 
 \subsection{Obiettivi formativi}
-
-
+In generale lo stage ha come obiettivo quello di far acquisire allo stagista concetti fondamentali riguardanti: 
+\begin{itemize}
+    \item Container technology;
+    \item Apache Kafka e le Event Driven Architecture, design publish/subscribe;
+    \item Column Based Database e la relazione/confronto tra questi e i classici DB relazionali SQL e quelli
+    Documentali;
+    \item Middleware, \gls{Data Pipeline}{}, le architetture distribuite, scalabili e resilienti.
+\end{itemize}
 \subsection{Risultati attesi}
 
 \subsection{Pianificazione}
