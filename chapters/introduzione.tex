@@ -71,6 +71,8 @@ Un obiettivo, o risultato viene classificato secondo l'importanza in:
 
  \begin{table}[htbp]
     \centering
+    \caption{Tabella degli obiettivi}    
+    \label{tab:Tabella1}
     \begin{tabularx}{\textwidth}{|c|c|X|}
         \hline
         \textbf{ID} & \textbf{Importanza} & \textbf{Descrizione} \\\hline
@@ -91,12 +93,93 @@ Un obiettivo, o risultato viene classificato secondo l'importanza in:
         F3 & Facoltativo & realizzare una presentazione che illustri l’architettura  sviluppata  a personale di settore o
         Stakeholder \\\hline
     \end{tabularx} 
-    \caption{Tabella degli obiettivi}    
-    \label{tab:Tabella1}
+
 \end{table}
 
 \pagebreak
 \subsection{Pianificazione}
+In accordo con l'azienda Sync Lab, la pianificazione delle attività da svolgere è stata suddivisa in periodi della durata di una settimana. \\
+Nella Tabella2 sono riportate in dettaglio i periodi previsti per ogni settimana, specificando il numero di ore preventivate per ognuno e il periodo in cui ne è pianificato lo svolgimento.
+\\
+\\
+\\
+\textbf{Prima Settimana - Ambientamento e introduzione agli strumenti del caso di studio}\\
+Durante questa prima settimana del percorso di stage è prevista un'attività di ambientamento e introduzione agli strumenti del caso di studio. \\
+In particolare, in questa fase iniziale, lo stagista si occuperà di:
+\begin{list}{*}{}
+    \item Introduzione al contesto e agli strumenti utilizzati, \gls{Data Pipeline}{}, EDA, middleware, cause e
+    scopi dei progetti di questo tipo;
+    \item introduzione ad Apache Kafka; sperimentazione personale delle tecnologie coinvolte su Docker
+    Compose.
+\end{list} 
+\pagebreak
+\textbf{Seconda Settimana - Studio e analisi di Apache Kafka}\\
+Nella seconda settimana si stage è prevista un'attività di studio, analisi e sperimentazione con Apache Kafka. \\
+In particolare lo stagista si occuperà di:
+\begin{list}{*}{}
+    \item Installazione e configurazione di Apache Kafka in un prototipo di ambiente distribuito;
+    \item sperimentazione di alcune modalità di inserimento dati in Apache Kafka;
+    \item set-up della High Availability ed Exactly Once delivery del cluster Apache Kafka.
+\end{list}
+\textbf{Terza Settimana - Studio e analisi di Apache Druid e delle differenze rispetto ai database
+documentali e relazionali classici}\\
+Nel corso della terza settimana di stage, lo stagista sarà impegnato in un'attività di studio, analisi e sperimentazione con Apache Druid e le differenze rispetto ai database documentali e relazionali classici. \\
+
+In particolare lo stagista si occuperà di:
+\begin{list}{*}{}
+    \item intraprendere uno studio di Apache Druid, e dei database per la gestione delle Time Series e ai Column-based
+    Databases;
+    \item comprendere gli obiettivi che si prepongono gli strumenti e degli Use Case ad essi associati;
+    \item individuare le differenze rispetto ai documentali e ai relazionali classici SQL.
+\end{list}
+
+\noindent \textbf{Quarta Settimana - Analisi e sperimentazione di Apache Druid}\\
+La quarta settimana di stage è dedicata ad una attività di analisi e sperimentazione delle funzionalità di Apache Druid. \\
+In particolare lo stagista si occuperà di:
+\begin{list}{*}{}
+    \item Installazione e sperimentazione di un cluster in ambiente containerizzato di Apache Druid, con Docker Compose;
+    \item Sperimentazioni con esecuzioni di query e operazioni sui dati;
+\end{list}
+
+\noindent  \textbf{Quinta Settimana - Implementazione data pipeline nella sua interezza lato sorgente}\\
+La quinta settimana lo stagista sarà impegnato  nella implementazione di una \gls{Data Pipeline}{}, in particolare si tratterà 
+dell'inserimento dei in Apache Kafka. \\
+
+\noindent  \textbf{Sesta Settimana - Implementazione data pipeline nella sua interezza lato destinazione}\\
+La sesta settimana lo stagista sarà impegnato nella implementazione dell'integrazione tra Apache Kafka e Apache Druid. \\
+Inoltre lo stagista sarà anche impegnato nella creazione di un generatore di dati pe testare l'architettura sviluppata. \\
+
+\noindent \textbf{Settima Settimana - Analisi della configurazione di Apache Druid}\\
+La settima settimana sarà dedicata analisi e configurazione di Apache Druid. \\
+In paraticolare lo stagista si occuperà di:
+\begin{list}{*}{}
+    \item configurazione approfondita di Apache Druid: enviroment, segments, memory use;
+    \item Confronto della performance tra Apache Druid e altri db relazionali classici per alcune operazioni
+    OLAP.
+\end{list}
+\textbf{Ottava Settimana - Conclusione del progetto e documentazione}\\
+L'ottava settimana sarà dedicata alla chiusura del progetto, al consolidamento delle conoscenze acquisite e alla preparazione 
+di una presentazione del progetto svolto ad eventuali Stakeholder. \\
+\\
+\\
+I dettagli delle tempistiche e delle attività pianificate sono riportate nella tabella \ref{tab:Tabella3}.\\\\
+\begin{table}[h]
+    \captionof{table}{Tabella delle attività pianificate}
+    \label{tab:Tabella3}
+\begin{tabularx}{\textwidth}{|c|c|X|}
+	\hline
+	\textbf{Periodo} & \textbf{Durata in ore} & \textbf{Descrizione dell'attività} \\\hline
+	19/06 - 23/06 & \textbf{40} & Ambientamento e introduzione agli strumenti del caso di studio \\ \hline
+    26/06 - 30/06 & \textbf{40} & Studio e analisi di Apache Kafka \\ \hline
+    03/07 - 07/07 & \textbf{40} & Studio e analisi di Apache Druid e delle differenze rispetto ai database documentali e relazionali classici  \\ \hline
+    10/07 - 14/07 & \textbf{40} & Analisi e sperimentazione di Apache Druid \\ \hline
+    17/07 - 21/07 & \textbf{40} & Implementazione data pipeline nella sua interezza lato sorgente \\ \hline
+    24/07 - 28/07 & \textbf{40} & Implementazione data pipeline nella sua interezza lato destinazione \\ \hline
+    31/07 - 04/08 & \textbf{40} & Analisi della configurazione di Apache Druid \\ \hline
+	07/08 - 11/08 & \textbf{40} & Conclusione del progetto e documentazione \\\hline
+	\textbf{Totale ore} & \multicolumn{2}{|c|}{\textbf{320}} \\\hline
+\end{tabularx}
+\end{table}
 
 \subsection{Analisi preventiva dei rischi}
 
