@@ -10,11 +10,15 @@ ISO-9001 per la qualità dell'azienda, ISO-14001 per l'adozione quadro sistemati
 \\
 Attualmente Sync Lab dal punto di vista dell'organico è composta da più 300 dipendenti e lavora per più di 150 clienti diretti e finali, tra i più rilevanti ci sono nomi come: TIM, Trenitalia, PosteItaliane, UniCredit, ENI, ENEL, Vodafone, Fastweb.
 \\
-Sync Lab è un'azienda che si pone come obiettivo quello di essere un punto di riferimento per i propri clienti nella realizzazione di prodotti e soluzioni innovative per diversi settori di mercato, tra i quali: Sanità, Industria, Energia, Telco, Finanza e Trasporti \& Logistica.
+Sync Lab è un'azienda che si pone come obiettivo quello di essere un punto di riferimento per i propri clienti nella realizzazione di prodotti e soluzioni innovative per diversi settori di mercato, come mostrato  tra i quali: Sanità, Industria, Energia, Telco, Finanza e Trasporti \& Logistica.\\
+Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale \ref{figure:logo_azienda}, che rappresenta un'onda che si propaga in modo circolare, che simboleggia la capacità di adattarsi e di evolversi in modo continuo.\\
+
+
 \begin{figure}[htbp]  
 \centering
     \includegraphics[width=0.5\textwidth]{images/introduzione/logo_azienda.png}
     \caption{Logo dell'aziedan Sync Lab s.r.L.}
+    \label{figure:logo_azienda}
 \end{figure}
 \pagebreak
 \section{Idea di fondo del progetto}
@@ -32,17 +36,17 @@ sui dati ricevuti prima di archiviarli. \\
 Particolarmente importante dovrà essere la fase di analisi dei dati, in quanto dovrà essere possibile eseguire operazioni di aggregazione
 per aumentare la successiva estrazione dei dati. 
 \subsection{Il ruolo dello stagista}
-Lo stagista ha un ruolo fondamentale in tale tipologia di progetto, infatti sarà colui a portare uno spirito d'innovazione e consolidare il valore aggiunto 
+Lo stagista ha un ruolo fondamentale in tale tipologia di progetto, infatti è colui che porta uno spirito d'innovazione e consolida il valore aggiunto 
 aziendale. \\
-Il percorso che lo stagista dovrà intraprendere sono state elencate all'interno di un \textit{Piano di lavoro}, che aiuterà il tutor 
+Le attività che costituiscono il percorso che lo stagista ha intrapreso sono state elencate all'interno di un \textit{Piano di lavoro}, che ha aiutato il tutor 
 aziendale designato da Sync Lab a guidare e valutare il lavoro svolto dallo stagista. \\
 Inoltre al termine del periodo di stage, sotto la supervisione del tutor aziendale è stata pianificata una presentazione rivolta a tutti \textit{stakeholder} aziendali, mirata a 
-mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. D'altra parte tale presentazione sarà anche l'occasione 
+mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. D'altra parte tale presentazione è stata anche l'occasione 
 per un confronto per far emergere eventuali criticità o difetti,  e miglioramenti da apportare al prototipo sviluppato.
 \pagebreak
 \section{Il progetto di stage}
 \subsection{Descrizione del progetto}
-Le attività descritte nel seguente in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta dati basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati proonti per l'analisi.\\
+Le attività descritte in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta dati basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati pronti per l'analisi.\\
 In generale una \gls{Data Pipeline}{} è costituita da tre elementi sostanziali: una origine, una o più fasi di trasformazione e una o più destinazioni.
 Inoltre per facilitare le operazioni di deploy è richiesto che il prototipo sia eseguibile con Docker Compose. \\
 Il progetto in sè fa parte di una rivoluzione tecnologica che Sync Lab sta portando avanti nel campo Data Processing e Data Analytics. \\
@@ -63,7 +67,7 @@ L’importanza è indicata dalla sigla O oppure F ad indicare rispettivamente un
 obbligatorio oppure facoltativo; mentre l’identificativo è un numero incrementale che
 segnala in modo univoco l’obiettivo o il risultato in esame.\\
 \\
-Un obiettivo, o risultato viene classificato secondo l'importanza in: 
+Ogni obiettivo è identificato, o risultato viene classificato secondo l'importanza in: 
 \begin{list}{*}{}
     \item \textbf{Obbligatorio (O)}: obiettivo irrinunciabile, vincolante in quanto necessario per l'avanzamento del progetto;
     \item \textbf{Facoltativo (F)}: obiettivo utile ma non essenziale, che può essere soddisfatto solo se tutti gli obiettivi obbligatori sono stati raggiunti e il cui soddisfatto rende il progetto più completo.     
@@ -86,110 +90,27 @@ Un obiettivo, o risultato viene classificato secondo l'importanza in:
         O6 & Obbligatorio & comprensione delle differenze tra i database relazionali  classici e i Column-based Data-
         bases\\\hline
         O7 & Obbligatorio &comprensione dell’impiego e utilità dei middleware \\\hline
-        F1 & Facoltativo & produrre documentazione e un pacchetto di configurazione  dell’ambiente di sviluppo e
+        F1 & Facoltativo & produzione di documentazione e un pacchetto di configurazione  dell’ambiente di sviluppo e
         esecuzione  della \gls{Data Pipeline}{}\\\hline
-        F2 & Facoltativo & produrre documentazione che riporti  le differenze  di performance  tra Apache Druid e altri
+        F2 & Facoltativo & produzione di documentazione che riporti  le differenze  di performance  tra Apache Druid e altri
          database relazionali classici per alcune  operazioni OLAP \\\hline
-        F3 & Facoltativo & realizzare una presentazione che illustri l’architettura  sviluppata  a personale di settore o
+        F3 & Facoltativo & realizzazione di una presentazione che illustri l’architettura  sviluppata  a personale di settore o
         Stakeholder \\\hline
     \end{tabularx} 
 
 \end{table}
 
 \pagebreak
-\subsection{Pianificazione}
-In accordo con l'azienda Sync Lab, la pianificazione delle attività da svolgere è stata suddivisa in periodi della durata di una settimana. \\
-Nella Tabella2 sono riportate in dettaglio i periodi previsti per ogni settimana, specificando il numero di ore preventivate per ognuno e il periodo in cui ne è pianificato lo svolgimento.
-\\
-\\
-\\
-\textbf{Prima Settimana - Ambientamento e introduzione agli strumenti del caso di studio}\\
-Durante questa prima settimana del percorso di stage è prevista un'attività di ambientamento e introduzione agli strumenti del caso di studio. \\
-In particolare, in questa fase iniziale, lo stagista si occuperà di:
-\begin{list}{*}{}
-    \item Introduzione al contesto e agli strumenti utilizzati, \gls{Data Pipeline}{}, EDA, middleware, cause e
-    scopi dei progetti di questo tipo;
-    \item introduzione ad Apache Kafka; sperimentazione personale delle tecnologie coinvolte su Docker
-    Compose.
-\end{list} 
-\pagebreak
-\textbf{Seconda Settimana - Studio e analisi di Apache Kafka}\\
-Nella seconda settimana si stage è prevista un'attività di studio, analisi e sperimentazione con Apache Kafka. \\
-In particolare lo stagista si occuperà di:
-\begin{list}{*}{}
-    \item Installazione e configurazione di Apache Kafka in un prototipo di ambiente distribuito;
-    \item sperimentazione di alcune modalità d'inserimento dati in Apache Kafka;
-    \item set-up della High Availability ed Exactly Once delivery del cluster Apache Kafka.
-\end{list}
-\textbf{Terza Settimana - Studio e analisi di Apache Druid e delle differenze rispetto ai database
-documentali e relazionali classici}\\
-Nel corso della terza settimana di stage, lo stagista sarà impegnato in un'attività di studio, analisi e sperimentazione con Apache Druid e le differenze rispetto ai database documentali e relazionali classici. \\
 
-In particolare lo stagista si occuperà di:
-\begin{list}{*}{}
-    \item intraprendere uno studio di Apache Druid, e dei database per la gestione delle Time Series e ai Column-based
-    Databases;
-    \item comprendere gli obiettivi che si prepongono gli strumenti e degli Use Case ad essi associati;
-    \item individuare le differenze rispetto ai documentali e ai relazionali classici SQL.
-\end{list}
-
-\noindent \textbf{Quarta Settimana - Analisi e sperimentazione di Apache Druid}\\
-La quarta settimana di stage è dedicata ad una attività di analisi e sperimentazione delle funzionalità di Apache Druid. \\
-In particolare lo stagista si occuperà di:
-\begin{list}{*}{}
-    \item Installazione e sperimentazione di un cluster in ambiente containerizzato di Apache Druid, con Docker Compose;
-    \item Sperimentazioni con esecuzioni di query e operazioni sui dati;
-\end{list}
-
-\noindent  \textbf{Quinta Settimana - Implementazione Data Pipeline nella sua interezza lato sorgente}\\
-La quinta settimana lo stagista sarà impegnato  nella implementazione di una \gls{Data Pipeline}{}, in particolare si tratterà 
-dell'inserimento dei in Apache Kafka. \\
-
-\noindent  \textbf{Sesta Settimana - Implementazione Data Pipeline nella sua interezza lato destinazione}\\
-La sesta settimana lo stagista sarà impegnato nella implementazione dell'integrazione tra Apache Kafka e Apache Druid. \\
-Inoltre lo stagista sarà anche impegnato nella creazione di un generatore di dati per testare l'architettura sviluppata. \\
-\pagebreak
-
-\noindent \textbf{Settima Settimana - Analisi della configurazione di Apache Druid}\\
-La settima settimana sarà dedicata analisi e configurazione di Apache Druid. \\
-In paraticolare lo stagista si occuperà di:
-\begin{list}{*}{}
-    \item configurazione approfondita di Apache Druid: enviroment, segments, memory use;
-    \item Confronto della performance tra Apache Druid e altri database relazionali classici per alcune operazioni
-    OLAP.
-\end{list}
-\textbf{Ottava Settimana - Conclusione del progetto e documentazione}\\
-L'ottava settimana sarà dedicata alla chiusura del progetto, al consolidamento delle conoscenze acquisite e alla preparazione 
-di una presentazione del progetto svolto ad eventuali Stakeholder. \\
-\\
-\\
-I dettagli delle tempistiche e delle attività pianificate sono riportate nella tabella \ref{tab:Tabella3}.\\\\
-\begin{table}[h]
-    \captionof{table}{Tabella delle attività pianificate}
-    \label{tab:Tabella3}
-\begin{tabularx}{\textwidth}{|c|c|X|}
-	\hline
-	\textbf{Periodo} & \textbf{Durata in ore} & \textbf{Descrizione dell'attività} \\\hline
-	19/06 - 23/06 & \textbf{40} & Ambientamento e introduzione agli strumenti del caso di studio \\ \hline
-    26/06 - 30/06 & \textbf{40} & Studio e analisi di Apache Kafka \\ \hline
-    03/07 - 07/07 & \textbf{40} & Studio e analisi di Apache Druid e delle differenze rispetto ai database documentali e relazionali classici  \\ \hline
-    10/07 - 14/07 & \textbf{40} & Analisi e sperimentazione di Apache Druid \\ \hline
-    17/07 - 21/07 & \textbf{40} & Implementazione \gls{Data Pipeline}{} nella sua interezza lato sorgente \\ \hline
-    24/07 - 28/07 & \textbf{40} & Implementazione \gls{Data Pipeline}{} nella sua interezza lato destinazione \\ \hline
-    31/07 - 04/08 & \textbf{40} & Analisi della configurazione di Apache Druid \\ \hline
-	07/08 - 11/08 & \textbf{40} & Conclusione del progetto e documentazione \\\hline
-	\textbf{Totale ore} & \multicolumn{2}{|c|}{\textbf{320}} \\\hline
-\end{tabularx}
-\end{table}
 \pagebreak
 \subsection{Analisi preventiva dei rischi}
 Durante la fase di analisi iniziale del progetto di stage, sono stati individuati i seguenti rischi, cui si è cercato di porre rimedio con le azioni di mitigazione indicate. \\
 \begin{enumerate}
     \item \textbf{Inesperienza tecnologica}: il progetto prevede l'utilizzo di tecnologie con cui lo stagista non ha mai avuto a che fare. \\
-    \textbf{Rischio}: Medio .\\
+    \textbf{Rischio}: Medio.\\
     \textbf{Soluzione}: Per mitigare tale rischio, è stato previsto un periodo di ambientamento e delle tecnologie coinvolte, in modo da poter affrontare il progetto con maggiore consapevolezza.
     \item \textbf{Scelte errate nella progettazione dell'architettura}: il progetto prevede la progettazione di un'architettura complessa, con molte componenti interagenti tra loro. \\
-    \textbf{Rischio}: Alto .\\
+    \textbf{Rischio}: Alto.\\
     \textbf{Soluzione}: Per mitigare tale rischio, è stato previsto un periodo di analisi e progettazione dell'architettura, con il supporto del tutor aziendale, in modo da poter ovviare tale rischio.
 
 \end{enumerate}    
