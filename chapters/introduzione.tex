@@ -2,18 +2,16 @@
 \label{cap:introduzione}
 \section{Descrizione dell'azienda}
 Sync Lab s.r.L. è una azienda italiana attiva nell'abito \gls{ict}{}, specializzata nello sviluppo e consulenza IT dal 2002 con sedi a 
-Milano, Roma, Napoli, Verona e Como. È una azienda orientata verso la Business Innovation, finalizzata alla 
+Milano, Roma, Napoli, Verona, Como, con più di 300 dipendenti. È una azienda orientata verso la \gls{Business Innovation}{}, finalizzata alla 
 creazione di soluzioni innovative che abbracciano i nuovi paradigmi della trasformazione digitale.
 Sync Lab possiede numerose certificazioni ISO LL-C per l'attestazione della 
 qualità dei prodotti e servizi offerti. In particolare possiede le certificazioni 
 ISO-9001 per la qualità dell'azienda, ISO-14001 per l'adozione quadro sistematico per l'integrazione delle pratiche a protezione dell'ambiente, ISO-27001 per la definizione di un \gls{sgsi}{}, ISO-45001 per l'adozione di un \gls{ohs}{}.
 \\
-Attualmente Sync Lab dal punto di vista dell'organico è composta da più 300 dipendenti e lavora per più di 150 clienti diretti e finali, tra i più rilevanti ci sono nomi come: TIM, Trenitalia, PosteItaliane, UniCredit, ENI, ENEL, Vodafone, Fastweb.
+Attualmente Sync Lab  lavora per più di 150 clienti diretti e finali, tra i più rilevanti ci sono nomi come: TIM, Trenitalia, PosteItaliane, UniCredit, ENI, ENEL, Vodafone, Fastweb.
 \\
-Sync Lab è un'azienda che si pone come obiettivo quello di essere un punto di riferimento per i propri clienti nella realizzazione di prodotti e soluzioni innovative per diversi settori di mercato, come mostrato  tra i quali: Sanità, Industria, Energia, Telco, Finanza e Trasporti \& Logistica.\\
-Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale Figura \ref{figure:logo_azienda}, che rappresenta un'onda che si propaga in modo circolare, che simboleggia la capacità di adattarsi e di evolversi in modo continuo.\\
-
-
+Inoltre è un'azienda che si pone come obiettivo quello di essere un punto di riferimento per i propri clienti nella realizzazione di prodotti e soluzioni innovative per diversi settori di mercato, come: Sanità, Industria, Energia, Telco, Finanza e Trasporti \& Logistica.\\
+Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale Figura \ref{figure:logo_azienda}: un'onda che si propaga in modo circolare, che simboleggia la capacità di adattarsi e di evolversi in modo continuo.\\
 \begin{figure}[htbp]  
 \centering
     \includegraphics[width=0.5\textwidth]{images/introduzione/logo_azienda.png}
@@ -26,31 +24,30 @@ Oggigiorno la gestione e l'analisi di grandi moli di dati in tempo reale sta div
 per le aziende che vogliono rimanere competitive sul mercato. \\ 
 Per questo motivo è necessario utilizzare tecnologie e software che permettano di analizzare e archiviare 
 i dati in modo efficiente e veloce. \\
-D'altro canto, però, è necessario anche che queste tecnologie siano in grado di scalare in modo verticale e orizzontale in base al carico 
-di lavoro da sostenere. Inoltre è necessario che queste tecnologie siano in grado di garantire un elevato livello affidabilità. \\
+D'altra parte è necessario anche che tali tecnologie siano in grado di scalare in modo verticale e orizzontale in base al carico 
+di lavoro da sostenere, mantenendo sempre alte prestazioni e resilienza in caso di guasti. \\
 Per questo motivo Sync Lab ha deciso d' investire in un progetto di ricerca e sviluppo che ha come obiettivo quello di creare 
 una \gls{Data Pipeline}{} in grado di garantire le caratteristiche sopra descritte. \\
 L'azienda ha già a disposizione un sistema di raccolta dati in  real time, basato su Apache Kafka, che permette di ricevere dati da
-diversi sistemi e applicazioni, ma vuole andarlo a integrare con un sistema di analisi in real time permetta di eseguire operazioni 
-sui dati ricevuti prima di archiviarli. \\
-Particolarmente importante dovrà essere la fase di analisi dei dati, in quanto dovrà essere possibile eseguire operazioni di aggregazione
-per aumentare la successiva estrazione dei dati. 
+diversi sistemi e applicazioni, ma vuole andarlo a integrare con un sistema di analisi in real time permetta di eseguire trasformazioni 
+sui dati grezzi ricevuti.\\
+Particolarmente importante dovrà essere la fase di processing dei dati, in quanto dovrà permettere di eseguire operazioni di aggregazione
+al fine di facilitare le successive operazioni di analisi ed estrazione dei dati.\\
 \subsection{Il ruolo dello stagista}
 Lo stagista ha un ruolo fondamentale in tale tipologia di progetto, infatti è colui che porta uno spirito d'innovazione e consolida il valore aggiunto 
 aziendale. \\
 Le attività che costituiscono il percorso che lo stagista ha intrapreso sono state elencate all'interno di un \textit{Piano di lavoro}, che ha aiutato il tutor 
 aziendale designato da Sync Lab a guidare e valutare il lavoro svolto dallo stagista. \\
 Inoltre al termine del periodo di stage, sotto la supervisione del tutor aziendale è stata pianificata una presentazione rivolta a tutti \textit{stakeholder} aziendali, mirata a 
-mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. D'altra parte tale presentazione è stata anche l'occasione 
-per un confronto per far emergere eventuali criticità o difetti,  e miglioramenti da apportare al prototipo sviluppato.
+mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. 
+Il progetto in sè fa parte di una rivoluzione tecnologica che Sync Lab sta portando avanti nel campo \gls{Data Processing}{} e \gls{Data Analytics}{}. \\
 \pagebreak
 \section{Il progetto di stage}
 \subsection{Descrizione del progetto}
-Le attività descritte in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta dati basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati pronti per l'analisi.\\
+Le attività descritte in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati pronti per l'analisi.\\
 In generale una \gls{Data Pipeline}{} è costituita da tre elementi sostanziali: una origine, una o più fasi di trasformazione e una o più destinazioni.
-Inoltre per facilitare le operazioni di deploy è richiesto che il prototipo sia eseguibile con Docker Compose. \\
-Il progetto in sè fa parte di una rivoluzione tecnologica che Sync Lab sta portando avanti nel campo \gls{Data Processing}{} e \gls{Data Analytics}{}. \\
-In particolare il progetto di stage si pone come obiettivo quello di andare ad analizzare le prestazioni di Apache Druid rispetto ad un classico database relazionale, come PostgreSQL, in termini di velocità di esecuzione delle query e di scalabilità in relazione alle funzionalità di aggregazione fornite da tale strumento. 
+Inoltre per facilitare le operazioni di deploy e gestione di tale sistema, è stato richiesto di utilizzare una tecnologia di containerizzazione.\\
+In particolare il progetto di stage si pone come obiettivo quello di andare ad analizzare le prestazioni di Apache Druid rispetto ad un classico database relazionale, come PostgreSQL, in termini di velocità di esecuzione delle query e di scalabilità in relazione alle funzionalità di trasformazioni sui dati grezzi fornite da Apache Druid.\\
 \subsection{Obiettivi formativi}
 In generale lo stage ha come obiettivo quello di far acquisire allo stagista concetti fondamentali riguardanti: 
 \begin{itemize}
@@ -58,10 +55,10 @@ In generale lo stage ha come obiettivo quello di far acquisire allo stagista con
     \item Apache Kafka e le Event Driven Architecture, design publish/subscribe;
     \item Column Based Database e la relazione/confronto tra questi e i classici DB relazionali SQL e quelli
     Documentali;
-    \item Middleware, \gls{Data Pipeline}{}, le architetture distribuite, scalabili e resilienti.
+    \item \gls{Middleware}{}, \gls{Data Pipeline}{}, le architetture distribuite, scalabili e resilienti.
 \end{itemize}
 \subsection{Risultati attesi e Obiettivi fissati}
-Sono riportati nella Tabella \ref{tab:Tabella1} i risultati attesi e gli obiettivi fissati per lo stage con rispettivo identificativo, importanza e breve descrizione.
+I risultati attesi e gli obiettivi fissati per lo stage sono riportati nella Tabella \ref{tab:Tabella1}, con rispettivo identificativo, importanza e breve descrizione.
 L'identificativo (riportato in breve con “ID”) è la sigla che identifica ogni requisito e rispetta la seguente notazione [Importanza][Identificativo]. \\
 L’importanza è indicata dalla sigla O oppure F ad indicare rispettivamente un obiettivo
 obbligatorio oppure facoltativo; mentre l’identificativo è un numero incrementale che
@@ -88,7 +85,7 @@ Ogni obiettivo è identificato, o risultato viene classificato secondo l'importa
         O4 & Obbligatorio & set-up di un cluster Apache Kafka in ambiente  containerizzato \\\hline
         O5 & Obbligatorio & gestione delle Time Series e dei Column-based Databases \\\hline
         O6 & Obbligatorio & comprensione delle differenze tra i database relazionali  classici e i Column-based Databases\\\hline
-        O7 & Obbligatorio &comprensione dell’impiego e utilità dei middleware \\\hline
+        O7 & Obbligatorio &comprensione dell’impiego e utilità dei \gls{Middleware}{} \\\hline
         F1 & Facoltativo & produzione di documentazione e un pacchetto di configurazione  dell’ambiente di sviluppo e
         esecuzione  della \gls{Data Pipeline}{}\\\hline
         F2 & Facoltativo & produzione di documentazione che riporti  le differenze  di performance  tra Apache Druid e altri
@@ -99,7 +96,8 @@ Ogni obiettivo è identificato, o risultato viene classificato secondo l'importa
 
 \end{table}
 
-\pagebreak
+\newpage
+\section{Dominio applicativo}
 
 \pagebreak
 \subsection{Analisi preventiva dei rischi}
@@ -126,6 +124,7 @@ Nonostante la realizzazione del progetto sia l'obiettivo principale, gli obbiett
     \item imparare a lavorare in un team, condividendo le conoscenze e le esperienze;
     \item confrontarsi con persone del settore, per capire come si lavora in un'azienda.
 \end{list}
+
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
