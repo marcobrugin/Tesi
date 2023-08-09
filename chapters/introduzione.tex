@@ -45,35 +45,25 @@ Il progetto in sè fa parte di una rivoluzione tecnologica messa in atto da Sync
 \pagebreak
 \section{Il progetto di stage}
 \subsection{Descrizione del progetto}
-Le attività di stage descritte in questo documento di tesi si basano sulla progettazione e sviluppo di un 
-prototipo di \gls{Data Pipeline}{} basato su Apache Kafka e Apache Druid.\\
-Il progetto si dividerà in due parti principali:
-\begin{list}{*}{}
-    \item realizzazione di una \gls{Data Pipeline}{} basata su Apache Kafka e Apache Druid;
-    \item analisi delle prestazioni e funzionalità del sistema realizzato.
-\end{list} 
-
+Le attività descritte nel presente lavoro di stage illustrano la progettazione e lo sviluppo di un prototipo di una \gls{Data Pipeline}{} eseguibile
+con Docker Compose, utilizzando Apache Druid come componente \gls{olap}{}.\\
+Il prototipo finale riceve i dati da un sistema di raccolta basato su Apache Kafka eseguendo il \gls{Data Processing}{} con Apache Druid sui dati grezzi ricevuti.\\
+L'obiettivo dello stage oltre a essere quello di sviluppare un prototipo funzionante, che soddisfi quanto richiesto, è anche quello di studiare e analizzare le funzionalità offerte dalle tecnologie utilizzate, in modo da poterne evidenziare i punti di forza e 
+le differenze con le tecnologie tradizionali, utilizzate per il medesimo scopo. \\
 \subsection{Obiettivi formativi}
-In generale lo stage ha come obiettivo quello di far acquisire allo stagista concetti fondamentali riguardanti: 
+In generale lo stage ha come obiettivo quello di far acquisire allo stagista concetti fondamentali riguardanti il contesto del prototipo sviluppato come: 
 \begin{list}{*}{}
     \item Container technology;
-    \item Apache Kafka e le Event Driven Architecture, design publish/subscribe;
-    \item Column Based Database e la relazione/confronto tra questi e i classici DB relazionali SQL e quelli
-    Documentali;
+    \item Apache Kafka e le Event Driven Architecture, design pattern publisher/subscriber;
+    \item Column Based Database e la relazione/confronto con i classici Database relazionali;
     \item \gls{Middleware}{}, \gls{Data Pipeline}{}, le architetture distribuite, scalabili e resilienti.
 \end{list}
 \subsection{Risultati attesi e Obiettivi fissati}
 I risultati attesi e gli obiettivi fissati per lo stage sono riportati nella Tabella \ref{tab:Tabella1}, con rispettivo identificativo, importanza e breve descrizione.
-L'identificativo (riportato in breve con “ID”) è la sigla che identifica ogni requisito e rispetta la seguente notazione [Importanza][Identificativo]. \\
-L’importanza è indicata dalla sigla O oppure F ad indicare rispettivamente un obiettivo
+\\L'identificativo (riportato in breve con “ID”) è la sigla che identifica ogni requisito e rispetta la seguente notazione \textbf{[Importanza][Identificativo]}. \\
+L’importanza è indicata dalla sigla \textbf{O} oppure \textbf{F} ad indicare rispettivamente un obiettivo
 obbligatorio oppure facoltativo; mentre l’identificativo è un numero incrementale che
 segnala in modo univoco l’obiettivo o il risultato in esame.\\
-\\
-Ogni obiettivo è identificato, o risultato viene classificato secondo l'importanza in: 
-\begin{list}{*}{}
-    \item \textbf{Obbligatorio (O)}: obiettivo irrinunciabile, vincolante in quanto necessario per l'avanzamento del progetto;
-    \item \textbf{Facoltativo (F)}: obiettivo utile ma non essenziale, che può essere soddisfatto solo se tutti gli obiettivi obbligatori sono stati raggiunti e il cui soddisfatto rende il progetto più completo.     
-\end{list} 
 
  \begin{table}[htbp]
     \centering
@@ -101,13 +91,6 @@ Ogni obiettivo è identificato, o risultato viene classificato secondo l'importa
 
 \end{table}
 \pagebreak
-\section{Dominio applicativo}
-
-
-\subsection{Sistemi distribuiti}
-
-\subsection{Ambienti containerizzati}
-
 \pagebreak
 \subsection{Analisi preventiva dei rischi}
 Durante la fase di analisi iniziale del progetto di stage, sono stati individuati i seguenti rischi, cui si è cercato di porre rimedio con le azioni di mitigazione indicate. \\
@@ -129,7 +112,7 @@ Nonostante la realizzazione del progetto sia l'obiettivo principale, il percorso
 \begin{list}{*}{}
     \item imparare a utilizzare nuove tecnologie e strumenti legati ad architetture distribuite;
     \item comprendere i fattori da tenere in considerazione nella progettazione di un'architettura distribuita;
-    \item comprendere i vantaggi e come suddividere il lavoro in componenti, in modo da poter lavorare in parallelo;
+    \item comprendere i vantaggi e come suddividere il lavoro tra i componenti, in modo da poter lavorare in parallelo;
     \item imparare a lavorare in un team, condividendo le conoscenze e le esperienze;
     \item confrontarsi con persone del settore, per capire come si lavora in un'azienda.
 \end{list}
