@@ -11,7 +11,7 @@ ISO-9001 per la qualità dell'azienda, ISO-14001 per l'adozione quadro sistemati
 Attualmente Sync Lab  lavora per più di 150 clienti diretti e finali, tra i più rilevanti ci sono nomi come: TIM, Trenitalia, PosteItaliane, UniCredit, ENI, ENEL, Vodafone, Fastweb.
 \\
 Inoltre è un'azienda che si pone come obiettivo quello di essere un punto di riferimento per i propri clienti nella realizzazione di prodotti e soluzioni innovative per diversi settori di mercato, come: Sanità, Industria, Energia, Telco, Finanza e Trasporti \& Logistica.\\
-Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale Figura \ref{figure:logo_azienda}: un'onda che si propaga in modo circolare, che simboleggia la capacità di adattarsi e di evolversi in modo continuo.\\
+Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale (Figura \ref{figure:logo_azienda}): un'onda che si propaga in modo circolare, che simboleggia la capacità di adattarsi e di evolversi in modo continuo.\\
 \begin{figure}[htbp]  
 \centering
     \includegraphics[width=0.5\textwidth]{images/introduzione/logo_azienda.png}
@@ -23,40 +23,45 @@ Lo spirito di Sync Lab è ampiamente rappresentato dal logo aziendale Figura \re
 Oggigiorno la gestione e l'analisi di grandi moli di dati in tempo reale sta diventando fondamentale 
 per le aziende che vogliono rimanere competitive sul mercato. \\ 
 Per questo motivo è necessario utilizzare tecnologie e software che permettano di analizzare e archiviare 
-i dati in modo efficiente e veloce. \\
+i dati in tempo reale in modo efficiente e veloce. \\
 D'altra parte è necessario anche che tali tecnologie siano in grado di scalare in modo verticale e orizzontale in base al carico 
 di lavoro da sostenere, mantenendo sempre alte prestazioni e resilienza in caso di guasti. \\
 Per questo motivo Sync Lab ha deciso d' investire in un progetto di ricerca e sviluppo che ha come obiettivo quello di creare 
 una \gls{Data Pipeline}{} in grado di garantire le caratteristiche sopra descritte. \\
-L'azienda ha già a disposizione un sistema di raccolta dati in  real time, basato su Apache Kafka, che permette di ricevere dati da
-diversi sistemi e applicazioni, ma vuole andarlo a integrare con un sistema di analisi in real time permetta di eseguire trasformazioni 
-sui dati grezzi ricevuti.\\
+L'azienda ha già a disposizione un sistema di raccolta dati in real time, basato su Apache Kafka, che permette di ricevere dati da
+diversi sistemi e applicazioni per poi inviarli ad un sistema di archiviazione. \\
+Il progetto prevede l'inserimento di un sistema di \gls{Data Processing}{} basato su Apache Druid, che permetta di effettuare operazioni sui dati 
+grezzi ricevuti da Apache Kafka, in modo da rendere più efficienti le successive operazioni di estrazione.\\
 Particolarmente importante dovrà essere la fase di processing dei dati, in quanto dovrà permettere di eseguire operazioni di aggregazione
-al fine di facilitare le successive operazioni di analisi ed estrazione dei dati.\\
+e trasformazione dei dati in modo efficiente e veloce riducendo al minimo i tempi di latenza e mantenendo alte prestazioni.\\
 \subsection{Il ruolo dello stagista}
 Lo stagista ha un ruolo fondamentale in tale tipologia di progetto, infatti è colui che porta uno spirito d'innovazione e consolida il valore aggiunto 
 aziendale. \\
-Le attività che costituiscono il percorso che lo stagista ha intrapreso sono state elencate all'interno di un \textit{Piano di lavoro}, che ha aiutato il tutor 
-aziendale designato da Sync Lab a guidare e valutare il lavoro svolto dallo stagista. \\
-Inoltre al termine del periodo di stage, sotto la supervisione del tutor aziendale è stata pianificata una presentazione rivolta a tutti \textit{stakeholder} aziendali, mirata a 
-mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. 
-Il progetto in sè fa parte di una rivoluzione tecnologica che Sync Lab sta portando avanti nel campo \gls{Data Processing}{} e \gls{Data Analytics}{}. \\
+Le attività che costituiscono il percorso che lo stagista ha intrapreso sono state elencate all'interno di un \textit{Piano di lavoro}, concordato con il tutor aziendale, che ha lo scopo di guidare lo stagista durante il periodo di stage permettere al 
+tutor aziendale di monitorare l'andamento delle attività delle attività svolte e di valutare il raggiungimento degli obiettivi.\\
+Inoltre al termine del periodo di stage, sotto la supervisione del tutor aziendale è stata svolta una presentazione rivolta a tutti \textit{Stakeholder} aziendali, mirata a 
+mostrare i risultati ottenuti con le tecnologie utilizzate e mettere in risalto le potenzialità del prototipo sviluppato. \\
+Il progetto in sè fa parte di una rivoluzione tecnologica messa in atto da Sync Lab nel campo del \gls{Data Processing}{} e \gls{Data Analytics}{}.\\
 \pagebreak
 \section{Il progetto di stage}
 \subsection{Descrizione del progetto}
-Le attività descritte in questa tesi si basano sulla progettazione e realizzazione di un prototipo di \gls{Data Pipeline}{} in grado di ricevere dati in real time da un sistema di raccolta basato su Apache Kafka, eseguire operazioni di aggregazione con Apache Druid in modo efficiente per facilitarne la successiva estrazione, fornendo così in output dati pronti per l'analisi.\\
-In generale una \gls{Data Pipeline}{} è costituita da tre elementi sostanziali: una origine, una o più fasi di trasformazione e una o più destinazioni.
-Inoltre per facilitare le operazioni di deploy e gestione di tale sistema, è stato richiesto di utilizzare una tecnologia di containerizzazione.\\
-In particolare il progetto di stage si pone come obiettivo quello di andare ad analizzare le prestazioni di Apache Druid rispetto ad un classico database relazionale, come PostgreSQL, in termini di velocità di esecuzione delle query e di scalabilità in relazione alle funzionalità di trasformazioni sui dati grezzi fornite da Apache Druid.\\
+Le attività di stage descritte in questo documento di tesi si basano sulla progettazione e sviluppo di un 
+prototipo di \gls{Data Pipeline}{} basato su Apache Kafka e Apache Druid.\\
+Il progetto si dividerà in due parti principali:
+\begin{list}{*}{}
+    \item realizzazione di una \gls{Data Pipeline}{} basata su Apache Kafka e Apache Druid;
+    \item analisi delle prestazioni e funzionalità del sistema realizzato.
+\end{list} 
+
 \subsection{Obiettivi formativi}
 In generale lo stage ha come obiettivo quello di far acquisire allo stagista concetti fondamentali riguardanti: 
-\begin{itemize}
+\begin{list}{*}{}
     \item Container technology;
     \item Apache Kafka e le Event Driven Architecture, design publish/subscribe;
     \item Column Based Database e la relazione/confronto tra questi e i classici DB relazionali SQL e quelli
     Documentali;
     \item \gls{Middleware}{}, \gls{Data Pipeline}{}, le architetture distribuite, scalabili e resilienti.
-\end{itemize}
+\end{list}
 \subsection{Risultati attesi e Obiettivi fissati}
 I risultati attesi e gli obiettivi fissati per lo stage sono riportati nella Tabella \ref{tab:Tabella1}, con rispettivo identificativo, importanza e breve descrizione.
 L'identificativo (riportato in breve con “ID”) è la sigla che identifica ogni requisito e rispetta la seguente notazione [Importanza][Identificativo]. \\
@@ -95,8 +100,13 @@ Ogni obiettivo è identificato, o risultato viene classificato secondo l'importa
     \end{tabularx} 
 
 \end{table}
-\newpage
+\pagebreak
 \section{Dominio applicativo}
+
+
+\subsection{Sistemi distribuiti}
+
+\subsection{Ambienti containerizzati}
 
 \pagebreak
 \subsection{Analisi preventiva dei rischi}
