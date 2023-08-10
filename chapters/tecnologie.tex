@@ -40,7 +40,49 @@ DISCORD E MEET
 \subsection{Metodologia di sviluppo}
 \subsection{Ambiente di sviluppo}
 \subsection{Versioning}
-GIT 
-GITHUB 
+\subsubsection{Git}
+\textbf{Git} è un sistema di controllo versione distribuito, utilizzato per il tracciamento delle modifiche ai file di un progetto.\\ 
+Creato da Linus Torvalds nel 2005, GIT è stato pensato per la gestione del codice sorgente del kernel Linux, ma è stato adottato 
+per progetti di ogni genere, di piccole e grandi dimensioni (Figura \ref{fig:git}).\\
+\begin{figure}[hpp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/tecnologie/logo_git.png}
+    \caption{Logo di Git}
+    \label{fig:git}
+\end{figure}
 
-\subsection{Documentazione}
+\noindent È uno dei sistemi di controllo di versione più utilizzati al mondo, grazie alla sua velocità, alla sua efficienza e alla sua flessibilità.\\
+Come tutti i sistema di controllo di versione si basa sul concetto di \gls{repository}{}, ovvero un archivio contenente i file e tutti i 
+\gls{metadati}{} relativi alle modifiche effettuate.\\  
+In \textbf{Git} un file può trovarsi in tre stati diversi: \textit{commited} (versionati), \textit{modified} (modificati) e \textit{staged} (pronti per essere versionati).\\
+Ogni nuovo modifica, se versionata all'interno del \gls{repository} viene identificata da un \textit{commit}, avente un identificativo univoco di 40 caratteri. Modificato 
+significa che il file è stato modificato ma non è ancora stato versionato, mentre staged significa che il file è stato modificato e preparato per essere inserito nel 
+prossimo \textit{commit}.\\
+Quanto detto illustra le operazioni essenziali che possono essere effettuate con \textbf{Git} (Figura \ref{fig:git_workflow}).
+\begin{figure}[hpp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/tecnologie/comandi_git.png}
+    \caption{Comandi di base di Git}
+    \label{fig:git_workflow}
+\end{figure}
+Essenzialmente un workflow di bse con \textbf{Git} prevede:
+\begin{list}{-}{}
+    \item \textbf{Clonare} un \gls{repository}{}, se già esistente;
+    \item \textbf{Modificare} i file all'interno della \gls{working directory}{};
+    \item \textbf{Stage} dei file, ovvero prepararli per il prossimo \textit{commit}, aggiungendoli alla \textit{staging area} con il comando \textit{git add};
+    \item \textbf{Commit} dei file, ovvero versionarli, con il comando \textit{git commit}, i file così come son salvati nella \textit{staging area} vengono versionati all'interno del \gls{repository}{};
+    \item \textbf{Push} delle modifiche sul \gls{repository}{} remoto.
+\end{list}
+\pagebreak
+\subsubsection{GitHub}
+Per quanto riguarda il servizio di hosting che ha ospita il \gls{repository}{} remoto è stato utilizzato \textbf{GitHub}, andando a condividere 
+i contenuti tra il mio account e quello del tutor aziendale (Figura \ref{fig:github}).\\
+\begin{figure}[hpp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/tecnologie/logo_github.png}
+    \caption{Logo di GitHub}
+    \label{fig:github}
+\end{figure}
+\\
+GitHub è una piattaforma di hosting per progetti software, che utilizza \textbf{Git} come sistema di controllo di versione e contiene tutti 
+i file e i \gls{metadati}{} relativi alle modifiche validate lungo le fasi del progetto.\\
