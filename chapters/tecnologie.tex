@@ -63,7 +63,18 @@ permette di dare priorità alle attività, di assegnarle a un membro del team e 
 \subsection{Ambiente di sviluppo}
 
 \subsubsection{Docker Compose}
-
+Docker Compose (Figura \ref{fig:docker_compose}) è uno strumento che permette di definire e gestire applicazioni \gls{Docker}{} multi-container. \\
+Utilizza il linguaggio YAML per configurare i servizi dell'applicazione e fornisce un'interfaccia da riga di comando per la gestione dei \gls{container}{}.\\
+Docker Compose permette di definire ed avviare più \gls{container}{} \gls{Docker}{} in modo coordinato, risolvendo 
+la sfida dell'orchestrazione dei \gls{container}{}.\\
+Mentre \gls{Docker}{} permette di definire singoli \gls{container}{}, Docker Compose estende queste funzionalità permettendo agli sviluppatori 
+di definire in modo dichiarativo, oltre ai servizi contenuti in ogni applicazione, anche le relazioni tra i \gls{container}{} e le configurazioni di rete, volumi e variabili d'ambiente.\\
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/tecnologie/logo_docker_compose.png}
+    \caption{Logo di Docker Compose}
+    \label{fig:docker_compose}
+\end{figure}
 \pagebreak
 \subsection{Versioning}
 \subsubsection{Git}
