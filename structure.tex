@@ -15,7 +15,10 @@
     \input{preface/summary}
     \input{preface/acknowledgements}
     \input{preface/table-of-contents}
-    \cleardoublepage
+    \newpage
+    \pagestyle{empty}
+    \null % o \mbox{} o \phantom{X}
+    \newpage
 
     \mainmatter
     \input{chapters/introduzione}
