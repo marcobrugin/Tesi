@@ -62,9 +62,9 @@ permette di dare priorità alle attività, di assegnarle a un membro del team e 
 \end{figure}
 \subsection{Ambiente di sviluppo}
 Durante tutto lo sviluppo del progetto di stage ho fatto uso del sistema operativo \textbf{Ubuntu 22.04}. Tale scelta è stata 
-dettata dal fatto che il progetto prevede la realizzazione di un ambiente containerizzato, che verrà eseguito tramite \gls{Docker}{} che 
+dettata dal fatto che il progetto prevede la realizzazione di un ambiente incapsulato in container, che verrà eseguito tramite \gls{Docker}{} che 
 sfrutta le funzionalità del kernel Linux.\\
-L'utilizzo di un ambiente containerizzato rappresenta una svolta nell'approccio allo sviluppo e alla distribuzione del software, consentendo di risolvere sfide tradizionali legate alla compatibilità, alla portabilità e all'isolamento delle applicazioni.\\
+L'utilizzo di un ambiente di questo tipologia rappresenta una svolta nell'approccio allo sviluppo e alla distribuzione del software, consentendo di risolvere sfide tradizionali legate alla compatibilità, alla portabilità e all'isolamento delle applicazioni.\\
 Un \gls{container}{} consente d'incapsulare un'applicazione, insieme a tutte le sue dipendenze e configurazioni, all'interno di un'unità standardizzata.
 \\Tale approccio offre un ambiente isolato e autosufficiente in cui l'applicazione può essere eseguita in modo coerente, indipendentemente dall'ambiente in cui viene distribuita.
 \\Inoltre un'applicazione contenuta in un \gls{container}{} può essere eseguita su qualsiasi host o ambiente che supporti la tecnologia di containerizzazione, indipendentemente dal sistema operativo sottostante. 
@@ -99,13 +99,13 @@ per progetti di ogni genere, di piccole e grandi dimensioni (Figura \ref{fig:git
 Come tutti i sistema di controllo di versione si basa sul concetto di \gls{repository}{}, ovvero un archivio contenente i file e tutti i 
 \gls{metadati}{} relativi alle modifiche effettuate.\\  
 In \textbf{Git} un file può trovarsi in tre stati diversi: \textit{commited} (versionati), \textit{modified} (modificati) e \textit{staged} (pronti per essere versionati).\\
-Ogni nuovo modifica, se versionata all'interno del \gls{repository} viene identificata da un \textit{commit}, avente un identificativo univoco di 40 caratteri. Modificato 
+Ogni nuovo modifica, se versionata all'interno del \gls{repository} viene identificata da un \textit{commit}, avente un identificativo univoco di 40 caratteri. \textit{Modified} 
 significa che il file è stato modificato ma non è ancora stato versionato, mentre \textit{staged} significa che il file è stato modificato e preparato per essere inserito nel 
 prossimo \textit{commit}.\\
 Quanto detto illustra le operazioni essenziali che possono essere effettuate con \textbf{Git} (Figura \ref{fig:git_workflow}).
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/tecnologie/comandi_git.png}
+    \includegraphics[width=0.8\textwidth]{images/tecnologie/comandi_git.png}
     \caption{Comandi di base di Git}
     \label{fig:git_workflow}
 \end{figure}
