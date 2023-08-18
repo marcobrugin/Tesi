@@ -1,13 +1,8 @@
 \chapter{Componenti di una Data Pipeline}\label{cap:Componenti di una Data Pipeline}
 \section{Apache Kafka}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/componenti/logo_kafka.png}
-    \caption{Logo di Apache Kafka}
-    \label{fig:logo_kafka}
-\end{figure}
+
 \subsection{Introduzione}
-\textbf{Apache Kafka} è una piattaforma open source sviluppata a apartire dal 2011 da Apache Software Foundation, scritta in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
+\textbf{Apache Kafka} è una piattaforma open source sviluppata a apartire dal 2011 da Apache Software Foundation (Figura \ref{fig:logo_kafka}), scritta in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
 \textbf{Kafka} è un \gls{message broker} che permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
 In particolare è adatto a:
 \begin{list}{*}{}
@@ -15,6 +10,12 @@ In particolare è adatto a:
     \item archiviare tali flussi in modo affidabile e duraturo;
     \item elabora flussi di eventi in real time o in modo retrospettivo.
 \end{list}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/componenti/logo_kafka.png}
+    \caption{Logo di Apache Kafka}
+    \label{fig:logo_kafka}
+\end{figure}
 \pagebreak
 \subsection{Utilizzo e funzionamento}
 \textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo o tramite protocollo
@@ -40,12 +41,17 @@ sono indipendenti l’uno dall’altro. \\
    \item \item  \textbf{at least once}: i messaggi vengono consegnati al consumatore almeno una volta, i messaggi possono essere duplicati, ma non persi;
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
-
+\pagebreak
 
 
 \section{Apache Druid}
 
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/componenti/logo_druid.png}
+    \caption{Logo di Apache Druid}
+    \label{fig:logo_druid}
+\end{figure}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
