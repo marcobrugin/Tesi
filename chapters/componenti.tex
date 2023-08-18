@@ -1,5 +1,47 @@
 \chapter{Componenti di una Data Pipeline}\label{cap:Componenti di una Data Pipeline}
 \section{Apache Kafka}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/componenti/logo_kafka.png}
+    \caption{Logo di Apache Kafka}
+    \label{fig:logo_kafka}
+\end{figure}
+\subsection{Introduzione}
+\textbf{Apache Kafka} è una piattaforma open source sviluppata a apartire dal 2011 da Apache Software Foundation, scritta in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
+\textbf{Kafka} è un \gls{message broker} che permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
+In particolare è adatto a:
+\begin{list}{*}{}
+    \item pubblicare e sottoscrivere flussi di eventi, importandoli ed esportandoli da altri sistemi;
+    \item archiviare tali flussi in modo affidabile e duraturo;
+    \item elabora flussi di eventi in real time o in modo retrospettivo.
+\end{list}
+\pagebreak
+\subsection{Utilizzo e funzionamento}
+\textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo o tramite protocollo
+\gls{tcp}{} ad alte prestazioni.Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
+\textbf{Kafka} può essere distribuito e utilizzato in vari modi tra cui \gls{virtual machine}{} e \gls{container}{}, \gls{on-promise}{}, o servizi cloud.\\
+\textbf{Apache Kafka} e costituito da due componenti essenziali: server e client.
+\subsubsection{server}
+\textbf{Kafka} viene eseguito come un cluster di uno o più server, che rivestono diversi ruoli. Alcuni rivestono il ruolo di \textbf{Kafka Broker}: ricevono i messaggi dai produttori, li archiviano e inviano i messaggi ai consumatori.
+\\ Altri invece assolvono il compito di \textbf{Kafka Connect}: importano ed esportano i
+dati sotto forma di flussi di eventi che permettendo d' interagire con altri sistemi esistenti.
+\subsubsection{client}
+I \textbf{client} sono un insieme di librerie che consentono di scrivere applicazioni distribuite e microservizi che permettono d'interagire con
+il sistema di messaggistica di \textbf{Apache Kafka}, leggendo, scrivendo ed elab-
+orando flussi di eventi in parallelo, su larga scala e con \gls{fault tolerance}{} anche in caso di
+problemi di rete o guasti della macchina.\\
+In generale la scelta del client da utilizzare dipende dal linguaggio di programmazione che si vuole utilizzare per sviluppare l'applicazione.\\ 
+\subsubsection{Garanzie di funzionamento}
+In \textbf{Kafka} esistono produttori e consumatori che producono e sottoscrivono eventi. Gli uni, essendo in un ambiente distribuito,
+sono indipendenti l’uno dall’altro. \\
+\textbf{Apache Kafka} in tale contesto può fornire una delle seguenti garanzie sulla consegna e ricezione dei messaggi:
+\begin{list}{*}
+    \item \textbf{at most once}: i messaggi vengono consegnati al consumatore al più una volta. In questo caso, i messaggi possono essere persi, ma non duplicati;
+    \item \textbf{at least once}: i messaggi vengono consegnati al consumatore almeno una volta. In questo caso, i messaggi possono essere duplicati, ma non persi;
+    \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati; è la garazia più costosa ma maggiormente richiesta.
+\end{list}
+
+
 
 \section{Apache Druid}
 
