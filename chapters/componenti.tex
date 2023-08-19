@@ -61,7 +61,7 @@ Per quanto riguarda l'estrazione e il recupero dei messaggi: i dati vengono invi
 I messaggi inviati all'interno di \textbf{Apache Kafka} sono composti da una chiave, un valore e un timestamp. \\
 Oltre a tali informazioni a ogni messaggio viene associato un \gls{topic} o argomento che permette di eseguire operazioni di organizzazione 
 e filtraggio dei messaggi.\\
-Un messaggio, una volta inviato a un consumatore non viene eliminato dal \gls{topic}{} ma viene mantenuto per un periodo di tempo configurabile attraverso un timeout (di default 7 giorni).\\
+Un messaggio, una volta inviato a un consumatore non viene eliminato dal \gls{topic}{} ma viene mantenuto per un periodo di tempo configurabile attraverso un timeout.\\
 I \gls{topic}{} dei rispettivi messaggi vengono partizionati su più nodi per consentire a più consumatori di leggere gli stessi messaggi e permettendo ai client di leggere e scrivere messaggi da/a molti \gls{message broker}{}.\\
 Quando un nuovo messaggio viene emesso, quest'ultimo si aggiunge alla rispettiva partizione relativa al \gls{topic}{} e viene assegnato un numero di offset che identifica il messaggio all'interno della partizione.\\
 Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano letti nell'ordine in cui sono stati scritti.
@@ -79,6 +79,30 @@ Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettiv
 In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
 Un nodo non sincronizzato può ricongiungersi all'\textbf{ISR} se può sincronizzarsi completamente di nuovo, anche se ha perso alcuni dati a causa del suo arresto anomalo.
 \subsubsection{Politiche di retentions}
+Con \textbf{Retention} in \textbf{Kafka} si intende la possibilità di controllare la dimensione dei registri
+degli argomenti ed evitare di superare le dimensioni del disco esistente.\\
+La conservazione può essere configurata o controllata in base alla dimensione dei \gls{log}{} o in
+base alla durata configurata. Tale configurazione può essere impostata a grana fine o a
+grana grossa per ogni argomento o per tutti gli argomenti.
+\paragraph{Retention basata sulle dimensione}
+Una volta raggiunto il tempo di conservazione configurato per il segmento, quest'ultimo viene contrassegnato per l'eliminazione o la \gls{compattazione}{} in base al criterio di pulizia configurato. Il periodo di conservazione predefinito per i segmenti è di 7 giorni.
+I parametri configurabili per la \textbf{Retention} basata sul tempo sono in ordine d'importanza e valutazione sono:
+\begin{enumerate}
+    \item $log.retention.ms$;
+    \item $log.retention.minutes$;
+    \item $log.retention.hours$.
+\end{enumerate}
+Nel momento in cui un parametro di livello di priorità superiore non è impostato si segue la politica di conservazione del parametro di livello di priorità inferiore.\\
+\paragraph{Retention basata sulla dimensione}
+In questo caso si va configurare la dimensione massima di una struttura di dati di registro per una partizione di argomento. Una volta che la dimensione del registro raggiunge questa dimensione, inizia a rimuovere i segmenti dalla sua fine.\\
+\pagebreak
+\\
+I parametri configurabili per la \textbf{Retention} basata dimensione sono in ordine d'importanza e valutazione:
+\begin{enumerate}
+    \item $log.segment.bytes$: la dimensione massima di un singolo file di registro;
+    \item $log.retention.check.interval.ms$: la frequenza in millisecondi con cui la pulizia del registro verifica se un registro è idoneo per l'eliminazione;
+    \item $log.segment.delete.delay.ms$: la quantità di tempo da attendere prima di eliminare un file dal file system.
+\end{enumerate}
 
 \subsubsection{I replicas}
 
@@ -99,7 +123,7 @@ sono indipendenti l’uno dall’altro. \\
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
 
-\subsection{Pattern Publisher-Subscriber}
+\subsection{Il pattern Publisher-Subscriber}
 
 \pagebreak
 \section{Apache Druid}
