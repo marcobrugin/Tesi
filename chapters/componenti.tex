@@ -148,8 +148,15 @@ tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{br
     \label{fig:publisher_subscriber}
 \end{figure}
 \pagebreak
+\subsection{Even Driven Architecture}
+L'\textbf{Even Driven Architecture} è un pattern architetturale basato su eventi: degli agenti, che sono in grado di ricevere tali eventi, agiscono solo nel momento in cui questi ultimi si verificheranno. 
+\\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona. 
+\subsubsection{Apache Kafka e l'architettura EDA}
+L'emissione di un evento indica che qualcosa è accaduto e può essere visto come un agglomerato di dati atomico in grado di soddisfare l'evento stesso. \\
+Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
+\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \textbf{EDA} la chiave è andare a sfruttare il disaccopiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. Inoltre grazie all'approcio sviluppato da \textbf{Kafka} un evento una volta soddisfatto non viene eliminato, ma conservato per un periodo ti tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione. \\
+\pagebreak
 \section{Apache Druid}
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/componenti/logo_druid.png}
