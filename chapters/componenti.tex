@@ -38,7 +38,7 @@ I principali campi di utilizzo di \textbf{Apache Kafka} sono:
 \end{list}
     
 \subsection{Architettura e funzionamento}
-\textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo o tramite protocollo
+\textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi (Figure \ref{fig:kafka_architecture}), i quali comunicano tramite protocollo o tramite protocollo
 \gls{tcp}{} ad alte prestazioni.Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
 \textbf{Kafka} può essere distribuito e utilizzato in vari modi tra cui \gls{virtual machine}{} e \gls{container}{}, \gls{on-promise}{}, o servizi cloud.\\
 In generale \textbf{Apache Kafka} e costituito da due componenti essenziali: server e client.
@@ -70,7 +70,12 @@ Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano
 
 
 
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/componenti/kafka_architetcture.png}
+    \caption{Architettura di Apache Kafka}
+    \label{fig:kafka_architecture}
+\end{figure}
 
 \subsection{Garanzie di funzionamento}
 In \textbf{Kafka} esistono produttori e consumatori che producono e sottoscrivono eventi. Gli uni, essendo in un ambiente distribuito,
