@@ -36,7 +36,6 @@ I principali campi di utilizzo di \textbf{Apache Kafka} sono:
     in caso di guasti;
 
 \end{list}
-    
 \subsection{Architettura e funzionamento}
 \textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi (Figure \ref{fig:kafka_architecture}), i quali comunicano tramite protocollo o tramite protocollo
 \gls{tcp}{} ad alte prestazioni.Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
@@ -45,12 +44,15 @@ In generale \textbf{Apache Kafka} e costituito da due componenti essenziali: ser
 \subsubsection{server}
 \textbf{Kafka} viene eseguito come un cluster di uno o più server, che rivestono diversi ruoli. \\Alcuni svolgono la funzione di \textbf{Kafka Broker}: ricevono i messaggi dai produttori, li archiviano e inviano i messaggi ai rispettivi consumatori, al momento della sottoscrizione.
 \\ Altri invece assolvono il compito di \textbf{Kafka Connect}: importano ed esportano i
-dati sotto forma di flussi di eventi, permettendo così  d'interagire con altri sistemi esistenti.
+dati sotto forma di flussi dati, permettendo così  d'interagire con altri sistemi esistenti.
 \subsubsection{client}
 I \textbf{client} sono un insieme di librerie che consentono di scrivere applicazioni distribuite e microservizi che permettono d'interagire con
 il sistema di messaggistica di \textbf{Apache Kafka}, leggendo, scrivendo ed elaborando flussi di messaggi in parallelo, su larga scala e con \gls{fault tolerance}{} anche in caso di
 problemi di rete o guasti della macchina.\\
 In generale la scelta del client da utilizzare dipende dal linguaggio di programmazione che si vuole utilizzare per sviluppare l'applicazione.\\ 
+\subsubsection{Produttori e consumatori}
+\subsubsection{I broker}
+
 \subsubsection{La struttura dei messaggi}
 I messaggi inviati all'interno di \textbf{Apache Kafka} sono composti da una chiave, un valore e un timestamp. \\
 Oltre a tali informazioni a ogni messaggio viene associato un \gls{topic} o argomento che permette di eseguire operazioni di organizzazione 
@@ -68,11 +70,12 @@ Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano
 
 
 
-
+\subsubsection{Politiche di retentions}
+\subsubsection{I replicas}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/componenti/kafka_architetcture.png}
+    \includegraphics[width=0.9\textwidth]{images/componenti/kafka_architetcture.png}
     \caption{Architettura di Apache Kafka}
     \label{fig:kafka_architecture}
 \end{figure}
@@ -86,9 +89,9 @@ sono indipendenti l’uno dall’altro. \\
    \item \item  \textbf{at least once}: i messaggi vengono consegnati al consumatore almeno una volta, i messaggi possono essere duplicati, ma non persi;
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
-\subsection{Politiche di retentions}
 
 
+\pagebreak
 \section{Apache Druid}
 
 \begin{figure}[h]
