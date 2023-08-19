@@ -1,10 +1,15 @@
 \chapter{Componenti di una Data Pipeline}\label{cap:Componenti di una Data Pipeline}
 \section{Apache Kafka}
-
 \subsection{Introduzione}
-\textbf{Apache Kafka} è una piattaforma open source sviluppata a apartire dal 2011 da Apache Software Foundation (Figura \ref{fig:logo_kafka}), scritta in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
-\textbf{Kafka} è un \gls{message broker} che permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
-In particolare è adatto a:
+\textbf{Apache Kafka} è una piattaforma \gls{open source}{}, da Jay Kreps, Neha Narkhede e Jun Rao presso LinkedIn e successivamente donata alla \gls{Apache Software Foundation}{} nel 2011. (Figura \ref{fig:logo_kafka}).\\
+\textbf{Apache Kafka} nasce con la necessità di LinkedIn di gestire grandi quantità di dati in tempo reale.\\ Già nel 2007 
+Jay Kreps e il suo team si resero conto che le soluzioni allora attuali, basate su database tradizionali, non erano in grado di gestire 
+un carico di lavoro crescente e la complessità del formato dei dati generati da LinkedIn.\\
+Dunque per affrontare tale sfida, nel 2010 LinkedIn iniziò a utilizzare \textbf{Apache Kafka} per gestire i dati di log generati dai vari servizi. \\
+Tale adozione ha dimostrato nel tempo che \textbf{Apache Kafka} è in grado di gestire carichi di lavoro molto elevati, di scalare facilmente e di garantire un elevato livello di affidabilità nella consegna di messaggi.\\ 
+\textbf{Kafka} è scritto in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
+\textbf{Kafka} nasce originariamente come \gls{message broker} e permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
+In particolare fornisce funzionalità per:
 \begin{list}{*}{}
     \item pubblicare e sottoscrivere flussi di eventi, importandoli ed esportandoli da altri sistemi;
     \item archiviare tali flussi in modo affidabile e duraturo;
@@ -17,6 +22,27 @@ In particolare è adatto a:
     \label{fig:logo_kafka}
 \end{figure}
 \pagebreak
+\subsection{Casi d'uso}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Utilizzo e funzionamento}
 \textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo o tramite protocollo
 \gls{tcp}{} ad alte prestazioni.Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
@@ -52,6 +78,7 @@ sono indipendenti l’uno dall’altro. \\
     \caption{Logo di Apache Druid}
     \label{fig:logo_druid}
 \end{figure}
+\section{Streaming Data Pipelines}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
