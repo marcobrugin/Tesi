@@ -50,6 +50,14 @@ I \textbf{client} sono un insieme di librerie che consentono di scrivere applica
 il sistema di messaggistica di \textbf{Apache Kafka}, leggendo, scrivendo ed elaborando flussi di messaggi in parallelo, su larga scala e con \gls{fault tolerance}{} anche in caso di
 problemi di rete o guasti della macchina.\\
 In generale la scelta del client da utilizzare dipende dal linguaggio di programmazione che si vuole utilizzare per sviluppare l'applicazione.
+\subsubsection{I replicas}
+In \textbf{Apache Kafka} i \textbf{replicas} costituiscono una parte cruciale dell'architettura e permettono di disporre  di più copie dei dati, distribuite su
+più \gls{message broker}{}. Tale meccanismo permette di garantire la \gls{fault tolerance}{} e la scalabilità del sistema.\\
+Le repliche possono essere utilizzate a livello di partizione. \textbf{Kafka} ne designa una chiamata \textit{Leader}
+mentre le altre sono partizioni \textit{follower o in-sync}. Il numero totale di repliche incluso il
+leader costituisce \textbf{il fattore di replicazione}. \\
+Il leader e responsabile della ricezione e dell’invio
+dei dati, per quella partizione, mentre i \textit{follower} ricevono i dati dal leader e li replicano.\\
 \subsubsection{Produttori e consumatori}
 Il produttore \textbf{Kafka} invia i dati, con una richiesta di deposito,  direttamente al \gls{message broker}{}, \textit{Leader} della partizione. Per velocizzare la ricerca del
 \textit{Leader}, tutti i nodi possono rispondere alle richieste dei produttori fornendo \gls{metadati}{} su quali nodi sono presenti i \textit{Leader}, tale informazione consentirà al produttore d'indirizzare in modo
@@ -95,8 +103,7 @@ I parametri configurabili per la \textbf{Retention} basata sul tempo sono in ord
 Nel momento in cui un parametro di livello di priorità superiore non è impostato si segue la politica di conservazione del parametro di livello di priorità inferiore.\\
 \paragraph{Retention basata sulla dimensione}
 In questo caso si va configurare la dimensione massima di una struttura di dati di registro per una partizione di argomento. Una volta che la dimensione del registro raggiunge questa dimensione, inizia a rimuovere i segmenti dalla sua fine.\\
-\pagebreak
-\\
+
 I parametri configurabili per la \textbf{Retention} basata dimensione sono in ordine d'importanza e valutazione:
 \begin{enumerate}
     \item $log.segment.bytes$: la dimensione massima di un singolo file di registro;
@@ -104,7 +111,6 @@ I parametri configurabili per la \textbf{Retention} basata dimensione sono in or
     \item $log.segment.delete.delay.ms$: la quantità di tempo da attendere prima di eliminare un file dal file system.
 \end{enumerate}
 
-\subsubsection{I replicas}
 
 \begin{figure}[h]
     \centering
@@ -122,7 +128,6 @@ sono indipendenti l’uno dall’altro. \\
    \item \item  \textbf{at least once}: i messaggi vengono consegnati al consumatore almeno una volta, i messaggi possono essere duplicati, ma non persi;
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
-
 \subsection{Il pattern Publisher-Subscriber}
 
 \pagebreak
