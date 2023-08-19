@@ -129,7 +129,24 @@ sono indipendenti l’uno dall’altro. \\
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
 \subsection{Il pattern Publisher-Subscriber}
-
+\textbf{Apache Kafka}, nell'elaborazione dei messaggi, implementa il pattern \textbf{Publisher-Subscriber} (Figura \ref{fig:publisher_subscriber}) che permette di gestire flussi di dati in tempo reale.\\
+Il pattern architetturale \textbf{Publisher-Subscriber} è un modello di progettazione software, utilizzato nei sistemi distribuiti, che impiegano una comunicazione asincrona tra i vari componenti.\\
+Sebbene vada ad utilizare tecniche già preesistenti come la sottoscrizione e l'accodamento di messaggi, la  chiave di successo di tale pattern è il totale disaccoppiamento delle componenti: i componenti non sono a conoscenza dell'identità e della presenza degli altri.\\
+Tale modello è nato dalla necessità del rendere i sistemi ridimensionabili in modo dinamico. Per raggiungere tale obiettivo, lo scambio di messaggi 
+tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{broker}, che si occupa di ricevere i messaggi dai \textbf{publisher} e di inoltrarli ai \textbf{subscriber}.\\
+\subsubsection{Vantaggi}
+\begin{itemize}
+    \item \textbf{Debole accopiamento tra le componenti}:  rende il sistema più flessibile e modificabile dinamicamente;
+    \item \textbf{Elevata scalabilità}: non esiste limite al numero di \textbf{publisher} e \textbf{subscriber} che possano comunicare;
+    \item \textbf{Utilizzo della comunicazione ascincrona ad eventi}: non necessità della sincrona degli attori coinvolti nella comunicazione;
+    \item \textbf{Indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico.
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/componenti/ps-model.png}
+    \caption{Il pattern Publisher-Subscriber}
+    \label{fig:publisher_subscriber}
+\end{figure}
 \pagebreak
 \section{Apache Druid}
 
