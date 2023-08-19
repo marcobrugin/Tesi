@@ -23,6 +23,20 @@ In particolare fornisce funzionalità per:
 \end{figure}
 \pagebreak
 \subsection{Casi d'uso}
+\textbf{Apache Kafka} viene ampliamente utilizzato in tutti quelli scenari in cui è richiesto la gestione 
+affidabile di grandi quantità di dati in tempo reale.\\
+I principali campi di utilizzo di \textbf{Apache Kafka} sono:
+\begin{list}{*}
+    \item \textbf{messagistica}: \textbf{Apache Kafka} viene particolarmente utilizzato come \gls{message broker}{}, in applicazioni di messaggistica 
+    per disaccoppiare la produzione del messaggio dall'elaborazione dello stesso, \textbf{Kafka} rispetto ai tradizionali \gls{message broker}{} offre velocità e \gls{fault tolerance}{};
+    \item \item \textbf{elaborazione del flusso dati}: è possibile anche utilizzare \textbf{Kafka} come componente principale per creare \gls{Data Pipeline}{} in cui i dati grezzi,
+    provenienti da diverse sorgenti \textbf{Kafka} vengono aggregati, trasformati fino a ottenere un dato elaborato;
+    \item \textbf{monitoraggio e analisi}: \textbf{Kafka} può essere utilizzato per raccogliere dati di monitoraggio provenienti da applicazioni, sistemi di controllo o siti web; 
+    \item \textbf{archiviazione dei dati}: \textbf{Apache Kafka} può essere utilizzato come sistema di archiviazione dei dati a lungo termine, permettendo così analisi storiche e ripristino di sistemi 
+    in caso di guasti;
+
+\end{list}
+    
 
 
 
@@ -43,7 +57,7 @@ In particolare fornisce funzionalità per:
 
 
 
-\subsection{Utilizzo e funzionamento}
+\subsection{Architettura e funzionamento}
 \textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo o tramite protocollo
 \gls{tcp}{} ad alte prestazioni.Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
 \textbf{Kafka} può essere distribuito e utilizzato in vari modi tra cui \gls{virtual machine}{} e \gls{container}{}, \gls{on-promise}{}, o servizi cloud.\\
