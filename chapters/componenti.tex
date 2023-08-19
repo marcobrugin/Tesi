@@ -49,10 +49,14 @@ dati sotto forma di flussi dati, permettendo così  d'interagire con altri siste
 I \textbf{client} sono un insieme di librerie che consentono di scrivere applicazioni distribuite e microservizi che permettono d'interagire con
 il sistema di messaggistica di \textbf{Apache Kafka}, leggendo, scrivendo ed elaborando flussi di messaggi in parallelo, su larga scala e con \gls{fault tolerance}{} anche in caso di
 problemi di rete o guasti della macchina.\\
-In generale la scelta del client da utilizzare dipende dal linguaggio di programmazione che si vuole utilizzare per sviluppare l'applicazione.\\ 
+In generale la scelta del client da utilizzare dipende dal linguaggio di programmazione che si vuole utilizzare per sviluppare l'applicazione.
 \subsubsection{Produttori e consumatori}
-\subsubsection{I broker}
-
+Il produttore \textbf{Kafka} invia i dati, con una richiesta di deposito,  direttamente al \gls{message broker}{}, \textit{Leader} della partizione. Per velocizzare la ricerca del
+\textit{Leader}, tutti i nodi possono rispondere alle richieste dei produttori fornendo \gls{metadati}{} su quali nodi sono presenti i \textit{Leader}, tale informazione consentirà al produttore d'indirizzare in modo
+appropriato i messaggi.\\
+D'altra parte il consumatore emette una richiesta di recupero di messaggi al \gls{message broker}{} che funge da \textit{Leader} della partizione, specificando il suo offset nel registro dei messaggi.\\
+Il \gls{message broker}{} risponde con un messaggio contenente il suo offset nel registro con ogni richiesta e con una parte del registro a partire da quella posizione. \\
+Per quanto riguarda l'estrazione e il recupero dei messaggi: i dati vengono inviati al broker dal produttore e prelevati dal \gls{message broker}{} dal consumatore. 
 \subsubsection{La struttura dei messaggi}
 I messaggi inviati all'interno di \textbf{Apache Kafka} sono composti da una chiave, un valore e un timestamp. \\
 Oltre a tali informazioni a ogni messaggio viene associato un \gls{topic} o argomento che permette di eseguire operazioni di organizzazione 
@@ -62,15 +66,20 @@ I \gls{topic}{} dei rispettivi messaggi vengono partizionati su più nodi per co
 Quando un nuovo messaggio viene emesso, quest'ultimo si aggiunge alla rispettiva partizione relativa al \gls{topic}{} e viene assegnato un numero di offset che identifica il messaggio all'interno della partizione.\\
 Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano letti nell'ordine in cui sono stati scritti.
 \subsubsection{Zookeeper}
-
-
-
-
-
-
-
-
+\textbf{Zookeeper} è un prodotto open-source che si occupa della sincronizzazione tra i cluster distribuiti di sistemi come \textbf{Apache Kafka}. \\
+È progettato per gestire operazioni di sincronizzazione, gestione dello stato e configurazioni nei sistemi distribuiti, garantendo coerenza e affidabilità.\\
+Il suo funzionamento si basa sul protocollo Zookeeper Atomic Broadcast (ZAB), che è il cuore del servizio di coordinamento di \textbf{Zookeeper}.\\
+Ogni nodo invia a intervalli regolari un messaggio \textit{Keep-Alive} a \textbf{Zookeeper}, informandolo così che è vivo e funzionante. Se entro un tempo prestabilito il messaggio non viene ricevuto si presume che il nodo sia
+morto e se era un leader se ne elegge un altro.\\
+Inoltre \textbf{Zookeeper} permette di definire dei parametri che consentono di capire quando un nodo è guasto e quanto gli altri nodi, appartenenti a una partizione,  sono in ritardo rispetto al \textit{Leader} in termini di sincronizzazione sull'arrivo dei messaggi.\\
+Il parametro \textit{zookeeper.session.timeout.ms}, impostato a 6000 millisecondi per impostazione predefinita, indica che, se il leader non riceve l'evento \textit{Keep-Alive} entro quel periodo temporale, detiene che quel nodo sia guasto.\\
+Il parametro \textit{replica.lag.max.messages}, indica la massima differenza consentita tra \textbf{Replica's Offset}e \textbf{Leader's Offset}. Se tale differenza è maggiore di \textit{replica.lag.max.message-1}, il nodo viene considerato in ritardo e viene rimosso dall'elenco dei nodi in sincronizzazione dal leader. \\
+Tutti i nodi che sono attivi e sincronizzati formano l' \textbf{In-Sync Replica Set}(\textbf{ISR}).\\
+Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettivi \gls{log}{}, questo messaggio viene considerato confermato e quindi inviato ai consumatori. \\
+In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
+Un nodo non sincronizzato può ricongiungersi all'\textbf{ISR} se può sincronizzarsi completamente di nuovo, anche se ha perso alcuni dati a causa del suo arresto anomalo.
 \subsubsection{Politiche di retentions}
+
 \subsubsection{I replicas}
 
 \begin{figure}[h]
@@ -90,6 +99,7 @@ sono indipendenti l’uno dall’altro. \\
     \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
 
+\subsection{Pattern Publisher-Subscriber}
 
 \pagebreak
 \section{Apache Druid}
