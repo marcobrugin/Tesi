@@ -189,7 +189,37 @@ I principali campi di utilizzo di \textbf{Apache Druid} sono:
     l’esplorazione interattiva dei dati attraverso un’interfaccia utente.
 \end{list}
 \subsection{Architettura e funzionamento}
-\begin{figure}[h]
+\textbf{Apache Druid} include molteplici configurazione sia su singolo nodo, che distribuito su un \gls{cluster}{}.\\
+Le distribuzioni su singolo nodo sono ormai poco utilizzate, ma esistono altre configurazioni pensate per macchine con bassa disponibilità di 
+CPU e memoria, pensate appositamente piccoli \gls{container}{} \gls{Docker}{}. 
+\subsubsection{Distribuzione su cluster}
+\textbf{Apache Druid} nasce come sistema distribuito, scalabile, tollerante ai guasti, compatibile con il cloud. \\
+Inoltre una architettura di questo tipo un malfunzionamento di una componente non influisce immediatamente sulle altre.\\
+
+In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server: 
+\begin{list}{*}
+    \item \textbf{i server principali}: sono responsabili della gestione dei \gls{metadati}{} e delle esigenze di coordinamento del \gls{cluster}{}, possono essere collocati insieme sullo stesso server;
+    \item \item \textbf{i server dati}: finalizzati a  gestire i dati effettivi all'interno \gls{cluster}{}, traggono grandi vantaggi da CPU, RAM e SSD;
+    \item  \textbf{i server d'interrogazione}: chiamati anche \textbf{Druid Broker}, accettano le richieste e le distribuiscono al resto del cluster.
+\end{list}
+\paragraph{Server principali}
+Un server \textbf{principale} o \textbf{Master} gestisce l’\gls{injection}{} e la disponibilità dei dati: è il responsabile dell’avvio
+di nuovi operazioni di \gls{injection}{} e del coordinamento della disponibilità dei dati sui \textbf{Data server}.\\
+Ogni server mantiene una connessione con a un \textbf{Zookeeper} per le informazioni sul \gls{cluster}{} corrente.
+I server \textbf{Master} sono formati da:
+\subparagraph{Il Coordinator} ha il compito di gestire la disponibilità dei dati dei \gls{cluster}{}, comunica
+agli \textbf{Historical} di caricare o rilasciare segmenti in base alle configurazioni, è
+responsabile del caricamento di nuovi segmenti, dell’eliminazione di segmenti obsoleti, della
+garanzia che i segmenti siano replicati (caricati su piu nodi \textbf{Historical} diversi) un
+numero corretto  di volte e sia presente un bilanciamento dei segmenti
+tra \textbf{Historical} per mantenere quest’ultimo caricato uniformemente.Il \textbf{Coordinator} ha anche una connessione a un database
+contenente l’elenco dei segmenti utilizzati. 
+\subparagraph{L'Overlord} è il responsabile dell’accettazione delle attività, del coordinamento della distribuzione delle
+attività,  della restituzione degli stati ai
+chiamanti. Può essere eseguito sia in modalità locale che su server dedicato. L'\textbf{Overlord} ha anche il compito di 
+creare i \textbf{Peons} per l'esecuzione delle attività. 
+
+\begin{figure}[h]   
     \centering
     \includegraphics[width=0.9\textwidth]{images/componenti/druid_architectcture.png}
     \caption{Architettura di Apache Druid}
