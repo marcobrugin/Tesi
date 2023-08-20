@@ -238,6 +238,7 @@ infine uniscono tutti i risultati elaborati per fornire un’unica risposta alla
 vengono instradate in base alle regole di caricamento dei segmenti che vengono applicate.
 Tale configurazione fornisce l’isolamento delle singole query, anche nel caso in cui si voglia applicare 
 una priorità di esecuzione a determinate query.\\
+\pagebreak
 \paragraph{Le dipendenze esterne}
 Essendo \textbf{Apache Druid} un sistema distribuito e molto complesso, per il suo corretto funzionamento necessita di alcune dipendenze esterne.\\
 
@@ -251,6 +252,10 @@ Il \textbf{deep storage} è il sistema nel quale vengono archiviati i segmenti.\
 Fino a che i processi di \textbf{Druid} possono vedere questa infrastruttura di archiviazione e accedere
 ai segmenti archiviati su di essa, non si perderanno i dati indipendentemente dal numero
 di nodi \textbf{Druid} che persi.\\
+Ogni segmento viene creato da un \textbf{MiddleManager} come $mutable$ e $uncommitted$. \\
+I dati sono interrogabili non appena vengono aggiunti a un segmento senza $commit$.
+Periodicamente i segmenti vengono sottoposti a $commit$ e pubblicati in \textbf{deep storage} diventano immutabili, passando dal \textbf{MiddleManager} agli \textbf{Historical}.
+\\Inoltre nel \textbf{Metadata storage} viene scritta una voce al segmento che lo descrive.\\
 In generale si tratta di un sistema al di fuori di \textbf{Druid} può essere di due tipi:
 \begin{list}{*}
 \item 
@@ -261,7 +266,7 @@ Amazon S3, Google.
 \end{list}
 \subparagraph{Zookeeper}
 \textbf{Apache Druid} utilizza \textbf{ZooKeeper} per la gestione dello stato corrente del cluster.\\
-In \textbf{Zookeeper} avengono le seguenti attività:
+In \textbf{Zookeeper} avvengono le seguenti attività:
 \begin{list}{*}
     \item elezione del servizio di coordinamento;
     \item protocollo di pubblicazione del segmento degli storici;
@@ -269,15 +274,32 @@ In \textbf{Zookeeper} avengono le seguenti attività:
     \item elezione del servizio di \textbf{Overlord};
     \item gestione delle attività di \textbf{Overlord} e \textbf{MiddleManager};
 \end{list}
-\subparagraph{Metadata storage}
+\subparagraph{Metadata storage} è l’archivio dove vengono conservati tutti i \gls{metadati}{} essenziali
+per il funzionamento di un \gls{cluster}{} di \textbf{Apache Druid}, non viene utilizzato per archiviare i dati effettivi.\\
+Nel caso di Druid, il \textbf{Metadata storage} viene spesso implementato utilizzando un database relazionale anche se non è l'unica soluzione possibile.\\ 
+In generale contiene:
+\begin{list}{*}
+    \item \textbf{record dei segmenti}: memorizza i metadati sui segmenti che dovrebbero
+    essere disponibili nel sistema (chiamati anche segmenti usati);
+    \item \item \textbf{record delle regole}: memorizza le varie regole su dove allocare e deal-
+    locare i segmenti del cluster;
+    \item \textbf{record di configurazione}: memorizzare gli oggetti di configurazione
+    di runtime, si tratta di un feature futura e avrà lo scopo di modificare alcuni parametri di configurazione nel \gls{cluster}{} in
+    fase di esecuzione.
+\end{list}
+\noindent
+\\
+In modalità predefinità \textbf{Apache Druid} utilizza \textbf{Derby}, ma database piu adatti alla produzione
+sono \textbf{MySQL} e \textbf{PostgreSQL}.
 
-\begin{figure}[h]   
+\begin{figure}[ht]   
     \centering
     \includegraphics[width=0.9\textwidth]{images/componenti/druid_architectcture.png}
     \caption{Architettura di Apache Druid}
     \label{fig:druid_architecture}
 \end{figure}
-\subsection{Modello dei dati}
+
+\subsection{Il modello dei dati}
 \textbf{Apache Druid} memorizza i dati sotto forma di \textit{datasources} molto simili alle tabelle di un tradizionale database relazione e alle serie temporali.
 \\Il modello di dati di \textbf{Druid} presenta essenzialmente le seguenti componenti:
 \begin{itemize}
