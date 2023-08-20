@@ -247,8 +247,36 @@ una priorità di esecuzione a determinate query.\\
     \caption{Architettura di Apache Druid}
     \label{fig:druid_architecture}
 \end{figure}
+
 \pagebreak
 \section{Streaming Data Pipelines}
+\subsection{Introduzione}
+Con il termine di \gls{Data Pipeline}{} si intende un software o un insieme di software che consentano il fluire automatico
+di dati da un punto ad un altro del sistema posto in essere. 
+Di solito, nella definizione di un sistema di questo tipo, le origini sono molteplici e generano
+dati ad altissima velocità.\\
+L’architettura che regge una \gls{Data Pipeline}{} consente di consumare, elaborare, archiviare
+dati in tempo reale, man mano che vengono generati. Tale meccanismo consente di avere reazioni immediate ai dati processati. \\
+Le tradizionali \gls{Data Pipeline}{} sono state progettate per elaborare dati statici, infatti prima estraggono, trasformano e poi caricano i dati per 
+poterli poi utilizzare.\\
+In generale in sistemi come \textbf{Apache Kafka} le pipeline dati tradizionali non sono più utilizzabili, considerando 
+l' enorme mole di dati che sono tenute a processare.\\
+\noindent
+Per risolvere tale problema è necessario creare due livelli per l'elaborazione dei dati: 
+\begin{list}{*}
+    \item \textbf{archiviazione}: livello che consente la memorizzazione dei dati, permettendo letture e scritture a basso costo in termini computazionali mantenendo l’ordine di arrivo
+    dei dati;
+    \item \item \textbf{lavorazione}: livello che consente di elaborare e consumare i dati del livello di archiviazione andando a segnalare
+    a quest’ultimo i dati non più necessari.
+\end{list}
+\pagebreak
+\subsection{Approccio utilizzato}
+L'approccio comunemente utilizzato per la creazione di \gls{Data Pipeline}{} è quello di utilizzare un \gls{message broker}{} come \textbf{Apache Kafka} e un sistema \gls{olap}{} come \textbf{Apache Druid} per l'analisi dati, operando nel seguente modo:\\
+\begin{list}{*}
+    \item \textbf{produzione dei dati}: all'interno dell'ambiente di sviluppo, i dati vengono prodotti da diverse fonti, sensori o applicazioni, e inviati al \gls{message broker}{} \textbf{Apache Kafka} 
+    che ha il compito di archiviarli e successivamente distribuirli ai consumatori;
+    \item \item \textbf{analisi dati}: i dati vengono letti dal \gls{message broker}{} \textbf{Apache Kafka} e inviati al sistema \gls{olap}{} \textbf{Apache Druid} che ha il compito di indicizzarli, elaborarli e renderli disponibili per eseguire query in tempo reale su di essi.
+\end{list}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
