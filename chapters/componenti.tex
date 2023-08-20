@@ -260,6 +260,15 @@ condiviso;
 Amazon S3, Google.
 \end{list}
 \subparagraph{Zookeeper}
+\textbf{Apache Druid} utilizza \textbf{ZooKeeper} per la gestione dello stato corrente del cluster.\\
+In \textbf{Zookeeper} avengono le seguenti attività:
+\begin{list}{*}
+    \item elezione del servizio di coordinamento;
+    \item protocollo di pubblicazione del segmento degli storici;
+    \item protocollo di caricamento/rilascio del segmento tra \textbf{Coordinator} e \textbf{Historical};
+    \item elezione del servizio di \textbf{Overlord};
+    \item gestione delle attività di \textbf{Overlord} e \textbf{MiddleManager};
+\end{list}
 \subparagraph{Metadata storage}
 
 \begin{figure}[h]   
