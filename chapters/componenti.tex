@@ -5,7 +5,7 @@
 \textbf{Apache Kafka} nasce con la necessità di LinkedIn di gestire grandi quantità di dati in tempo reale.\\ Già nel 2007 
 Jay Kreps e il suo team si resero conto che le soluzioni allora attuali, basate su database tradizionali, non erano in grado di gestire 
 un carico di lavoro crescente e la complessità del formato dei dati generati da LinkedIn.\\
-Dunque per affrontare tale sfida, nel 2010 LinkedIn iniziò a utilizzare \textbf{Apache Kafka} per gestire i dati di log generati dai vari servizi. \\
+Dunque per affrontare tale sfida, nel 2010 LinkedIn iniziò a utilizzare \textbf{Apache Kafka} per gestire i dati di \gls{log}{} generati dai vari servizi. \\
 Tale adozione ha dimostrato nel tempo che \textbf{Apache Kafka} è in grado di gestire carichi di lavoro molto elevati, di scalare facilmente e di garantire un elevato livello di affidabilità nella consegna di messaggi.\\ 
 \textbf{Kafka} è sviluppato in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
 \textbf{Kafka} nasce originariamente come \gls{message broker}{} e permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
@@ -190,7 +190,7 @@ I principali campi di utilizzo di \textbf{Apache Druid} sono:
 Le distribuzioni su singolo nodo sono ormai poco utilizzate, ma esistono altre configurazioni pensate per macchine con bassa disponibilità di 
 CPU e memoria, pensate appositamente piccoli \gls{container}{} \gls{Docker}{}. 
 \subsubsection{Distribuzione su cluster}
-\textbf{Apache Druid} nasce come sistema distribuito, scalabile, tollerante ai guasti, compatibile con il cloud. \\
+\textbf{Apache Druid} nasce come sistema distribuito (Figura \ref{fig:druid_architecture}), scalabile, tollerante ai guasti, compatibile con il cloud. \\
 Inoltre una architettura di questo tipo un malfunzionamento di una componente non influisce immediatamente sulle altre.\\
 
 In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server: 
@@ -217,7 +217,7 @@ creare i \textbf{Peon} per l'esecuzione delle attività.
 \paragraph{I Server dati} eseguono le attività d'acquisizione e archiviazione dei dati interrogabili.
 I server \textbf{dati} eseguono al loro interno i seguenti processi:
 \subparagraph{Gli Historical} hanno il compito di copiare o estrarre i file di segmento dal \textbf{Deep Storage} al disco locale in un’area
-chiamata $segment cache$ e di rispondere alle \textbf{query} su tali segmenti.
+chiamata $segment cache$ e di rispondere alle query su tali segmenti.
 Il \textbf{Coordinator} controlla l’assegnazione dei segmenti agli \textbf{Historical} e il bilanciamento dei segmenti assegnati
 a questi ultimi.\\ 
 Gli \textbf{Historical} non comunicano direttamente tra loro, ne comunicano direttamente con il \textbf{Coordinator}. 
@@ -228,9 +228,9 @@ nuovi segmenti.\\
 \subparagraph{I Peon} sono i motori di esecuzione delle attività generate dai processi \textbf{MiddleManager}. \\
 Ogni \textbf{Peon} viene eseguito su una JVM separata ed è responsabile dell’esecuzione di una singola attività. 
 Tutti i Peon che sono stati generati da un processo \textbf{MiddleManager} vengono eseguiti sullo stesso nodo.
-\paragraph{I Server d'interrogazione} o Server \textbf{query} forniscono la funzionalità d'interazione con gli utenti, instradando le richieste  
+\paragraph{I Server d'interrogazione} o Server query forniscono la funzionalità d'interazione con gli utenti, instradando le richieste  
 ai \textbf{server dati} o ad altri \textbf{server query}, per la loro esecuzione. \\
-I server \textbf{query} eseguono al loro interno i seguenti processi:
+I server query eseguono al loro interno i seguenti processi:
 \subparagraph{I Broker} sono i processi a cui instradare le query, analizzano i \gls{metadati}{} forniti
 da \textbf{Zookeeper}, comprendono dove ricavare i dati necessari per elaborare i risultati delle query ed 
 infine uniscono tutti i risultati elaborati per fornire un’unica risposta alla richiesta.\\
@@ -279,17 +279,16 @@ per il funzionamento di un \gls{cluster}{} di \textbf{Apache Druid}, non viene u
 Nel caso di Druid, il \textbf{Metadata storage} viene spesso implementato utilizzando un database relazionale anche se non è l'unica soluzione possibile.\\ 
 In generale contiene:
 \begin{list}{*}
-    \item \textbf{record dei segmenti}: memorizza i metadati sui segmenti che dovrebbero
+    \item \textbf{record dei segmenti}: memorizza i \gls{metadati}{} sui segmenti che dovrebbero
     essere disponibili nel sistema (chiamati anche segmenti usati);
-    \item \item \textbf{record delle regole}: memorizza le varie regole su dove allocare e deal-
-    locare i segmenti del cluster;
+    \item \item \textbf{record delle regole}: memorizza le varie regole su dove allocare e deallocare i segmenti del cluster;
     \item \textbf{record di configurazione}: memorizzare gli oggetti di configurazione
-    di runtime, si tratta di un feature futura e avrà lo scopo di modificare alcuni parametri di configurazione nel \gls{cluster}{} in
+    di runtime, si tratta di un $feature$ futura e avrà lo scopo di modificare alcuni parametri di configurazione nel \gls{cluster}{} in
     fase di esecuzione.
 \end{list}
 \noindent
 \\
-In modalità predefinità \textbf{Apache Druid} utilizza \textbf{Derby}, ma database piu adatti alla produzione
+In modalità predefinita \textbf{Apache Druid} utilizza \textbf{Derby}, ma database più adatti alla produzione
 sono \textbf{MySQL} e \textbf{PostgreSQL}.
 
 \begin{figure}[ht]   
