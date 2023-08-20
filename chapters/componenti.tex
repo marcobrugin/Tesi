@@ -7,8 +7,8 @@ Jay Kreps e il suo team si resero conto che le soluzioni allora attuali, basate 
 un carico di lavoro crescente e la complessità del formato dei dati generati da LinkedIn.\\
 Dunque per affrontare tale sfida, nel 2010 LinkedIn iniziò a utilizzare \textbf{Apache Kafka} per gestire i dati di log generati dai vari servizi. \\
 Tale adozione ha dimostrato nel tempo che \textbf{Apache Kafka} è in grado di gestire carichi di lavoro molto elevati, di scalare facilmente e di garantire un elevato livello di affidabilità nella consegna di messaggi.\\ 
-\textbf{Kafka} è scritto in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
-\textbf{Kafka} nasce originariamente come \gls{message broker} e permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
+\textbf{Kafka} è sviluppato in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
+\textbf{Kafka} nasce originariamente come \gls{message broker}{} e permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
 In particolare fornisce funzionalità per:
 \begin{list}{*}{}
     \item pubblicare e sottoscrivere flussi di eventi, importandoli ed esportandoli da altri sistemi;
@@ -67,14 +67,14 @@ Il \gls{message broker}{} risponde con un messaggio contenente il suo offset nel
 Per quanto riguarda l'estrazione e il recupero dei messaggi: i dati vengono inviati al broker dal produttore e prelevati dal \gls{message broker}{} dal consumatore. 
 \subsubsection{La struttura dei messaggi}
 I messaggi inviati all'interno di \textbf{Apache Kafka} sono composti da una chiave, un valore e un timestamp. \\
-Oltre a tali informazioni a ogni messaggio viene associato un \gls{topic} o argomento che permette di eseguire operazioni di organizzazione 
+Oltre a tali informazioni a ogni messaggio viene associato un \gls{topic}{} o argomento che permette di eseguire operazioni di organizzazione 
 e filtraggio dei messaggi.\\
 Un messaggio, una volta inviato a un consumatore non viene eliminato dal \gls{topic}{} ma viene mantenuto per un periodo di tempo configurabile attraverso un timeout.\\
 I \gls{topic}{} dei rispettivi messaggi vengono partizionati su più nodi per consentire a più consumatori di leggere gli stessi messaggi e permettendo ai client di leggere e scrivere messaggi da/a molti \gls{message broker}{}.\\
 Quando un nuovo messaggio viene emesso, quest'ultimo si aggiunge alla rispettiva partizione relativa al \gls{topic}{} e viene assegnato un numero di offset che identifica il messaggio all'interno della partizione.\\
 Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano letti nell'ordine in cui sono stati scritti.
 \subsubsection{Zookeeper}
-\textbf{Zookeeper} è un prodotto open-source che si occupa della sincronizzazione tra i cluster distribuiti di sistemi come \textbf{Apache Kafka}. \\
+\textbf{Zookeeper} è un prodotto \gls{open source}{} che si occupa della sincronizzazione tra i cluster distribuiti di sistemi come \textbf{Apache Kafka}. \\
 È progettato per gestire operazioni di sincronizzazione, gestione dello stato e configurazioni nei sistemi distribuiti, garantendo coerenza e affidabilità.\\
 Il suo funzionamento si basa sul protocollo Zookeeper Atomic Broadcast (ZAB), che è il cuore del servizio di coordinamento di \textbf{Zookeeper}.\\
 Ogni nodo invia a intervalli regolari un messaggio \textit{Keep-Alive} a \textbf{Zookeeper}, informandolo così che è vivo e funzionante. Se entro un tempo prestabilito il messaggio non viene ricevuto si presume che il nodo sia
@@ -153,16 +153,49 @@ L'\textbf{Even Driven Architecture} è un pattern architetturale basato su event
 \\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona. 
 \subsubsection{Apache Kafka e l'architettura EDA}
 L'emissione di un evento indica che qualcosa è accaduto e può essere visto come un agglomerato di dati atomico in grado di soddisfare l'evento stesso. \\
-Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
+Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi}{} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
 \\D'altra parte per utilizzare \textbf{Kafka} in un sistema \textbf{EDA} la chiave è andare a sfruttare il disaccopiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. Inoltre grazie all'approcio sviluppato da \textbf{Kafka} un evento una volta soddisfatto non viene eliminato, ma conservato per un periodo ti tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione. \\
 \pagebreak
 \section{Apache Druid}
+\textbf{Apache Druid} (Figura \ref{fig:logo_druid}) è uno strumento \gls{open source}{} di analisi \gls{olap}{} progettato per analizzare e gestire grandi moli di dati in tempo reale, in modo scalabile. \\
+Il progetto su cui si basa \textbf{Apache Druid} è stato sviluppato a partire dal 2011 da Metamarkets, una società di analisi dei dati in tempo reale per il settore pubblicitario,
+da parte di Gian Merlino, Eric Tschetter e Fangjin Yang.\\
+L'obiettivo iniziale era quello di creare un sistema in grado di analizzare, in tempo reale, grandi quantità di dati per fornire ai clienti 
+informazioni sulle campagne pubblicitarie.\\
+Purtroppo le tecnologie allora esistenti non erano in grado di soddisfare le esigenze di Metamarkets, pertanto il team di sviluppo decise di creare un nuovo sistema che potesse soddisfare le loro esigenze, che ha preso il nome di \textbf{Druid}.\\
+\textbf{Druid} nasce per gestire dati di tipo evento, come strumento di \gls{log}{}, dati di transazione e molti altri. \\
+Nel 2012, Metamarkets ha rilasciato \textbf{Druid}{} come progetto \gls{open source}{} su GitHub, permettendo così alla comunità di contribuire e sviluppare ulteriormente la piattaforma. Nel 2015, \textbf{Druid} è diventato un progetto \gls{open source}{} ufficiale sotto l'autorità della \gls{Apache Software Foundation}{}.\\ 
+\textbf{Apache Druid} è comunemente utilizzato come back-end per le GUI di applicazioni analitiche o
+per \gls{api}{} altamente simultanee che richiedono aggregazioni veloci. \\
+\textbf{Druid} è sviluppato in Java e Scala, rilasciato sotto licenza Apache 2.0. \\La versione attuale è la 27.0.0 rilasciata il 10 agosto 2023.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/componenti/logo_druid.png}
     \caption{Logo di Apache Druid}
     \label{fig:logo_druid}
 \end{figure}
+\subsection{Casi d'uso}
+\textbf{Apache Druid} viene utilizzato in tutti quegli scenari in cui è necessario analizzare grandi quantità di dati in tempo reale, in modo scalabile, con \gls{fault tolerance}{} e con la possibilità di effettuare query complesse ad alta efficienza.\\  
+I principali campi di utilizzo di \textbf{Apache Druid} sono:
+\begin{list}{*}
+    \item \textbf{analisi dati in real-time e applicazioni dati}: \textbf{Apache Druid} viene ampliamente impiegato sistemi di acquisizione dati in
+    tempo reale, query rapide e tempo di attività. \textbf{Druid} viene utilizzato per alimentare GUI
+    di applicazioni analitiche o per \gls{api}{} simultanee che necessitano di aggregazioni veloci, i migliori risultati 
+    vengono ottenuti nell'analisi di dati di tipo evento;
+    \pagebreak
+    \item \item \textbf{elaborazione di metriche}: \textbf{Apache Druid} viene spesso utilizzato per effettuare misurazioni sul coinvolgimento degli
+    utenti e il monitoraggio dei dati di test, calcolando metriche, conteggi finalizzati a elaborare tendenze su grandi moli di dati;
+    \item \textbf{operazioni \gls{olap}{}}: \textbf{Apache Druid} viene utilizzato per accelerare l’esecuzione di query su grandi moli di dati e potenziare le applicazioni; è progettato per un’elevata concorrenza e query in meno di un secondo, alimentando
+    l’esplorazione interattiva dei dati attraverso un’interfaccia utente.
+\end{list}
+\subsection{Architettura e funzionamento}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/componenti/druid_architectcture.png}
+    \caption{Architettura di Apache Druid}
+    \label{fig:druid_architecture}
+\end{figure}
+\pagebreak
 \section{Streaming Data Pipelines}
 \newpage
 \pagestyle{empty}
