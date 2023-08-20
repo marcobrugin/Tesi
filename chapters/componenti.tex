@@ -202,23 +202,36 @@ In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server
     \item \item \textbf{i server dati}: finalizzati a  gestire i dati effettivi all'interno \gls{cluster}{}, traggono grandi vantaggi da CPU, RAM e SSD;
     \item  \textbf{i server d'interrogazione}: chiamati anche \textbf{Druid Broker}, accettano le richieste e le distribuiscono al resto del cluster.
 \end{list}
-\paragraph{Server principali}
-Un server \textbf{principale} o \textbf{Master} gestisce l’\gls{injection}{} e la disponibilità dei dati: è il responsabile dell’avvio
+\paragraph{I server principali} o \textbf{Master} gestiscono l’\gls{injection}{} e la disponibilità dei dati: sono i responsabile dell’avvio
 di nuovi operazioni di \gls{injection}{} e del coordinamento della disponibilità dei dati sui \textbf{Data server}.\\
 Ogni server mantiene una connessione con a un \textbf{Zookeeper} per le informazioni sul \gls{cluster}{} corrente.
 I server \textbf{Master} sono formati da:
-\subparagraph{Il Coordinator} ha il compito di gestire la disponibilità dei dati dei \gls{cluster}{}, comunica
-agli \textbf{Historical} di caricare o rilasciare segmenti in base alle configurazioni, è
-responsabile del caricamento di nuovi segmenti, dell’eliminazione di segmenti obsoleti, della
+\subparagraph{I Coordinator} hanno il compito di gestire la disponibilità dei dati dei \gls{cluster}{}, comunicano
+agli \textbf{Historical} di caricare o rilasciare segmenti in base alle configurazioni, sono i 
+responsabili del caricamento di nuovi segmenti, dell’eliminazione di segmenti obsoleti, della
 garanzia che i segmenti siano replicati (caricati su piu nodi \textbf{Historical} diversi) un
 numero corretto  di volte e sia presente un bilanciamento dei segmenti
 tra \textbf{Historical} per mantenere quest’ultimo caricato uniformemente.Il \textbf{Coordinator} ha anche una connessione a un database
 contenente l’elenco dei segmenti utilizzati. 
-\subparagraph{L'Overlord} è il responsabile dell’accettazione delle attività, del coordinamento della distribuzione delle
-attività,  della restituzione degli stati ai
-chiamanti. Può essere eseguito sia in modalità locale che su server dedicato. L'\textbf{Overlord} ha anche il compito di 
+\subparagraph{Gli Overlord} sono i responsabili dell’accettazione delle attività, del coordinamento della distribuzione delle
+attività, della restituzione degli stati ai
+chiamanti. Possono essere eseguiti sia in modalità locale che su server dedicato. Gli \textbf{Overlord} hanno anche il compito di 
 creare i \textbf{Peons} per l'esecuzione delle attività. 
-
+\paragraph{I Server dati} eseguono le attività d'acquisizione e archiviazione dei dati interrogabili.
+I server \textbf{dati} sono formati da:
+\subparagraph{I server Historical}
+\subparagraph{I server MiddleManager} 
+\subparagraph{I server Peon}
+\paragraph{I Server d'interrogazione} o server \textbf{query} forniscono la funzionalità d'interazione con gli utenti, instradando le richieste  
+ai \textbf{server dati} o ad altri \textbf{server query}, per la loro esecuzione. \\
+I server \textbf{query} sono formati da:
+\subparagraph{I server Broker} sono i server a cui instradare le query, analizzano i \gls{metadati}{} forniti
+da \textbf{Zookeeper}, comprendono dove ricavare i dati necessari per elaborare i risultati delle query ed 
+infine uniscono tutti i risultati elaborati per fornire un’unica risposta alla richiesta.\\
+\subparagraph{I server Router} sono i server che hanno il compito di instradare le query a diversi server \textbf{Broker}. Le query
+vengono instradate in base alle regole di caricamento dei segmenti che vengono applicate.
+Tale configurazione fornisce l’isolamento delle singole query, anche nel caso in cui si voglia applicare 
+una priorità di esecuzione a determinate query.\\
 \begin{figure}[h]   
     \centering
     \includegraphics[width=0.9\textwidth]{images/componenti/druid_architectcture.png}
