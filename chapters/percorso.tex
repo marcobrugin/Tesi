@@ -46,7 +46,8 @@ Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textb
 ho iniziato la configurazione di un cluster Kafka con Docker Compose. 
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un cluster \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
-Per la configurazione è stato utilizzato il file \ref{lst:file}, di cui ne viene riportato solo la parte relativa alla configurazione di un nodo \textbf{Kafka} gli altri nodi sono configurati in maniera analoga.
+Per la configurazione è stato utilizzato il file \ref{lst:file}, di cui ne viene riportato solo la parte relativa alla configurazione di un nodo \textbf{Kafka} gli altri nodi sono configurati in maniera analoga, andando a modificare
+solo la porta di ascolto del nodo \textbf{Kafka}.
 \pagebreak
 \begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=lst:file]{kafka-cluster-compose.yml}
   networks:
@@ -101,7 +102,9 @@ Per la creazione e configurazione del cluster Kafka è stato utilizzato il segue
 \end{lstlisting}
 
 \subsection{Configurazione di un cluster Druid con Docker Compose}
+
 \subsubsection{Configurazione dell'enviroment di Apache Druid}
+\section{Codifica}
 
 \section{Esecuzione e testing}
 \newpage
