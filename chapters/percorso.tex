@@ -32,6 +32,68 @@ e di avere riferimenti per la risoluzione di problemi o dubbi sorti (Figura \ref
     \caption{Board di ClickUp per il processo di coordinamento e documentazione}
     \label{cap:Documentazione}
 \end{figure}
+\subsection{Daily stand-up meeting}
+Durante tutto il percorso di stage, in collaborazione con il tutor aziendale, è stato definito in concomitanza con l'inizio del processo di formazione
+è stato definito un processo di \textbf{supporto} in stile \gls{Scrum}{}, andando fissare degli incontri giornalieri di circa 15 minuti finalizzati a:
+\begin{list}{*}
+    \item \textbf{Monitorare} lo stato di avanzamento delle attività svolte, da svolgere e in corso di svolgimento;
+    \item \textbf{Risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
+    \item \textbf{Definire} eventuali miglioramenti o cambiamenti da apportare alle da svolgere o in corso di svolgimento.
+\end{list}
+\section{Configurazione}
+\subsection{Configurazione di un cluster Kafka con Docker Compose}
+Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textbf{Docker Compose} 
+ho iniziato la configurazione di un cluster Kafka con Docker Compose. 
+\\Seguendo la buona pratica dell'alta affidabilità, descritta del 
+paragrafo \ref{sec:alta_affidabilita}, ho configurato un cluster \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
+Per la configurazione ho utilizzato il seguente \textbf{docker-compose.yml} file, di cui ne viene riportato solo la parte relativa alla configurazione di un nodo \textbf{Kafka} gli altri nodi sono configurati in maniera analoga.
+\begin{lstlisting}
+  networks:
+    kafka-druid:
+      name: kafka-druid
+      driver: bridge
+      external: true
+  
+  services:
+    zookeeper:
+      container_name: zookeeper
+      hostname: zookeeper
+      image: confluentinc/cp-zookeeper:7.4.0
+      networks: 
+        - kafka-druid
+      ports:
+        - "2181:2181"
+      environment:
+        - ZOOKEEPER_SERVER_ID=1
+        - ZOOKEEPER_CLIENT_PORT=2181
+    kafka:
+      image: confluentinc/cp-kafka:7.4.0
+      hostname: kafka
+      container_name: kafka
+      networks:
+        - kafka-druid
+      ports:
+        - "29092:29092"
+      environment:
+        KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:29092
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+        KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+        KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+        KAFKA_BROKER_ID: 1
+        KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+        KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+        KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+        KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"  
+\end{lstlisting}    
+
+
+
+\subsection{Configurazione di un cluster Druid con Docker Compose}
+\subsubsection{Configurazione dell'enviroment di Apache Druid}
+
+\section{Esecuzione e testing}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
