@@ -43,7 +43,7 @@ Durante tutto il percorso di stage, in collaborazione con il tutor aziendale, è
 \section{Configurazione}
 \subsection{Configurazione di un cluster Kafka con Docker Compose}
 Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textbf{Docker Compose} 
-ho iniziato la configurazione di un \gls{cluster}{} Kafka con Docker Compose. 
+ho iniziato la configurazione di un \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose}. 
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
 Per la configurazione è stato utilizzato il file \ref{lst:file}, di cui ne viene riportato solo la parte relativa alla configurazione di un nodo \textbf{Kafka} gli altri nodi sono configurati in maniera analoga, andando a modificare
@@ -96,15 +96,15 @@ a livello aziendale, anche in Sync Lab. \\
 Nonostante ciò tengo a precisare che per i test che verranno elencati di seguito
 sono utilizzabili anche le immagini ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
 \\
-Per la creazione e configurazione del \gls{cluster}{} Kafka con \textbf{Docker Compose} è stato utilizzato il seguente comando:
+Per la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
 \begin{lstlisting}[language=bash]
     docker compose -f kafka-cluster-compose.yml up -d
 \end{lstlisting}
 \subsection{Configurazione del file di enviroment per Apache Druid}
 Dopo aver configurato il \gls{cluster}{} \textbf{Kafka}, considerando che \textbf{Apache Druid} è un software che necessita di grandi quantità di risorse per funzionare correttamente, è 
-stato necessario configurare il file di enviroment per \textbf{Apache Druid} in modo tale da poter utilizzare il \gls{cluster}{} di \textbf{Apache Druid} in un ambiente che fa uso di \gls{container}{}, minimizzando le risorse a sua disposizione.\\
+stato necessario configurare il file di enviroment \ref{lst:file1} per \textbf{Apache Druid}  in modo tale da poter utilizzare il \gls{cluster}{} di \textbf{Apache Druid} in un ambiente che fa uso di \gls{container}{}, minimizzando le risorse a sua disposizione.\\
 Per la configurazione è stato utilizzato il seguente file di enviroment ed è stato posto sulla stessa $directory$ del file \textbf{druid-cluster-compose.yml}:
-\begin{lstlisting}
+\begin{lstlisting}[caption=\texttt{enviroment}, label=lst:file1]{enviroment}
 # Java tuning
 #DRUID_XMX=1g
 #DRUID_XMS=1g
@@ -153,12 +153,138 @@ DRUID_LOG4J=<?xml version="1.0" encoding="UTF-8" ?><Configuration status="WARN">
 
 \end{lstlisting}
 È necessario sottolineare che all'interno del file di enviroment, trattandosi di un ambiente che fa uso di \gls{container}{}, 
-è stata utilizzata una versione semplificata e minimale di \textbf{Apache Druid} denominata \textbf{nano-quickstart}.\\
+è stata utilizzata una versione semplificata e minimale di \textbf{Apache Druid} denominata \textbf{nano-quickstart}.
 \subsection{Configurazione di un cluster Druid con Docker Compose}
-
+Dopo aver configurato il file di enviroment per \textbf{Apache Druid} è stato configurato il \gls{cluster}{} di \textbf{Apache Druid} e le risorse necesssarie, utilizzando il file \ref{lst:file2} con \textbf{Docker Compose}.\\
+In questo caso per ottimizzare il consumo di memoria RAM sono stati utilizzati un nodo per \textbf{coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato con \textbf{PostgreSQL}.\\
+Inoltre per la gestione del \gls{cluster}{} è stato riutilizzato il nodo \textbf{Zookeeper} precedentemente configurato.
+\begin{lstlisting}[caption=\texttt{druid-cluster-compose.yml}, label=lst:file2]{druid-cluster-compose.yml}
+networks:
+  kafka-druid:
+    name: kafka-druid
+    driver: bridge
+    external: true
+volumes:
+  metadata_data: {}
+  middle_var: {}
+  historical_var: {}
+  broker_var: {}
+  coordinator_var: {}
+  router_var: {}
+  druid_shared: {}
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    networks: 
+      - kafka-druid
+    ports:
+      - "5432:5432"
+    volumes:
+      - metadata_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=FoolishPassword
+      - POSTGRES_USER=druid
+      - POSTGRES_DB=druid
+  coordinator:
+    image: apache/druid:26.0.0
+    container_name: coordinator
+    networks:
+      - kafka-druid
+    volumes:
+      - druid_shared:/opt/shared
+      - coordinator_var:/opt/druid/var
+    depends_on:
+      - zookeeper
+      - postgres
+    ports:
+      - "8081:8081"
+    command:
+      - coordinator
+    env_file:
+      - environment
+  broker:
+    image: apache/druid:26.0.0
+    container_name: broker
+    networks:
+      - kafka-druid
+    volumes:
+      - broker_var:/opt/druid/var
+    depends_on:
+      - zookeeper
+      - postgres
+      - coordinator
+    ports:
+      - "8082:8082"
+    command:
+      - broker
+    env_file:
+      - environment
+  historical:
+    image: apache/druid:26.0.0
+    container_name: historical
+    networks:
+      - kafka-druid
+    volumes:
+      - druid_shared:/opt/shared
+      - historical_var:/opt/druid/var
+    depends_on: 
+      - zookeeper
+      - postgres
+      - coordinator
+    ports:
+      - "8083:8083"
+    command:
+      - historical
+    env_file:
+      - environment
+  middlemanager:
+    image: apache/druid:26.0.0
+    container_name: middlemanager
+    networks: 
+      - kafka-druid
+    volumes:
+      - druid_shared:/opt/shared
+      - middle_var:/opt/druid/var
+    depends_on: 
+      - zookeeper
+      - postgres
+      - coordinator
+    ports:
+      - "8091:8091"
+      - "8100-8105:8100-8105"
+    command:
+      - middleManager
+    env_file:
+      - environment
+  router:
+    image: apache/druid:26.0.0
+    container_name: router
+    networks:
+      - kafka-druid
+    volumes:
+      - router_var:/opt/druid/var
+    depends_on:
+      - zookeeper
+      - postgres
+      - coordinator
+    ports:
+      - "8888:8888"
+    command:
+      - router
+    env_file:
+      - environment
+\end{lstlisting}
+\pagebreak
+È necessario sottolineare che all'interno del file di configurazione di \textbf{Apache Druid} sono stati specificati anche i \gls{volumi}{} che verranno utilizzati per la memorizzazione dei dati.
+Per la creazione e configurazione del \gls{cluster}{} \textbf{Druid} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
+\begin{lstlisting}[language=bash]
+    docker compose -f druid-cluster-compose.yml up -d
+\end{lstlisting}
 \section{Codifica}
 
 \section{Esecuzione e testing}
+
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
