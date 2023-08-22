@@ -47,7 +47,8 @@ ho iniziato la configurazione di un cluster Kafka con Docker Compose.
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un cluster \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
 Per la configurazione ho utilizzato il seguente \textbf{docker-compose.yml} file, di cui ne viene riportato solo la parte relativa alla configurazione di un nodo \textbf{Kafka} gli altri nodi sono configurati in maniera analoga.
-\begin{lstlisting}
+\pagebreak
+\begin{lstlisting}[caption=Configurazione cluster Kafka, label=lst:file]{docker-compose.yml}
   networks:
     kafka-druid:
       name: kafka-druid
@@ -86,10 +87,13 @@ Per la configurazione ho utilizzato il seguente \textbf{docker-compose.yml} file
         KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
         KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
         KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"  
-\end{lstlisting}    
-
-
-
+\end{lstlisting}   
+Da notare all'interno della seguente configurazione l'utilizzo delle immagini\\ \textbf{confluentinc/cp-zookeeper:7.4.0} e \textbf{confluentinc/cp-kafka:7.4.0} invece 
+delle immagini ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}. \\
+Tale scelta è stata fatta \textbf{Confluent Kafka} è oramai diventa una distribuzione molto alla avanguardia e molto utilizzata 
+a livello aziendale anche in Sync Lab. \\
+Nonostante ciò tengo a precisare che per i test che verranno elencati di seguito
+sono utilizzabili anche le immagini ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.
 \subsection{Configurazione di un cluster Druid con Docker Compose}
 \subsubsection{Configurazione dell'enviroment di Apache Druid}
 
