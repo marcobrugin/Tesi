@@ -144,7 +144,15 @@ tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{br
     \caption{Il pattern Publisher-Subscriber}
     \label{fig:publisher_subscriber}
 \end{figure}
-\pagebreak
+\subsection{Alta affidabilità}
+Nel contesto si \textbf{Apache Kafka} con il termine di \textbf{alta affidabilità} ci si riferisce alla capacità di un sistema di gestire in modo
+robusto e coerente la ricezione, l'elaborazione e consegna dei messaggi anche in caso di guasti o malfunzionamenti.\\
+L'alta affidabilità fornisce anche la garanzia che i flussi di messaggi non vengano persi o corrotti.
+\subsubsection{Numero dispari di nodi}
+\textbf{Apache Kafka} per garantire l'alta affidabilità utilizza la tecnica dei $replicas$: copie dei dati distribuite su più nodi.\\
+Infatti nel prendere decisioni di consenso, elezione del $Leader$ e altre operazioni di coordinamento, \textbf{Kafka} richiede il consenso 
+da parte della maggioranza dei nodi. Pertanto per raggiungere sempre è buona pratica utilizzare un numero di nodi dispari (3,5,7,9,...), per evitare situazioni di stallo.\\
+
 \subsection{Even Driven Architecture}
 L'\textbf{Even Driven Architecture} è un pattern architetturale basato su eventi: degli agenti, che sono in grado di ricevere tali eventi, agiscono solo nel momento in cui questi ultimi si verificheranno. 
 \\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona. 
@@ -238,7 +246,7 @@ infine uniscono tutti i risultati elaborati per fornire un’unica risposta alla
 vengono instradate in base alle regole di caricamento dei segmenti che vengono applicate.
 Tale configurazione fornisce l’isolamento delle singole query, anche nel caso in cui si voglia applicare 
 una priorità di esecuzione a determinate query.\\
-\pagebreak
+
 \paragraph{Le dipendenze esterne}
 Essendo \textbf{Apache Druid} un sistema distribuito e molto complesso, per il suo corretto funzionamento necessita di alcune dipendenze esterne.\\
 
