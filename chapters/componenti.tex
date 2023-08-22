@@ -151,7 +151,7 @@ L'\textbf{Even Driven Architecture} è un pattern architetturale basato su event
 \subsubsection{Apache Kafka e l'architettura EDA}
 L'emissione di un evento indica che qualcosa è accaduto e può essere visto come un agglomerato di dati atomico in grado di soddisfare l'evento stesso. \\
 Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi}{} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
-\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \textbf{EDA} la chiave è andare a sfruttare il disaccopiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. Inoltre grazie all'approcio sviluppato da \textbf{Kafka} un evento una volta soddisfatto non viene eliminato, ma conservato per un periodo ti tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione. \\
+\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \gls{eda}{} la chiave è andare a sfruttare il disaccopiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. \\Inoltre grazie all'approcio sviluppato da \textbf{Kafka} un evento una volta soddisfatto non viene eliminato, ma conservato per un periodo ti tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione. \\
 \pagebreak
 \section{Apache Druid}
 \textbf{Apache Druid} (Figura \ref{fig:logo_druid}) è uno strumento \gls{open source}{} di analisi \gls{olap}{} progettato per analizzare e gestire grandi moli di dati in tempo reale, in modo scalabile. \\
@@ -171,6 +171,7 @@ per \gls{api}{} altamente simultanee che richiedono aggregazioni veloci. \\
     \caption{Logo di Apache Druid}
     \label{fig:logo_druid}
 \end{figure}
+\pagebreak
 \subsection{Casi d'uso}
 \textbf{Apache Druid} viene utilizzato in tutti quegli scenari in cui è necessario analizzare grandi quantità di dati in tempo reale, in modo scalabile, con \gls{fault tolerance}{} e con la possibilità di effettuare query complesse ad alta efficienza.\\  
 I principali campi di utilizzo di \textbf{Apache Druid} sono:
@@ -179,7 +180,6 @@ I principali campi di utilizzo di \textbf{Apache Druid} sono:
     tempo reale, query rapide e tempo di attività. \textbf{Druid} viene utilizzato per alimentare GUI
     di applicazioni analitiche o per \gls{api}{} simultanee che necessitano di aggregazioni veloci, i migliori risultati 
     vengono ottenuti nell'analisi di dati di tipo evento;
-    \pagebreak
     \item \item \textbf{elaborazione di metriche}: \textbf{Apache Druid} viene spesso utilizzato per effettuare misurazioni sul coinvolgimento degli
     utenti e il monitoraggio dei dati di test, calcolando metriche, conteggi finalizzati a elaborare tendenze su grandi moli di dati;
     \item \textbf{operazioni \gls{olap}{}}: \textbf{Apache Druid} viene utilizzato per accelerare l’esecuzione di query su grandi moli di dati e potenziare le applicazioni; è progettato per un’elevata concorrenza e query in meno di un secondo, alimentando
