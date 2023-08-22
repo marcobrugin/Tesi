@@ -105,11 +105,6 @@ Dopo aver configurato il \gls{cluster}{} \textbf{Kafka}, considerando che \textb
 stato necessario configurare il file di enviroment \ref{lst:file1} per \textbf{Apache Druid}  in modo tale da poter utilizzare il \gls{cluster}{} di \textbf{Apache Druid} in un ambiente che fa uso di \gls{container}{}, minimizzando le risorse a sua disposizione.\\
 Per la configurazione è stato utilizzato il seguente file di enviroment ed è stato posto sulla stessa $directory$ del file \textbf{druid-cluster-compose.yml}:
 \begin{lstlisting}[caption=\texttt{enviroment}, label=lst:file1]{enviroment}
-# Java tuning
-#DRUID_XMX=1g
-#DRUID_XMS=1g
-#DRUID_MAXNEWSIZE=250m
-#DRUID_NEWSIZE=250m
 DRUID_MAXDIRECTMEMORYSIZE=3072m
 DRUID_SINGLE_NODE_CONF=nano-quickstart
 
@@ -277,7 +272,7 @@ services:
 \end{lstlisting}
 \pagebreak
 È necessario sottolineare che all'interno del file di configurazione di \textbf{Apache Druid} sono stati specificati anche i \gls{volumi}{} che verranno utilizzati per la memorizzazione dei dati.
-Per la creazione e configurazione del \gls{cluster}{} \textbf{Druid} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
+\\Per la creazione e configurazione del \gls{cluster}{} \textbf{Druid} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
 \begin{lstlisting}[language=bash]
     docker compose -f druid-cluster-compose.yml up -d
 \end{lstlisting}
