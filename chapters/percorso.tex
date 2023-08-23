@@ -40,7 +40,7 @@ Durante tutto il percorso di stage, in collaborazione con il tutor aziendale, è
     \item \item \textbf{Risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
     \item \textbf{Definire} eventuali miglioramenti o cambiamenti da apportare alle da svolgere o in corso di svolgimento.
 \end{list}
-\section{Configurazione}
+\section{Codifica}
 \subsection{Configurazione di un cluster Kafka con Docker Compose}
 Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textbf{Docker Compose} 
 la configurazione di un \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose}. 
@@ -155,22 +155,29 @@ services:
 \end{lstlisting}
 È necessario sottolineare che all'interno del file di configurazione di \textbf{Apache Druid} sono stati specificati anche i \gls{volumi}{} che verranno utilizzati per la memorizzazione dei dati.
 \pagebreak
-\section{Codifica}
+
 \subsection{Creazione del produttore di eventi Kafka}
-AL file di poter testare i \gls{cluster}{} creati, la prima attività di codifica è stata la deinizione di
+AL file di poter testare i \gls{cluster}{} creati, la prima attività di codifica è stata la definizione di
 un produttore di eventi \textbf{Kafka} che generasse eventi casuali.\\
-Per la creazione del produttore di eventi \textbf{Kafka} è stato utilizzato il linguaggio di programmazione \textbf{Python} e la libreria \textbf{Kafka-Python}, in particolare il modulo \textbf{KafkaProducer} nel seguente modo:
+Per la creazione del produttore di eventi \textbf{Kafka} è stato utilizzato il linguaggio di programmazione \textbf{Python} e la libreria \gls{Kafka-Python}{}, in particolare il modulo \textbf{KafkaProducer} nel seguente modo:
 \begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
 producer = KafkaProducer(  
   bootstrap_servers = ['localhost:29092'],  
   value_serializer = lambda x:json.dumps(x).encode('utf-8')  
   )  
 \end{lstlisting}
-È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare gli eventi in formato \gls{json}{} alla porta pubblica 
+È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare gli eventi, al relativo \gls{topic}{} di appartenenza, in formato \gls{json}{}.
+ in formato \gls{json}{} alla porta pubblica 
 del nodo \textbf{Kafka} precedentemente configurato, unica porta che può essere raggiunta dall'esterno.\\
-In seguito è stato definito, all'interno del \gls{container}{} \textbf{Kafka} precedentemente configurato, un \gls{topic}{} \textbf{Kafka} a cui inviare gli eventi generati.
+\pagebreak
 \section{Esecuzione e testing}
-
+\subsection{Creazione di una Data Pipeline}
+Dopo aver ultimato la configurazione dei \gls{cluster}{} \textbf{Apache Kafka} e \textbf{Apache Druid} con \textbf{Docker Compose} 
+e aver creato il produttore di eventi \textbf{Kafka}, è stato possibile creare una \textbf{Data Pipeline} che permettesse d'inviare gli eventi generati dal produttore \textbf{Kafka} al \gls{cluster}{} di \textbf{Apache Kafka} e 
+successivamente effettuare l'\gls{injection}{} all'interno del \gls{cluster}{} di \textbf{Apache Druid} per effettuare il \gls{Data Processing}.
+\subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}
+\subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
+\subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
