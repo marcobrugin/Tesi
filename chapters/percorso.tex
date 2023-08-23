@@ -34,7 +34,7 @@ e di avere riferimenti per la risoluzione di problemi o dubbi sorti (Figura \ref
 \end{figure}
 \subsection{Daily stand-up meeting}
 Durante tutto il percorso di stage, in collaborazione con il tutor aziendale, è stato definito in concomitanza con l'inizio del processo di formazione
-è stato definito un processo di \textbf{supporto} in stile \gls{Scrum}{}, andando fissare degli incontri giornalieri di circa 15 minuti finalizzati a:
+è stato definito un processo di \textbf{supporto} ispirato al metodo \gls{Scrum}{}, andando fissare degli incontri giornalieri di circa 15 minuti finalizzati a:
 \begin{list}{*}
     \item \textbf{Monitorare} lo stato di avanzamento delle attività svolte, da svolgere e in corso di svolgimento;
     \item \item \textbf{Risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
@@ -46,8 +46,8 @@ Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textb
 la configurazione di un \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose}. 
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
-Innanzitutto per far si che i nodi \textbf{Kafka} e \textbf{Zookeeper} possano comunicare tra loro è necessario creare una rete 
-\textbf{Docker} denominata \textbf{kafka-druid}. \\
+Innanzitutto per far si che i nodi \textbf{Kafka} e \textbf{Zookeeper} possano comunicare tra loro è necessario creare una 
+\gls{Docker network}{} denominata \textbf{kafka-druid}.\\
 In seguito la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente file di 
 configurazione, in cui sono stati definiti i nodi \textbf{Kafka} e \textbf{Zookeeper} (per semplicità è stato definito un solo nodo \textbf{Kafka} gli altri sono del tutto analoghi):
 \begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=lst:file]{kafka-cluster-compose.yml}
@@ -81,8 +81,8 @@ services:
 \end{lstlisting}
 È importante sottolineare che all'interno della seguente configurazione, appena citata, vengono utilizzate le \gls{immagini Docker}{} \\\textbf{confluentinc/cp-zookeeper:7.4.0} e \textbf{confluentinc/cp-kafka:7.4.0}, invece 
 di quelle ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
-Tale scelta è data dal fatto che oramai  \textbf{Confluent Kafka} è diventata una distribuzione molto alla avanguardia e molto utilizzata 
-a livello aziendale.\\
+Tale scelta è data dal fatto che oramai \textbf{Confluent Kafka} è diventata una distribuzione molto alla avanguardia e molto utilizzata 
+a livello aziendale, anche all'interno di Sync Lab.\\
 Nonostante ciò si precisare che per i test che verranno elencati di seguito
 sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
