@@ -47,11 +47,8 @@ la configurazione di un \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compos
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
 Innanzitutto per far si che i nodi \textbf{Kafka} e \textbf{Zookeeper} possano comunicare tra loro è necessario creare una rete 
-\textbf{Docker} con il seguente comando, che verrà utilizzato anche per la creazione del \gls{cluster}{} \textbf{Kafka}:
-\begin{lstlisting}[language=bash]
-    docker network create kafka-druid
-\end{lstlisting}
-Per la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente file di 
+\textbf{Docker} denominata \textbf{kafka-druid}. \\
+In seguito la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente file di 
 configurazione, in cui sono stati definiti i nodi \textbf{Kafka} e \textbf{Zookeeper} (per semplicità è stato definito un solo nodo \textbf{Kafka} gli altri sono del tutto analoghi):
 \begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=lst:file]{kafka-cluster-compose.yml}
 networks:
@@ -88,10 +85,6 @@ Tale scelta è data dal fatto che oramai  \textbf{Confluent Kafka} è diventata 
 a livello aziendale.\\
 Nonostante ciò si precisare che per i test che verranno elencati di seguito
 sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
-Per la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
-\begin{lstlisting}[language=bash]
-    docker compose -f kafka-cluster-compose.yml up -d
-\end{lstlisting}
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
 Dopo aver configurato il \gls{cluster}{} \textbf{Kafka}, considerando che \textbf{Apache Druid} è un software che necessita di grandi quantità di risorse per funzionare correttamente, è 
 stato necessario adattare il file di \gls{enviroment}{} in modo tale da poterne utilizzare un \gls{cluster}{} in un ambiente che fa uso di \gls{container}{}, minimizzando le risorse a sua disposizione: nel seguente modo:
@@ -161,12 +154,21 @@ services:
       - environment
 \end{lstlisting}
 È necessario sottolineare che all'interno del file di configurazione di \textbf{Apache Druid} sono stati specificati anche i \gls{volumi}{} che verranno utilizzati per la memorizzazione dei dati.
-\\Per la creazione e configurazione del \gls{cluster}{} di \textbf{Apache Druid} con \textbf{Docker Compose} è stato utilizzato il seguente comando:
-\begin{lstlisting}[language=bash]
-    docker compose -f druid-cluster-compose.yml up -d
-\end{lstlisting}
+\pagebreak
 \section{Codifica}
-
+\subsection{Creazione del produttore di eventi Kafka}
+AL file di poter testare i \gls{cluster}{} creati, la prima attività di codifica è stata la deinizione di
+un produttore di eventi \textbf{Kafka} che generasse eventi casuali.\\
+Per la creazione del produttore di eventi \textbf{Kafka} è stato utilizzato il linguaggio di programmazione \textbf{Python} e la libreria \textbf{Kafka-Python}, in particolare il modulo \textbf{KafkaProducer} nel seguente modo:
+\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+producer = KafkaProducer(  
+  bootstrap_servers = ['localhost:29092'],  
+  value_serializer = lambda x:json.dumps(x).encode('utf-8')  
+  )  
+\end{lstlisting}
+È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare gli eventi in formato \gls{json}{} alla porta pubblica 
+del nodo \textbf{Kafka} precedentemente configurato, unica porta che può essere raggiunta dall'esterno.\\
+In seguito è stato definito, all'interno del \gls{container}{} \textbf{Kafka} precedentemente configurato, un \gls{topic}{} \textbf{Kafka} a cui inviare gli eventi generati.
 \section{Esecuzione e testing}
 
 \newpage
