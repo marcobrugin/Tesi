@@ -1,11 +1,11 @@
 \chapter{Il percorso di stage }\label{cap:Il_percorso}
 \section{Formazione}
-Il processo di formazione che mi è stato fornito ha avuto un ruolo fondamentale nella buona riuscita del progetto di stage, 
-ha avuto una durata di circa 4 settimane. \\
-La causa del protrarsi del processo di formazione è stata provocata dal fatto che concetti legati all'architettura \gls{eda}{},
-\textbf{Apache Kafka}, \textbf{Apache Druid}, \textbf{Docker Compose} sono state del tutto innovative per me.\\
-Tutto il processo di formazione è stato tracciato e monitorato dal tutor aziendale e da me stesso attraverso le \gls{board}{} offerte 
-dal software di project management \textbf{ClickUp} (Figura \ref{cap:ClickUp}).\\
+Il processo di formazione ha avuto un ruolo fondamentale nella buona riuscita del progetto di stage, con una durata complessiva di circa quattro settimane. \\
+La causa del protrarsi del processo di formazione è stata provocata dalla mia inesperienza in merito a 
+concetti legati all'architettura \gls{eda}{},
+\textbf{Apache Kafka}, \textbf{Apache Druid} e \textbf{Docker Compose}.\\  
+Tutto il processo di formazione è stato tracciato e monitorato da me medesimo e dal tutor aziendale attraverso le \gls{board}{} offerte 
+dal software di \gls{project management}{} \textbf{ClickUp} (Figura \ref{cap:ClickUp}).\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/percorso/formazione.png}
@@ -14,8 +14,9 @@ dal software di project management \textbf{ClickUp} (Figura \ref{cap:ClickUp}).\
 \end{figure}
 \pagebreak
 \\
-Inoltre durante il processo di formazione, oltre a reperire informazioni da documentazione ufficiale fornita, ho avuto anche modo 
-di approfondire quanto appena appreso attraverso delle attività di \gls{hands-on}{} che mi hanno permesso di mettere in pratica quanto appreso (Figura \ref{cap:Hands-on}).
+Inoltre durante il processo di formazione, oltre a reperire informazioni da documentazione ufficiale, ho avuto anche modo 
+di approfondire quanto appena appreso attraverso delle attività di \gls{hands-on}{} che mi hanno permesso di mettere in pratica nell'immediato quanto appreso
+(Figura \ref{cap:Hands-on}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/percorso/hands_on.png}
@@ -23,9 +24,9 @@ di approfondire quanto appena appreso attraverso delle attività di \gls{hands-o
     \label{cap:Hands-on}
 \end{figure}
 \\
-Oltre a ciò, durante il processo di formazione, in collaborazione con il tutor aziendale, è stato definito un processo di coordinamento e produzione di 
-documentazione tecnica che mi ha permesso durante tutto lo svolgimento del percorso di stage di avere un tracciamento dei concetti appresi 
-e di avere riferimenti per la risoluzione di problemi o dubbi sorti (Figura \ref{cap:Documentazione})
+Inoltre durante il processo di formazione, in collaborazione con il tutor aziendale, è stato definito anche un processo di coordinamento e produzione di 
+documentazione che mi ha permesso, durante tutto lo svolgimento del percorso di stage, di avere un tracciamento dei concetti appresi,
+ di avere un eventuale riferimento per un'eventuale risoluzione di problemi o dubbi sorti (Figura \ref{cap:Documentazione}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/percorso/coordinamento.png}
@@ -33,23 +34,29 @@ e di avere riferimenti per la risoluzione di problemi o dubbi sorti (Figura \ref
     \label{cap:Documentazione}
 \end{figure}
 \subsection{Daily stand-up meeting}
-Durante tutto il percorso di stage, in collaborazione con il tutor aziendale, è stato definito in concomitanza con l'inizio del processo di formazione
-è stato definito un processo di \textbf{supporto} ispirato al metodo \gls{Scrum}{}, andando fissare degli incontri giornalieri di circa 15 minuti finalizzati a:
+In ausilio dei processi sopra descritti, 
+è stato anche definito, in concomitanza con l'inizio del processo di formazione, un processo di \textbf{supporto} ispirato al metodo \gls{Scrum}{}, 
+andando a programmare degli incontri giornalieri di circa 15 minuti finalizzati a:
 \begin{list}{*}
-    \item \textbf{Monitorare} lo stato di avanzamento delle attività svolte, da svolgere e in corso di svolgimento;
-    \item \item \textbf{Risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
-    \item \textbf{Definire} eventuali miglioramenti o cambiamenti da apportare alle da svolgere o in corso di svolgimento.
+    \item \textbf{monitorare} lo stato di avanzamento delle attività svolte, da svolgere e in corso di svolgimento;
+    \item \item \textbf{risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
+    \item \textbf{definire} eventuali miglioramenti o cambiamenti da apportare alle da svolgere, o in corso di svolgimento, e al metodo 
+    di lavoro adottato.
 \end{list}
 \section{Codifica}
 \subsection{Configurazione di un cluster Kafka con Docker Compose}
 Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textbf{Docker Compose} 
-la configurazione di un \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose}. 
+ho iniziato la configurazione di un \gls{cluster}{}, che fa uso di \gls{container}{}, in grado di testare tali strumenti.
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
-paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} \textbf{Kafka} con 3 nodi, 1 nodo \textbf{Zookeeper}.\\
-Innanzitutto per far si che i nodi \textbf{Kafka} e \textbf{Zookeeper} possano comunicare tra loro è necessario creare una 
-\gls{Docker network}{} denominata \textbf{kafka-druid}.\\
-In seguito la creazione e configurazione del \gls{cluster}{} \textbf{Kafka} con \textbf{Docker Compose} è stato utilizzato il seguente file di 
-configurazione, in cui sono stati definiti i nodi \textbf{Kafka} e \textbf{Zookeeper} (per semplicità è stato definito un solo nodo \textbf{Kafka} gli altri sono del tutto analoghi):
+paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} con tre nodi \textbf{Kafka} e un nodo \textbf{Zookeeper}.\\
+Innanzitutto per far si che ogni \gls{container}{} possa comunicare con gli altri è necessario creare una 
+\gls{Docker network}{}, denominata \textbf{kafka-druid}, nel seguente modo.
+\begin{lstlisting}[caption=\texttt{docker network create}, label=lst:file]{docker network create}
+docker network create kafka-druid
+\end{lstlisting}
+Successivamente sono stati creati i nodi \textbf{Zookeeper} e \textbf{Kafka} con \textbf{Docker Compose} 
+utilizzando il seguente file di 
+configurazione (per motivi di spazio viene riportata la definizione di un solo nodo \textbf{Kafka}, la configurazione degli altri è del tutto analoga).
 \begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=lst:file]{kafka-cluster-compose.yml}
 networks:
   kafka-druid:
@@ -79,15 +86,16 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
 
 \end{lstlisting}
-È importante sottolineare che all'interno della seguente configurazione, appena citata, vengono utilizzate le \gls{immagini Docker}{} \\\textbf{confluentinc/cp-zookeeper:7.4.0} e \textbf{confluentinc/cp-kafka:7.4.0}, invece 
-di quelle ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
-Tale scelta è data dal fatto che oramai \textbf{Confluent Kafka} è diventata una distribuzione molto alla avanguardia e molto utilizzata 
-a livello aziendale, anche all'interno di Sync Lab.\\
-Nonostante ciò si precisare che per i test che verranno elencati di seguito
-sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}.\\
+È importante sottolineare che all'interno della configurazione, sopra descritta, 
+vengono utilizzate le \gls{immagini Docker}{} \\\textbf{confluentinc/cp-zookeeper:7.4.0} e \textbf{confluentinc/cp-kafka:7.4.0}.\\
+Tale scelta è stata adottata, dal fatto che oramai \textbf{Confluent} 
+è diventata una distribuzione molto alla avanguardia, in quanto fornisce soluzioni, utilizzate anche a livello aziendale,
+per la gestione di flussi di dati in tempo reale, come in Sync Lab.\\
+Nonostante ciò si precisare che per i test che verranno elencati di seguito,
+sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}, distribuite dalla 
+\gls{Apache Software Foundation}.
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
-Dopo aver configurato il \gls{cluster}{} \textbf{Kafka}, considerando che \textbf{Apache Druid} è un software che necessita di grandi quantità di risorse per funzionare correttamente, è 
-stato necessario adattare il file di \gls{enviroment}{} in modo tale da poterne utilizzare un \gls{cluster}{} in un ambiente che fa uso di \gls{container}{}, minimizzando le risorse a sua disposizione: nel seguente modo:
+Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} nel seguente modo.
 \begin{lstlisting}[caption=\texttt{enviroment}, label=lst:file]{enviroment}
 DRUID_MAXDIRECTMEMORYSIZE=3072m
 DRUID_SINGLE_NODE_CONF=nano-quickstart
@@ -121,14 +129,14 @@ druid_processing_numThreads=1
 druid_processing_numMergeBuffers=1
 DRUID_LOG4J=<?xml version="1.0" encoding="UTF-8" ?><Configuration status="WARN"><Appenders><Console name="Console" target="SYSTEM_OUT"><PatternLayout pattern="%d{ISO8601} %p [%t] %c - %m%n"/></Console></Appenders><Loggers><Root level="info"><AppenderRef ref="Console"/></Root><Logger name="org.apache.druid.jetty.RequestLog" additivity="false" level="DEBUG"><AppenderRef ref="Console"/></Logger></Loggers></Configuration>
 \end{lstlisting}
-È necessario sottolineare che all'interno del file di \gls{enviroment}{}, trattandosi di un ambiente che fa uso di \gls{container}{}, 
-è stata utilizzata una versione semplificata e minimale di \textbf{Apache Druid} denominata \textbf{nano-quickstart}.
+Tale azione è stata resa necessaria dal fatto che \textbf{Apache Druid} è uno strumento \gls{olap}{}, che necessita di grandi quantità di memoria RAM e spazio su disco per operare 
+su moli considerevoli di dati.\\
+Pertanto si sottolinea, che nella configurazione sopra citata, viene utilizzata una versione di \textbf{Druid}, denominata \textbf{nano-quickstart}, che permette di utilizzare tale strumento con un consumo di risorse ridotto.
 \subsection{Configurazione di un cluster di Apache Druid con Docker Compose}
-Dopo aver configurato il file di \gls{enviroment}{}, 
-è stato possibile definire il \gls{cluster}{} \textbf{Apache Druid} con \textbf{Docker Compose}.\\
-In questo caso, per ottimizzare il consumo di memoria RAM, sono stati utilizzati un nodo per \textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager} (implementato per mezzo di \textbf{PostgreSQL}).\\
-Inoltre per la gestione del \gls{cluster}{} è stato riutilizzato il nodo \textbf{Zookeeper} precedentemente configurato. \\
-Nella seguente configurazione viene riportato solo definizione del nodo \textbf{Coordinator}, gli altri sono del tutto analoghi, come per la rete \gls{Docker}{}, precedentemente illustrata:
+Per definizione del \gls{cluster}{} di \textbf{Apache Druid},
+al fine di ottimizzare il consumo di memoria RAM necessaria per la sua esecuzione,
+sono stati utilizzati un nodo per ogni processo di \textbf{Apache Druid}.
+Nel seguente file di configurazione vengono definiti: un nodo 1\textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}. 
 \pagebreak
 \begin{lstlisting}[caption=\texttt{druid-cluster-compose.yml}, label=lst:file]{druid-cluster-compose.yml}
 volumes:
@@ -153,9 +161,8 @@ services:
     env_file:
       - environment
 \end{lstlisting}
-È necessario sottolineare che all'interno del file di configurazione di \textbf{Apache Druid} sono stati specificati anche i \gls{volumi}{} che verranno utilizzati per la memorizzazione dei dati.
-\pagebreak
-
+È importante sottolineare che all'interno del file di configurazione, sopra descritto, vengono definite anche 
+i \gls{volumi}{} necessari per l'archiviazione dei dati e dei \gls{log}{}, essenziali al funzionamento del \gls{cluster}{}.
 \subsection{Creazione del produttore di eventi Kafka}
 AL file di poter testare i \gls{cluster}{} creati, la prima attività di codifica è stata la definizione di
 un produttore di eventi \textbf{Kafka} che generasse eventi casuali.\\
