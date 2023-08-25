@@ -136,7 +136,7 @@ Pertanto si sottolinea, che nella configurazione sopra citata, viene utilizzata 
 Per definizione del \gls{cluster}{} di \textbf{Apache Druid},
 al fine di ottimizzare il consumo di memoria RAM necessaria per la sua esecuzione,
 sono stati utilizzati un nodo per ogni processo di \textbf{Apache Druid}.
-Nel seguente file di configurazione vengono definiti: un nodo 1\textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}. 
+Nel seguente file di configurazione vengono definiti: un nodo \textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}. 
 \pagebreak
 \begin{lstlisting}[caption=\texttt{druid-cluster-compose.yml}, label=lst:file]{druid-cluster-compose.yml}
 volumes:
@@ -164,18 +164,20 @@ services:
 È importante sottolineare che all'interno del file di configurazione, sopra descritto, vengono definite anche 
 i \gls{volumi}{} necessari per l'archiviazione dei dati e dei \gls{log}{}, essenziali al funzionamento del \gls{cluster}{}.
 \subsection{Creazione del produttore di eventi Kafka}
-AL file di poter testare i \gls{cluster}{} creati, la prima attività di codifica è stata la definizione di
-un produttore di eventi \textbf{Kafka} che generasse eventi casuali.\\
-Per la creazione del produttore di eventi \textbf{Kafka} è stato utilizzato il linguaggio di programmazione \textbf{Python} e la libreria \gls{Kafka-Python}{}, in particolare il modulo \textbf{KafkaProducer} nel seguente modo:
+AL file di poter testare i \gls{cluster}{} appena creati, descritti nelle sezioni precedenti, ho creato 
+un produttore di eventi \textbf{Kafka}, 
+in grado d'instaurare una connessione con il \gls{cluster}{} di \textbf{Apache Kafka}, di 
+generare eventi in modo casuale, secondo un determinato \textbf{schema} predefinito e d'inviarli al \gls{cluster}{}, sopra citato.
+Per la creazione del produttore di eventi, è stato utilizzato il linguaggio di programmazione \textbf{Python}, la libreria \gls{Kafka-Python}{} e in particolare il modulo \textbf{KafkaProducer} nel seguente modo.
 \begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
 producer = KafkaProducer(  
   bootstrap_servers = ['localhost:29092'],  
   value_serializer = lambda x:json.dumps(x).encode('utf-8')  
   )  
 \end{lstlisting}
-È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare gli eventi, al relativo \gls{topic}{} di appartenenza, in formato \gls{json}{}.
- in formato \gls{json}{} alla porta pubblica 
-del nodo \textbf{Kafka} precedentemente configurato, unica porta che può essere raggiunta dall'esterno.\\
+È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare  eventi, associati al relativo \gls{topic}{} di appartenenza, in formato \gls{json}{},
+alla porta pubblica, unica porta che può essere raggiunta dall'esterno
+del \gls{message broker}{} \textbf{Kafka}, precedentemente configurato.
 \pagebreak
 \section{Esecuzione e testing}
 \subsection{Creazione di una Data Pipeline}
