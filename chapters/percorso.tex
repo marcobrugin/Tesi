@@ -298,9 +298,9 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
   \caption{Attivazione funzionalità di rollup all'interno di Apache Druid}
   \label{fig:rollup}
 \end{figure}
-In generale l'operazione di \textbf{rollup} può essere configurata in 
+\\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
-alla granularità temporale: si possono andare ad aggregare segmenti aventi, la stessa ora, minuti o secondo e
+alla granularità temporale: si possono aggregare segmenti aventi, la stessa ora, minuti o secondo e
 in seguito andare a considerare i valori degli altri campi.\\
 Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, a partire dal seguente modello relazione.
 \begin{lstlisting}[language=SQL]
