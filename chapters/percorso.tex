@@ -377,7 +377,12 @@ I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_rollup}.
   \end{tabular}
 \end{table}
 \subsubsection{Considerazioni}
-
+Dai risultati ottenuti si può notare che l'operazione di \textbf{rollup} 
+permette di migliorare in modo considerevole le prestazioni di esecuzione delle query, all'interno di \textbf{Apache Druid}.\\
+Infatti se si confronta le cardinalità dei due \gls{datasource}{} con e senza \textbf{rollup} si nota che da cinque milioni di record iniziali
+si arriva a centocinquantamila record aggregati, che permettendo così una riduzione considerevole del volume di dati da analizzare.\\
+Infine si sottolinea che la funzionalità di \textbf{rollup} non fa altro che aumentare il divario tra \textbf{Apache Druid} e un 
+classico database relazione, come \textbf{PostgreSQL}.
 \pagebreak
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
