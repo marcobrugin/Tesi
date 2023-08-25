@@ -194,6 +194,31 @@ dal seguente schema relazione.
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata solo la generazione 
 dei campi nome e cognome della \gls{datasource}{}).
+\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+fake = Faker()
+max=random.randint(4,20)  
+nomi= [fake.first_name() for _ in range(max)]
+max=random.randint(4,20)
+cognomi= [fake.last_name() for _ in range(max)]
+for n in range(500):
+    for j in range(10000):
+      nome= random.choice(nomi)
+      cognome= random.choice(cognomi)
+      my_data = {"nome": nome, "Cognome": cognome, 
+      }
+      producer.send("accessi", value = my_data) 
+\end{lstlisting}
+Inoltre per far si che il test eseguito sia il più veritiero possibile, tutti i dati generati 
+sono stati salvati in un file \textbf{.csv} e successivamente importati all'interno di \textbf{PostgreSQL}.\\
+Dopo la creazione del \gls{datasource}{} è stato eseguita l'\gls{injection}{} all'interno di \textbf{Apache Druid} 
+andando a utilizzare l'interfaccia web, reperibile all'indirizzo\\
+\textbf{http://localhost:8888/} (Figura \ref{fig:load_data}).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{images/percorso/load_data.png}
+    \caption{Injection del datasource all'interno di Apache Druid}
+    \label{fig:load_data}
+\end{figure}
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
