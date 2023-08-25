@@ -367,9 +367,17 @@ I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_rollup}.
   \caption{Risultati delle query eseguite con, senza rollup e su PostgreSQL}
   \label{tab:risultati_rollup}
   \begin{tabular}{|c|c|c|c|}
+  \hline
+ & \textbf{Apache Druid}  & \textbf{Apache Druid} & \textbf{PostgreSQL}  \\
+& \textbf{ con rollup [s]} & \textbf{ senza rollup [s]}  & \textbf{ [s]} \\\hline
+  \textbf{query1} &   0.3  &  0.7 &  0.8 \\ \hline
+  \textbf{query2} &  0.4 &  0.75 &  1.1 \\ \hline
+  \textbf{query3} &   0.25   &  0.74  &  1.5 \\ \hline
+  \textbf{query4} &   0.16   &  0.8  &  1.6 \\ \hline
   \end{tabular}
 \end{table}
 \subsubsection{Considerazioni}
+
 \pagebreak
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
