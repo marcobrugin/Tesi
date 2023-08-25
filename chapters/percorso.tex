@@ -182,10 +182,18 @@ del \gls{message broker}{} \textbf{Kafka}, precedentemente configurato.
 \section{Esecuzione e testing}
 Dopo aver configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato} ho creato dei test 
 per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.\\
-
 \subsection{Creazione di una Data Pipeline}
-
 \subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}
+Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
+dal seguente schema relazione.
+\begin{lstlisting}[language=SQL]
+  CREATE TABLE accessi( nome text, cognome text, indirizzo text, citta text, stato text, cap int, 
+  email text, telefono text, eta int, altezza decimal(5,2), peso decimal(5,2), reddito decimal(6,2), 
+  datan date, professione text, istruzione text, hobby text, nfigli int, codice_cliente int, datareg timestamp,__time timestamp);      
+\end{lstlisting}
+\subsubsection{Svolgimento}
+Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata solo la generazione 
+dei campi nome e cognome della \gls{datasource}{}).
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
