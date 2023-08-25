@@ -189,7 +189,7 @@ dal seguente schema relazione.
 \begin{lstlisting}[language=SQL]
   CREATE TABLE accessi( nome text, cognome text, indirizzo text, citta text, stato text, cap int, 
   email text, telefono text, eta int, altezza decimal(5,2), peso decimal(5,2), reddito decimal(6,2), 
-  datan date, professione text, istruzione text, hobby text, nfigli int, codice_cliente int, datareg timestamp,__time timestamp);      
+  datan date, professione text, istruzione text, hobby text, nfigli int, codice_cliente int, datareg timestamp,__time timestamp)    
 \end{lstlisting}
 Si fa notare che all'interno del \gls{datasource}{} è presente un \textbf{timestamp} primario, denominato \textbf{\_\_time}, che viene utilizzato da \textbf{Apache Druid} per l'esecuzione 
 efficiente delle query e il partizionamento dei dati all'interno dei segmenti di archiviazione.
@@ -206,7 +206,7 @@ for n in range(500):
     for j in range(10000):
       nome= random.choice(nomi)
       cognome= random.choice(cognomi)
-      my_data = {"nome": nome, "Cognome": cognome, 
+      my_data = {"nome": nome, "Cognome": cognome
       }
       producer.send("accessi", value = my_data) 
 \end{lstlisting}
@@ -287,6 +287,90 @@ in cui si eseguono query che coinvolgono operazioni su timestamp primario, infat
 al momento dell'\gls{injection}{} (vedi \ref{sec:deep_storage})
 \pagebreak
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
+Con il termine di \textbf{Data rollup} si intende un'operazione di aggregazione 
+dei dati, che permette di ridurre la dimensione dei dati archiviati, andando a creare dei record di archiviazione più piccoli e migliorando così 
+le prestazioni di esecuzione delle query.\\
+In \textbf{Apache Druid} l'operazione di \textbf{rollup}, viene eseguita attraverso la 
+definizione di segmenti aggregati, creati in base a delle regole di aggregazione definite al momento dell'\gls{injection}{} del \gls{datasource}{}, direttamente dall'interfaccia web di \textbf{Apache Druid} (Figura \ref{fig:rollup}).
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.3\textwidth]{images/percorso/test_rollup.png}
+  \caption{Attivazione funzionalità di rollup all'interno di Apache Druid}
+  \label{fig:rollup}
+\end{figure}
+In generale l'operazione di \textbf{rollup} può essere configurata in 
+È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
+alla granularità temporale: si possono andare ad aggregare segmenti aventi, la stessa ora, minuti o secondo e
+in seguito andare a considerare i valori degli altri campi.\\
+Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, a partire dal seguente modello relazione.
+\begin{lstlisting}[language=SQL]
+  CREATE TABLE accessi(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
+\end{lstlisting}
+In questo caso si tratta di un modello relazionale molto semplice 
+e per riuscire ad apprezzare la funzionalità di \textbf{rollup} ho ridotto
+il numero di possibili valori, che ogni campo dati può assumere.
+\pagebreak
+\subsubsection{Svolgimento}
+Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, 
+è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, nel seguente modo.
+\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+  fake = Faker()
+  locazione=[[fake.city(), fake.country()] for _ in range(200)]
+  utenti=list()
+  num_utenti=5000
+  for i in range(num_utenti):
+      loc=locazione[random.randint(0,199)]
+      citta=loc[0]
+      stato=loc[1]
+      utenti.append([fake.first_name(), fake.last_name(),fake.date_of_birth(minimum_age=18, maximum_age=89).strftime("%Y-%m-%d"), citta, stato, fake.random_element(elements=("Scuola Secondaria", "Laurea triennale", "Laurea Magistrale", "Dottorato")), fake.random_element(elements=("Leggere","Viaggiare","Giocare a calcio","Giocare ai videogiochi","Fare sport")) ] )
+  for n in range(50):
+    for j in range(100000):
+        accesso=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        a=random.randint(0,4999)
+        nome=utenti[a][0]
+        cognome=utenti[a][1]
+        datan=utenti[a][2]
+        citta=utenti[a][3]
+        stato=utenti[a][4]
+        istruzione=utenti[a][5]
+        hobby=utenti[a][6]
+        my_data = {"accesso": accesso, "nome": nome, "cognome": cognome, "datan":  datan, "citta": citta, "stato": stato, "istruzione": istruzione,
+        "hobby": hobby
+        }
+        producer.send("rollup", value = my_data) 
+    \end{lstlisting}
+In seguito, dopo aver salvato tutti i dati generati, sono state eseguenti le seguenti query su i tre \gls{datasource}{} creati.
+\begin{lstlisting}[language=SQL]
+  - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
+              FROM accessi
+              GROUP BY DATE_TRUNC('day', __time), citta
+              
+  - query 2: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), stato, COUNT(*)
+              FROM accessi
+              GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), stato
+              ORDER BY 4 DESC
+  
+  - query 3: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta, COUNT(*) 
+              FROM accessi
+              GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta
+              ORDER BY 5 DESC
+  
+  - query 4: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, citta, COUNT(*) 
+              FROM accessi
+              GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, citta
+              ORDER BY 5 DESC
+  \end{lstlisting}
+\subsubsection{Risultati}
+I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_rollup}.
+\begin{table}[h]
+  \centering
+  \caption{Risultati delle query eseguite con, senza rollup e su PostgreSQL}
+  \label{tab:risultati_rollup}
+  \begin{tabular}{|c|c|c|c|}
+  \end{tabular}
+\end{table}
+\subsubsection{Considerazioni}
+\pagebreak
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
 \newpage
 \pagestyle{empty}
