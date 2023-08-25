@@ -164,7 +164,7 @@ services:
 È importante sottolineare che all'interno del file di configurazione, sopra descritto, vengono definite anche 
 i \gls{volumi}{} necessari per l'archiviazione dei dati e dei \gls{log}{}, essenziali al funzionamento del \gls{cluster}{}.
 \subsection{Creazione del produttore di eventi Kafka}
-AL file di poter testare i \gls{cluster}{} appena creati, descritti nelle sezioni precedenti, ho creato 
+Al fine di poter testare i \gls{cluster}{} appena creati, descritti nelle sezioni precedenti, ho creato 
 un produttore di eventi \textbf{Kafka}, 
 in grado d'instaurare una connessione con il \gls{cluster}{} di \textbf{Apache Kafka}, di 
 generare eventi in modo casuale, secondo un determinato \textbf{schema} predefinito e d'inviarli al \gls{cluster}{}, sopra citato.
@@ -180,10 +180,11 @@ alla porta pubblica, unica porta che può essere raggiunta dall'esterno
 del \gls{message broker}{} \textbf{Kafka}, precedentemente configurato.
 \pagebreak
 \section{Esecuzione e testing}
+Dopo aver configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato} ho creato dei test 
+per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.\\
+
 \subsection{Creazione di una Data Pipeline}
-Dopo aver ultimato la configurazione dei \gls{cluster}{} \textbf{Apache Kafka} e \textbf{Apache Druid} con \textbf{Docker Compose} 
-e aver creato il produttore di eventi \textbf{Kafka}, è stato possibile creare una \textbf{Data Pipeline} che permettesse d'inviare gli eventi generati dal produttore \textbf{Kafka} al \gls{cluster}{} di \textbf{Apache Kafka} e 
-successivamente effettuare l'\gls{injection}{} all'interno del \gls{cluster}{} di \textbf{Apache Druid} per effettuare il \gls{Data Processing}.
+
 \subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
 \subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
