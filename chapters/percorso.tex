@@ -398,14 +398,14 @@ In \textbf{Apache Druid} le tabelle di \textbf{lookup} sono costituite da un cam
 Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo. su cui si esegue la query: restituiscono sempre il dato corrente.\\
 Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record a partire dal seguente modello relazione.
 \begin{lstlisting}[language=SQL]
-  CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente);
+  CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente text);
 \end{lstlisting}
-In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sotituire al \textit{codice\_cliente}, il \textit{nome} e il \textit{cognome} del cliente stesso.
+In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sostituire al \textit{codice\_cliente}, il \textit{nome} e il \textit{cognome} del cliente stesso.
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato un produttore di eventi 
 analogo a quelli descritti nelle sezioni \ref{sec:confronto_prestazioni1} e \ref{sec:confronto_prestazioni2}.\\
 In questo caso è importante sottolineare che, dopo aver generato i dati, è stato necessario salvare tutti i 
-record per poii effettuare la creazione della tabella di \textbf{lookup} (Figura \ref{fig:lookup}).\\
+record per effettuare in seguito la creazione della tabella di \textbf{lookup} (Figura \ref{fig:lookup}).\\
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{images/percorso/inserimento_lookup.png}
@@ -431,8 +431,10 @@ Il risultato ottenuto è il seguente (Figura \ref{fig:risultato_lookup}).
   \label{fig:risultato_lookup}
 \end{figure}
 \subsubsection{Considerazioni}
-
-\newpage
+Dai risultati ottenuti 
+si può notare le pogtenzialità che offrono le tabelle di \textbf{lookup} di \textbf{Apache Druid}.\\
+Inoltre si sottolinea che per ottenere lo stesso risultato all'interno di un classico \textbf{database relazionale}
+è necessario ricorrere all'unione tra due tabelle, operazione che risulta essere molto onerosa.
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
 \newpage
