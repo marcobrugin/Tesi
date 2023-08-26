@@ -194,8 +194,8 @@ dal seguente schema relazione.
 Si fa notare che all'interno del \gls{datasource}{} è presente un \textbf{timestamp} primario, denominato \textbf{\_\_time}, che viene utilizzato da \textbf{Apache Druid} per l'esecuzione 
 efficiente delle query e il partizionamento dei dati all'interno dei segmenti di archiviazione.
 \subsubsection{Svolgimento}
-Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata solo la generazione 
-dei campi nome e cognome della \gls{datasource}{}).
+Per poter generare i dati necessari al \gls{datasource}{} è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata solo la generazione 
+dei campi nome e cognome del \gls{datasource}{}).
 \begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
 fake = Faker()
 max=random.randint(4,20)  
@@ -223,7 +223,7 @@ andando a utilizzare l'interfaccia web, reperibile all'indirizzo\\
 \end{figure}
 \pagebreak
 \\
-In seguito sono state eseguite le seguenti query, su entrambi sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
+In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
 \begin{lstlisting}[language=SQL, caption=\texttt{query.sql}, label=lst:file]{query.sql}
   - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi
@@ -282,16 +282,17 @@ I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_query}.
 Dai risultati ottenuti si può notare che \textbf{Apache Druid} ha prestazioni migliori rispetto a \textbf{PostgreSQL}.\\
 Tale risultato è dovuto al fatto che \textbf{Druid} nella esecuzione delle query va a utilizzare solo le colonne richieste, grazie al fatto che 
 il \gls{datasource}{} viene archiviato per singole colonne.\\
-Inoltre si può notare anche che il divario tra le prestazioni aumenta nel momento 
-in cui si eseguono query che coinvolgono operazioni su timestamp primario, infatti i dati vengono archiviati secondo un partizionamento temporale definito 
-al momento dell'\gls{injection}{} (vedi \ref{sec:deep_storage})
+Inoltre si può notare anche che il divario delle prestazioni tra i due strumenti aumenta nel momento 
+in cui si eseguono query che coinvolgono operazioni che coinvolgono i timestamp primari;
+infatti in \textbf{Druid} i dati vengono archiviati secondo un partizionamento temporale definito 
+al momento dell'\gls{injection}{}, che permette di eseguire le query in modo efficiente (vedi \ref{sec:deep_storage}).
 \pagebreak
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
-Con il termine di \textbf{Data rollup} si intende un'operazione di aggregazione 
-dei dati, che permette di ridurre la dimensione dei dati archiviati, andando a creare dei record di archiviazione più piccoli e migliorando così 
+Con il termine di \textbf{Data rollup} si intende un'operazione di aggregazione eseguita 
+sui dati, che permette di ridurre la dimensione di questi ultimi, andando a creare dei record di archiviazione più piccoli e migliorando così 
 le prestazioni di esecuzione delle query.\\
 In \textbf{Apache Druid} l'operazione di \textbf{rollup}, viene eseguita attraverso la 
-definizione di segmenti aggregati, creati in base a delle regole di aggregazione definite al momento dell'\gls{injection}{} del \gls{datasource}{}, direttamente dall'interfaccia web di \textbf{Apache Druid} (Figura \ref{fig:rollup}).
+definizione di segmenti aggregati, creati in base a delle regole di aggregazione configurate al momento dell'\gls{injection}{} del \gls{datasource}{}, direttamente dall'interfaccia web di \textbf{Apache Druid} (Figura \ref{fig:rollup}).
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.3\textwidth]{images/percorso/test_rollup.png}
@@ -300,20 +301,24 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
 \end{figure}
 \\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
-alla granularità temporale: si possono aggregare segmenti aventi, la stessa ora, minuti o secondo e
+alla granularità temporale desiderata: si possono aggregare segmenti aventi la stessa ora, minuti o secondi e
 in seguito andare a considerare i valori degli altri campi.\\
 Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, a partire dal seguente modello relazione.
 \begin{lstlisting}[language=SQL]
-  CREATE TABLE accessi(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
+  CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
 \end{lstlisting}
 In questo caso si tratta di un modello relazionale molto semplice 
 e per riuscire ad apprezzare la funzionalità di \textbf{rollup} ho ridotto
-il numero di possibili valori, che ogni campo dati può assumere.
+il numero di possibili valori, che ogni campo dati può assumere.\\
+Pertanto il confronto è stato eseguito tra il \gls{datasource}{} originale e quello a cui è stata applicata la funzionalità di \textbf{rollup}.\\
+Inoltre per completezza tutti i dati generati sono stati salvati e importati anche all'interno di \textbf{PostgreSQL} per avere 
+anche un confronto con un classico \textbf{database relazionale}.
+
 \pagebreak
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, 
-è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, nel seguente modo.
-\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+è stato utilizzato il produttore di eventi e la libreria \gls{Faker}{}, sopra citata, nel seguente modo.
+\begin{lstlisting}[language=Python, caption=\texttt{producer\_rollup.py}, label=lst:file]{producer.py}
   fake = Faker()
   locazione=[[fake.city(), fake.country()] for _ in range(200)]
   utenti=list()
@@ -339,8 +344,8 @@ Per poter generare i dati necessari al \gls{datasource}{} sopra descritto,
         }
         producer.send("rollup", value = my_data) 
     \end{lstlisting}
-In seguito, dopo aver salvato tutti i dati generati, sono state eseguenti le seguenti query su i tre \gls{datasource}{} creati.
-\begin{lstlisting}[language=SQL]
+In seguito sono state eseguente le seguenti query su i tre \gls{datasource}{} creati.
+\begin{lstlisting}[language=SQL, caption=\texttt{query\_rollup.sql}, label=lst:file]{query_rollup.sql}
   - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi
               GROUP BY DATE_TRUNC('day', __time), citta
