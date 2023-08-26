@@ -24,9 +24,9 @@ di approfondire quanto appena appreso attraverso delle attività di \gls{hands-o
     \label{cap:Hands-on}
 \end{figure}
 \\
-Inoltre durante il processo di formazione, in collaborazione con il tutor aziendale, è stato definito anche un processo di coordinamento e produzione di 
-documentazione che mi ha permesso, durante tutto lo svolgimento del percorso di stage, di avere un tracciamento dei concetti appresi,
- di avere un eventuale riferimento per un'eventuale risoluzione di problemi o dubbi sorti (Figura \ref{cap:Documentazione}).
+Durante il processo di formazione, in collaborazione con il tutor aziendale, è stato anche definito un processo di coordinamento e produzione di 
+documentazione che mi ha permesso, durante tutto lo svolgimento del percorso di stage, di avere un tracciamento dei concetti appresi e 
+ di avere un riferimento per un'eventuale risoluzione di problemi o dubbi sorti (Figura \ref{cap:Documentazione}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/percorso/coordinamento.png}
@@ -49,7 +49,7 @@ Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textb
 ho iniziato la configurazione di un \gls{cluster}{}, che fa uso di \gls{container}{}, in grado di testare tali strumenti.
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} con tre nodi \textbf{Kafka} e un nodo \textbf{Zookeeper}.\\
-Innanzitutto per far si che ogni \gls{container}{} possa comunicare con gli altri è necessario creare una 
+Innanzitutto per far si che ogni \gls{container}{} possa comunicare con gli altri è stato necessario creare una 
 \gls{Docker network}{}, denominata \textbf{kafka-druid}, nel seguente modo.
 \begin{lstlisting}[caption=\texttt{docker network create}, label=lst:file]{docker network create}
 docker network create kafka-druid
@@ -87,15 +87,15 @@ services:
 
 \end{lstlisting}
 È importante sottolineare che all'interno della configurazione, sopra descritta, 
-vengono utilizzate le \gls{immagini Docker}{} \\\textbf{confluentinc/cp-zookeeper:7.4.0} e \textbf{confluentinc/cp-kafka:7.4.0}.\\
+vengono utilizzate le \gls{immagini Docker}{} \textbf{confluentinc/cp-zookeeper:7.4.0} e \\\textbf{confluentinc/cp-kafka:7.4.0}.\\
 Tale scelta è stata adottata, dal fatto che oramai \textbf{Confluent} 
 è diventata una distribuzione molto alla avanguardia, in quanto fornisce soluzioni, utilizzate anche a livello aziendale,
 per la gestione di flussi di dati in tempo reale, come in Sync Lab.\\
-Nonostante ciò si precisare che per i test che verranno elencati di seguito,
+Nonostante ciò si precisa che per i test che verranno elencati di seguito,
 sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}, distribuite dalla 
 \gls{Apache Software Foundation}.
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
-Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} nel seguente modo.
+Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} di \textbf{Apapche Druid} nel seguente modo.
 \begin{lstlisting}[caption=\texttt{enviroment}, label=lst:file]{enviroment}
 DRUID_MAXDIRECTMEMORYSIZE=3072m
 DRUID_SINGLE_NODE_CONF=nano-quickstart
@@ -133,7 +133,7 @@ Tale azione è stata resa necessaria dal fatto che \textbf{Apache Druid} è uno 
 su moli considerevoli di dati.\\
 Pertanto si sottolinea, che nella configurazione sopra citata, viene utilizzata una versione di \textbf{Druid}, denominata \textbf{nano-quickstart}, che permette di utilizzare tale strumento con un consumo di risorse ridotto.
 \subsection{Configurazione di un cluster di Apache Druid con Docker Compose}
-Per definizione del \gls{cluster}{} di \textbf{Apache Druid},
+Per la definizione del \gls{cluster}{} di \textbf{Apache Druid},
 al fine di ottimizzare il consumo di memoria RAM necessaria per la sua esecuzione,
 sono stati utilizzati un nodo per ogni processo di \textbf{Apache Druid}.
 Nel seguente file di configurazione vengono definiti: un nodo \textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}. 
@@ -168,7 +168,7 @@ Al fine di poter testare i \gls{cluster}{} appena creati, descritti nelle sezion
 un produttore di eventi \textbf{Kafka}, 
 in grado d'instaurare una connessione con il \gls{cluster}{} di \textbf{Apache Kafka}, di 
 generare eventi in modo casuale, secondo un determinato \textbf{schema} predefinito e d'inviarli al \gls{cluster}{}, sopra citato.
-Per la creazione del produttore di eventi, è stato utilizzato il linguaggio di programmazione \textbf{Python}, la libreria \gls{Kafka-Python}{} e in particolare il modulo \textbf{KafkaProducer} nel seguente modo.
+\\Per la creazione del produttore di eventi, è stato utilizzato il linguaggio di programmazione \textbf{Python}, la libreria \gls{Kafka-Python}{} e in particolare il modulo \textbf{KafkaProducer} nel seguente modo.
 \begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
 producer = KafkaProducer(  
   bootstrap_servers = ['localhost:29092'],  
@@ -177,11 +177,11 @@ producer = KafkaProducer(
 \end{lstlisting}
 È importante sottolineare che il produttore \textbf{Kafka} è stato creato in modo tale da inviare  eventi, associati al relativo \gls{topic}{} di appartenenza, in formato \gls{json}{},
 alla porta pubblica, unica porta che può essere raggiunta dall'esterno
-del \gls{message broker}{} \textbf{Kafka}, precedentemente configurato.
+del \gls{message broker}{}, precedentemente configurato.
 \pagebreak
 \section{Esecuzione e testing}
-Dopo aver configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato} ho creato dei test 
-per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.\\
+Una volta configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato}, ho creato dei test 
+per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.
 \subsection{Creazione di una Data Pipeline}
 \subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}\label{sec:confronto_prestazioni1}
 Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
@@ -212,8 +212,8 @@ for n in range(500):
 \end{lstlisting}
 Inoltre per far si che il test eseguito sia il più veritiero possibile, tutti i dati generati 
 sono stati salvati in un file \textbf{.csv} e successivamente importati all'interno di \textbf{PostgreSQL}.\\
-Dopo la creazione del \gls{datasource}{} è stato eseguita l'\gls{injection}{} all'interno di \textbf{Apache Druid} 
-andando a utilizzare l'interfaccia web, reperibile all'indirizzo\\
+In seguito è stato anche eseguita l'\gls{injection}{} all'interno di \textbf{Apache Druid} 
+andando a utilizzare l'interfaccia web, reperibile all'indirizzo
 \textbf{http://localhost:8888/} (Figura \ref{fig:load_data}).
 \begin{figure}[h]
     \centering
@@ -283,8 +283,8 @@ Dai risultati ottenuti si può notare che \textbf{Apache Druid} ha prestazioni m
 Tale risultato è dovuto al fatto che \textbf{Druid} nella esecuzione delle query va a utilizzare solo le colonne richieste, grazie al fatto che 
 il \gls{datasource}{} viene archiviato per singole colonne.\\
 Inoltre si può notare anche che il divario delle prestazioni tra i due strumenti aumenta nel momento 
-in cui si eseguono query che coinvolgono operazioni che coinvolgono i timestamp primari;
-infatti in \textbf{Druid} i dati vengono archiviati secondo un partizionamento temporale definito 
+in cui si eseguono query che coinvolgono operazioni sui timestamp primari.
+Infatti in \textbf{Druid} i dati vengono archiviati secondo un partizionamento temporale definito 
 al momento dell'\gls{injection}{}, che permette di eseguire le query in modo efficiente (vedi \ref{sec:deep_storage}).
 \pagebreak
 \subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}\label{sec:confronto_prestazioni2}
@@ -301,17 +301,16 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
 \end{figure}
 \\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
-alla granularità temporale desiderata: si possono aggregare segmenti aventi la stessa ora, minuti o secondi e
-in seguito andare a considerare i valori degli altri campi.\\
+alla granularità temporale desiderata: si possono aggregare record aventi la stessa ora, minuti o secondi e considerando in seguito i  valori degli altri campi.\\
 Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, a partire dal seguente modello relazione.
 \begin{lstlisting}[language=SQL]
   CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
 \end{lstlisting}
-In questo caso si tratta di un modello relazionale molto semplice 
-e per riuscire ad apprezzare la funzionalità di \textbf{rollup} ho ridotto
+In questo caso si tratta di un modello molto semplice 
+e per riuscire ad apprezzare la funzionalità di \textbf{rollup} è stato ridotto
 il numero di possibili valori, che ogni campo dati può assumere.\\
 Pertanto il confronto è stato eseguito tra il \gls{datasource}{} originale e quello a cui è stata applicata la funzionalità di \textbf{rollup}.\\
-Inoltre per completezza tutti i dati generati sono stati salvati e importati anche all'interno di \textbf{PostgreSQL} per avere 
+Inoltre, per completezza, tutti i dati generati sono stati salvati e importati anche all'interno di \textbf{PostgreSQL} per avere 
 anche un confronto con un classico \textbf{database relazionale}.
 
 \pagebreak
@@ -384,8 +383,8 @@ I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_rollup}.
 \subsubsection{Considerazioni}
 Dai risultati ottenuti si può notare che l'operazione di \textbf{rollup} 
 permette di migliorare in modo considerevole le prestazioni di esecuzione delle query, all'interno di \textbf{Apache Druid}.\\
-Infatti se si confronta le cardinalità dei due \gls{datasource}{} con e senza \textbf{rollup} si nota che da cinque milioni di record iniziali
-si arriva a centocinquantamila record aggregati, che permettendo così una riduzione considerevole del volume di dati da analizzare.\\
+Infatti se si confrontano le cardinalità dei due \gls{datasource}{} con e senza \textbf{rollup} si nota che da cinque milioni di record iniziali
+si arriva a centocinquantamila record aggregati, permettendo così una riduzione considerevole del volume di dati da analizzare.\\
 Infine si sottolinea che la funzionalità di \textbf{rollup} non fa altro che aumentare il divario tra \textbf{Apache Druid} e un 
 classico database relazione, come \textbf{PostgreSQL}.
 \pagebreak
@@ -423,7 +422,7 @@ Si sottolinea che, per poter utilizzare le tabelle di \textbf{lookup} in \textbf
 è necessario
 inserire all'interno della query desiderata la funzione \textbf{LOOKUP}, riportando come primo parametro il campo chiave della tabella di \textbf{lookup} e come secondo parametro il nome della tabella stessa.\\
 \subsubsection{Risultati}
-Il risultato ottenuto è il seguente (Figura \ref{fig:risultato_lookup}).
+Il risultato ottenuto è stato il seguente (Figura \ref{fig:risultato_lookup}).
 \begin{figure}[h]
   \centering
   \includegraphics[width=1\textwidth]{images/percorso/lookup.png}
