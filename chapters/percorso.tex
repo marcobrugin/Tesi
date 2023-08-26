@@ -183,7 +183,7 @@ del \gls{message broker}{} \textbf{Kafka}, precedentemente configurato.
 Dopo aver configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato} ho creato dei test 
 per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.\\
 \subsection{Creazione di una Data Pipeline}
-\subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}
+\subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}\label{sec:confronto_prestazioni1}
 Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
 dal seguente schema relazione.
 \begin{lstlisting}[language=SQL]
@@ -287,7 +287,7 @@ in cui si eseguono query che coinvolgono operazioni che coinvolgono i timestamp 
 infatti in \textbf{Druid} i dati vengono archiviati secondo un partizionamento temporale definito 
 al momento dell'\gls{injection}{}, che permette di eseguire le query in modo efficiente (vedi \ref{sec:deep_storage}).
 \pagebreak
-\subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}
+\subsubsection{Confronto delle prestazioni di esecuzione tra datasource con e senza rollup in Apache Druid}\label{sec:confronto_prestazioni2}
 Con il termine di \textbf{Data rollup} si intende un'operazione di aggregazione eseguita 
 sui dati, che permette di ridurre la dimensione di questi ultimi, andando a creare dei record di archiviazione più piccoli e migliorando così 
 le prestazioni di esecuzione delle query.\\
@@ -317,7 +317,7 @@ anche un confronto con un classico \textbf{database relazionale}.
 \pagebreak
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, 
-è stato utilizzato il produttore di eventi e la libreria \gls{Faker}{}, sopra citata, nel seguente modo.
+è stato utilizzato il produttore di eventi e la libreria \gls{Faker}{} nel seguente modo.
 \begin{lstlisting}[language=Python, caption=\texttt{producer\_rollup.py}, label=lst:file]{producer.py}
   fake = Faker()
   locazione=[[fake.city(), fake.country()] for _ in range(200)]
@@ -339,7 +339,7 @@ Per poter generare i dati necessari al \gls{datasource}{} sopra descritto,
         stato=utenti[a][4]
         istruzione=utenti[a][5]
         hobby=utenti[a][6]
-        my_data = {"accesso": accesso, "nome": nome, "cognome": cognome, "datan":  datan, "citta": citta, "stato": stato, "istruzione": istruzione,
+        my_data = {"__time": accesso, "nome": nome, "cognome": cognome, "datan":  datan, "citta": citta, "stato": stato, "istruzione": istruzione,
         "hobby": hobby
         }
         producer.send("rollup", value = my_data) 
@@ -347,21 +347,21 @@ Per poter generare i dati necessari al \gls{datasource}{} sopra descritto,
 In seguito sono state eseguente le seguenti query su i tre \gls{datasource}{} creati.
 \begin{lstlisting}[language=SQL, caption=\texttt{query\_rollup.sql}, label=lst:file]{query_rollup.sql}
   - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
-              FROM accessi
+              FROM accessi_rollup
               GROUP BY DATE_TRUNC('day', __time), citta
               
   - query 2: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), stato, COUNT(*)
-              FROM accessi
+              FROM accessi_rollup
               GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), stato
               ORDER BY 4 DESC
   
   - query 3: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta, COUNT(*) 
-              FROM accessi
+              FROM accessi_rollup
               GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta
               ORDER BY 5 DESC
   
   - query 4: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, citta, COUNT(*) 
-              FROM accessi
+              FROM accessi_rollup
               GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, citta
               ORDER BY 5 DESC
   \end{lstlisting}
@@ -389,7 +389,48 @@ si arriva a centocinquantamila record aggregati, che permettendo così una riduz
 Infine si sottolinea che la funzionalità di \textbf{rollup} non fa altro che aumentare il divario tra \textbf{Apache Druid} e un 
 classico database relazione, come \textbf{PostgreSQL}.
 \pagebreak
-\subsection{Utilizzo delle tabelle di Lookup in Apache Druid}
+\subsection{Utilizzo delle tabelle di lookup in Apache Druid}
+Con il termine di tabelle di \textbf{lookup} si va ad intendere un funzionalità che consente sostituire i valori 
+di un determinato attributo di un \gls{datasource}{} con un altro valore, definito all'interno di una tabella di \textbf{lookup}.\\
+Più in generale tale processo prende il nome di \textbf{Data enrichment}: processo di miglioramento, ampliamento o arricchimento dei dati esistenti con informazioni 
+aggiuntive provenienti da diverse fonti. \\
+In \textbf{Apache Druid} le tabelle di \textbf{lookup} sono costituite da un campo \textbf{chiave} a cui viene associato un campo \textbf{valore} che andrà a sostituire la chiave.\\
+Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo. su cui si esegue la query: restituiscono sempre il dato corrente.\\
+Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record a partire dal seguente modello relazione.
+\begin{lstlisting}[language=SQL]
+  CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente);
+\end{lstlisting}
+In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sotituire al \textit{codice\_cliente}, il \textit{nome} e il \textit{cognome} del cliente stesso.
+\subsubsection{Svolgimento}
+Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato un produttore di eventi 
+analogo a quelli descritti nelle sezioni \ref{sec:confronto_prestazioni1} e \ref{sec:confronto_prestazioni2}.\\
+In questo caso è importante sottolineare che, dopo aver generato i dati, è stato necessario salvare tutti i 
+record per poii effettuare la creazione della tabella di \textbf{lookup} (Figura \ref{fig:lookup}).\\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/percorso/inserimento_lookup.png}
+  \caption{Creazione della tabella di lookup all'interno di Apache Druid}
+  \label{fig:lookup}
+\end{figure}
+\pagebreak
+\\
+Per poter testare la funzionalità di \textbf{lookup} è stata eseguita la seguente query.
+\begin{lstlisting}
+  SELECT LOOKUP(codice_cliente,'tabella1'), datan, citta, stato
+  FROM accessi_lookup
+\end{lstlisting}
+È importante sottolineare che, per poter utilizzare le tabelle di \textbf{lookup} in \textbf{Apache Druid}, 
+è necessario
+inserire all'interno della query desiderata la funzione \textbf{LOOKUP}, riportando come primo parametro il campo chiave della tabella di \textbf{lookup} e come secondo parametro il nome della tabella stessa.\\
+\subsubsection{Risultati}
+Il risultato ottenuto è il seguente (Figura \ref{fig:lookup}).
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/percorso/lookup.png}
+  \caption{Risultato della query eseguita con la funzionalità di lookup}
+  \label{fig:risultato_lookup}
+\end{figure}
+\subsubsection{Considerazioni}
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
