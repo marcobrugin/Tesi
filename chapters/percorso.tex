@@ -390,12 +390,12 @@ Infine si sottolinea che la funzionalità di \textbf{rollup} non fa altro che au
 classico database relazione, come \textbf{PostgreSQL}.
 \pagebreak
 \subsection{Utilizzo delle tabelle di lookup in Apache Druid}
-Con il termine di tabelle di \textbf{lookup} si va ad intendere un funzionalità che consente sostituire i valori 
+Con il termine di tabelle di \textbf{lookup} si intende un funzionalità che consente sostituire i valori 
 di un determinato attributo di un \gls{datasource}{} con un altro valore, definito all'interno di una tabella di \textbf{lookup}.\\
 Più in generale tale processo prende il nome di \textbf{Data enrichment}: processo di miglioramento, ampliamento o arricchimento dei dati esistenti con informazioni 
 aggiuntive provenienti da diverse fonti. \\
 In \textbf{Apache Druid} le tabelle di \textbf{lookup} sono costituite da un campo \textbf{chiave} a cui viene associato un campo \textbf{valore} che andrà a sostituire la chiave.\\
-Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo. su cui si esegue la query: restituiscono sempre il dato corrente.\\
+Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo su cui si esegue la query: restituiscono sempre il dato corrente.\\
 Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record a partire dal seguente modello relazione.
 \begin{lstlisting}[language=SQL]
   CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente text);
@@ -404,8 +404,8 @@ In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sostituire
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, è stato utilizzato un produttore di eventi 
 analogo a quelli descritti nelle sezioni \ref{sec:confronto_prestazioni1} e \ref{sec:confronto_prestazioni2}.\\
-In questo caso è importante sottolineare che, dopo aver generato i dati, è stato necessario salvare tutti i 
-record per effettuare in seguito la creazione della tabella di \textbf{lookup} (Figura \ref{fig:lookup}).\\
+In questo caso è importante sottolineare che, dopo aver generato i dati necessari, tutti i 
+record  creati sono stati salvati per effettuare la creazione della tabella di \textbf{lookup} (Figura \ref{fig:lookup}).\\
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\textwidth]{images/percorso/inserimento_lookup.png}
@@ -414,12 +414,12 @@ record per effettuare in seguito la creazione della tabella di \textbf{lookup} (
 \end{figure}
 \pagebreak
 \\
-Per poter testare la funzionalità di \textbf{lookup} è stata eseguita la seguente query.
+In seguito per poter testare tale funzionalità è stata eseguita la seguente query.
 \begin{lstlisting}
   SELECT LOOKUP(codice_cliente,'tabella1'), datan, citta, stato
   FROM accessi_lookup
 \end{lstlisting}
-È importante sottolineare che, per poter utilizzare le tabelle di \textbf{lookup} in \textbf{Apache Druid}, 
+Si sottolinea che, per poter utilizzare le tabelle di \textbf{lookup} in \textbf{Apache Druid}, 
 è necessario
 inserire all'interno della query desiderata la funzione \textbf{LOOKUP}, riportando come primo parametro il campo chiave della tabella di \textbf{lookup} e come secondo parametro il nome della tabella stessa.\\
 \subsubsection{Risultati}
@@ -432,8 +432,7 @@ Il risultato ottenuto è il seguente (Figura \ref{fig:risultato_lookup}).
 \end{figure}
 \subsubsection{Considerazioni}
 Dai risultati ottenuti 
-si può notare le pogtenzialità che offrono le tabelle di \textbf{lookup} di \textbf{Apache Druid}.\\
-Inoltre si sottolinea che per ottenere lo stesso risultato all'interno di un classico \textbf{database relazionale}
+si sottolinea che per ottenere lo stesso risultato all'interno di un classico \textbf{database relazionale}
 è necessario ricorrere all'unione tra due tabelle, operazione che risulta essere molto onerosa.
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
