@@ -91,6 +91,7 @@ Tutti i nodi che sono attivi e sincronizzati formano l' \textbf{In-Sync Replica 
 Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettivi \gls{log}{}, questo messaggio viene considerato confermato e quindi inviato ai consumatori. \\
 In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
 Un nodo non sincronizzato può ricongiungersi all'\textbf{ISR} se può sincronizzarsi completamente di nuovo, anche se ha perso alcuni dati a causa del suo arresto anomalo.
+\pagebreak
 \subsubsection{Politiche di retention}
 Con \textbf{retention} in \textbf{Kafka} si intende la possibilità di controllare la dimensione dei registri
 degli argomenti ed evitare di superare le dimensioni del disco esistente.\\
