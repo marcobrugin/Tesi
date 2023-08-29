@@ -49,7 +49,7 @@ Dopo aver terminato le attività di formazione su \textbf{Apache Kafka} e \textb
 ho iniziato la configurazione di un \gls{cluster}{}, che fa uso di \gls{container}{}, in grado di testare tali strumenti.
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} con tre nodi \textbf{Kafka} e un nodo \textbf{Zookeeper}.\\
-Innanzitutto per far si che ogni \gls{container}{} possa comunicare con gli altri è stato necessario creare una 
+Innanzitutto per far che ogni \gls{container}{} possa comunicare con gli altri è stato necessario creare una 
 \gls{Docker network}{}, denominata \textbf{kafka-druid}, nel seguente modo.
 \begin{lstlisting}[caption=\texttt{docker network create}, label=lst:file]{docker network create}
 docker network create kafka-druid
@@ -89,14 +89,14 @@ services:
 È importante sottolineare che all'interno della configurazione, sopra descritta, 
 vengono utilizzate le \gls{immagini Docker}{} \textbf{confluentinc/cp-zookeeper:7.4.0} e \\\textbf{confluentinc/cp-kafka:7.4.0}.\\
 Tale scelta è stata adottata, dal fatto che oramai \textbf{Confluent} 
-è diventata una distribuzione molto alla avanguardia, in quanto fornisce soluzioni, utilizzate anche a livello aziendale,
+è diventata una distribuzione molto all' avanguardia, in quanto fornisce soluzioni, utilizzate anche a livello aziendale,
 per la gestione di flussi di dati in tempo reale, come in Sync Lab.\\
 Nonostante ciò si precisa che per i test che verranno elencati di seguito,
 sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}, distribuite dalla 
 \gls{Apache Software Foundation}.
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
-Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} di \textbf{Apapche Druid} nel seguente modo.
-\begin{lstlisting}[caption=\texttt{enviroment}, label=lst:file]{enviroment}
+Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} di \textbf{Apapche Druid}, come descritto nel listato \ref{8st:file}.
+\begin{lstlisting}[caption=\texttt{enviroment}, label=8st:file]{enviroment}
 DRUID_MAXDIRECTMEMORYSIZE=3072m
 DRUID_SINGLE_NODE_CONF=nano-quickstart
 druid_emitter_logging_logLevel=debug
@@ -136,9 +136,15 @@ Pertanto si sottolinea, che nella configurazione sopra citata, viene utilizzata 
 Per la definizione del \gls{cluster}{} di \textbf{Apache Druid},
 al fine di ottimizzare il consumo di memoria RAM necessaria per la sua esecuzione,
 sono stati utilizzati un nodo per ogni processo di \textbf{Apache Druid}.
-Nel seguente file di configurazione vengono definiti: un nodo \textbf{Coordinator}, \textbf{Historical}, \textbf{Broker} e \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}. 
+Nel file di configurazione, illustrato nel listato \ref{9st:file}, vengono definiti:
+\begin{list}{*}
+  \item  un nodo \textbf{Coordinator};
+  \item \item  un nodo \textbf{Historical};
+  \item  un nodo \textbf{Broker}; 
+  \item  un nodo \textbf{MiddleManager}, implementato per mezzo di \textbf{PostgreSQL}.
+\end{list} 
 \pagebreak
-\begin{lstlisting}[caption=\texttt{druid-cluster-compose.yml}, label=lst:file]{druid-cluster-compose.yml}
+\begin{lstlisting}[caption=\texttt{druid-cluster-compose.yml}, label=9st:file]{druid-cluster-compose.yml}
 volumes:
   coordinator_var: {}
   druid_shared: {}
@@ -168,8 +174,8 @@ Al fine di poter testare i \gls{cluster}{} appena creati, descritti nelle sezion
 un produttore di eventi \textbf{Kafka}, 
 in grado d'instaurare una connessione con il \gls{cluster}{} di \textbf{Apache Kafka}, di 
 generare eventi in modo casuale, secondo un determinato \textbf{schema} predefinito e d'inviarli al \gls{cluster}{}, sopra citato.
-\\Per la creazione del produttore di eventi, è stato utilizzato il linguaggio di programmazione \textbf{Python}, la libreria \gls{Kafka-Python}{} e in particolare il modulo \textbf{KafkaProducer} nel seguente modo.
-\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+\\Per la creazione del produttore di eventi, è stato utilizzato il linguaggio di programmazione \textbf{Python}, la libreria \gls{Kafka-Python}{} e in particolare il modulo \textbf{KafkaProducer}, come illustrato nel listato \ref{l0st:file}.
+\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=l0st:file]{producer.py}
 producer = KafkaProducer(  
   bootstrap_servers = ['localhost:29092'],  
   value_serializer = lambda x:json.dumps(x).encode('utf-8')  
@@ -185,7 +191,7 @@ per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confront
 \subsection{Creazione di una Data Pipeline}
 \subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}\label{sec:confronto_prestazioni1}
 Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
-dal seguente schema relazione.
+dal seguente schema relazionale.
 \begin{lstlisting}[language=SQL]
   CREATE TABLE accessi( nome text, cognome text, indirizzo text, citta text, stato text, cap int, 
   email text, telefono text, eta int, altezza decimal(5,2), peso decimal(5,2), reddito decimal(6,2), 
@@ -210,17 +216,11 @@ for n in range(500):
       }
       producer.send("accessi", value = my_data) 
 \end{lstlisting}
-Inoltre per far si che il test eseguito sia il più veritiero possibile, tutti i dati generati 
+Inoltre per far che il test eseguito sia il più veritiero possibile, tutti i dati generati 
 sono stati salvati in un file \textbf{.csv} e successivamente importati all'interno di \textbf{PostgreSQL}.\\
 In seguito è stato anche eseguita l'\gls{injection}{} all'interno di \textbf{Apache Druid} 
 andando a utilizzare l'interfaccia web, reperibile all'indirizzo
-\textbf{http://localhost:8888/} (Figura \ref{fig:load_data}).
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{images/percorso/load_data.png}
-    \caption{Injection del datasource all'interno di Apache Druid}
-    \label{fig:load_data}
-\end{figure}
+\textbf{http://localhost:8888/}.
 \pagebreak
 \\
 In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
@@ -302,9 +302,9 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
 \\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
 alla granularità temporale desiderata: si possono aggregare record aventi la stessa ora, minuti o secondi e considerando in seguito i  valori degli altri campi.\\
-Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, a partire dal seguente modello relazione.
-\begin{lstlisting}[language=SQL]
-  CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
+Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, come illustrato nel listato \ref{11st:file}.
+\begin{lstlisting}[language=SQL,label=11st:file]
+    CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
 \end{lstlisting}
 In questo caso si tratta di un modello molto semplice 
 e per riuscire ad apprezzare la funzionalità di \textbf{rollup} è stato ridotto
@@ -316,8 +316,8 @@ anche un confronto con un classico \textbf{database relazionale}.
 \pagebreak
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, 
-è stato utilizzato il produttore di eventi e la libreria \gls{Faker}{} nel seguente modo.
-\begin{lstlisting}[language=Python, caption=\texttt{producer\_rollup.py}, label=lst:file]{producer.py}
+è stato utilizzato il produttore di eventi e la libreria \gls{Faker}{}, come illustrato nel listato \ref{l9st:file}.
+\begin{lstlisting}[language=Python, caption=\texttt{producer\_rollup.py}, label=l9st:file]{producer.py}
   fake = Faker()
   locazione=[[fake.city(), fake.country()] for _ in range(200)]
   utenti=list()
@@ -386,17 +386,17 @@ permette di migliorare in modo considerevole le prestazioni di esecuzione delle 
 Infatti se si confrontano le cardinalità dei due \gls{datasource}{} con e senza \textbf{rollup} si nota che da cinque milioni di record iniziali
 si arriva a centocinquantamila record aggregati, permettendo così una riduzione considerevole del volume di dati da analizzare.\\
 Infine si sottolinea che la funzionalità di \textbf{rollup} non fa altro che aumentare il divario tra \textbf{Apache Druid} e un 
-classico database relazione, come \textbf{PostgreSQL}.
+classico database relazionale, come \textbf{PostgreSQL}.
 \pagebreak
 \subsection{Utilizzo delle tabelle di lookup in Apache Druid}
-Con il termine di tabelle di \textbf{lookup} si intende un funzionalità che consente sostituire i valori 
+Con il termine di tabelle di \textbf{lookup} si intende un funzionalità che consente di sostituire i valori 
 di un determinato attributo di un \gls{datasource}{} con un altro valore, definito all'interno di una tabella di \textbf{lookup}.\\
 Più in generale tale processo prende il nome di \textbf{Data enrichment}: processo di miglioramento, ampliamento o arricchimento dei dati esistenti con informazioni 
 aggiuntive provenienti da diverse fonti. \\
 In \textbf{Apache Druid} le tabelle di \textbf{lookup} sono costituite da un campo \textbf{chiave} a cui viene associato un campo \textbf{valore} che andrà a sostituire la chiave.\\
 Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo su cui si esegue la query: restituiscono sempre il dato corrente.\\
-Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record a partire dal seguente modello relazione.
-\begin{lstlisting}[language=SQL]
+Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record, come delineato nel listato \ref{l4st:file}.
+\begin{lstlisting}[language=SQL,label=l4st:file]
   CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente text);
 \end{lstlisting}
 In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sostituire al \textit{codice\_cliente}, il \textit{nome} e il \textit{cognome} del cliente stesso.
@@ -422,7 +422,7 @@ Si sottolinea che, per poter utilizzare le tabelle di \textbf{lookup} in \textbf
 è necessario
 inserire all'interno della query desiderata la funzione \textbf{LOOKUP}, riportando come primo parametro il campo chiave della tabella di \textbf{lookup} e come secondo parametro il nome della tabella stessa.\\
 \subsubsection{Risultati}
-Il risultato ottenuto è stato il seguente (Figura \ref{fig:risultato_lookup}).
+Il risultato ottenuto è illustrato in Figura \ref{fig:risultato_lookup}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=1\textwidth]{images/percorso/lookup.png}
