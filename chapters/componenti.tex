@@ -92,7 +92,7 @@ Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettiv
 In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
 Un nodo non sincronizzato può ricongiungersi all'\textbf{ISR} se può sincronizzarsi completamente di nuovo, anche se ha perso alcuni dati a causa del suo arresto anomalo.
 \subsubsection{Politiche di retention}
-Con \textbf{Retention} in \textbf{Kafka} si intende la possibilità di controllare la dimensione dei registri
+Con \textbf{retention} in \textbf{Kafka} si intende la possibilità di controllare la dimensione dei registri
 degli argomenti ed evitare di superare le dimensioni del disco esistente.\\
 La conservazione può essere configurata o controllata in base alla dimensione dei \gls{log}{} o in
 base alla durata configurata. Tale configurazione può essere impostata a grana fine o a
