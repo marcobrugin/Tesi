@@ -186,11 +186,24 @@ alla porta pubblica, unica porta che può essere raggiunta dall'esterno
 del \gls{message broker}{}, precedentemente configurato.
 \pagebreak
 \section{Esecuzione e testing}
-Una volta configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{} come illustrato nella sezione \ref{sec:approccio_utilizzato}, ho creato dei test 
-per mettere in evidenza le funzionalità di \textbf{Apache Druid} e per confrontarne le prestazione con un classico \textbf{database relazionale}.
+Una volta configurato i \gls{cluster}{} sopra descritti, e aver creato una \gls{Data Pipeline}{}, come illustrato nella sezione \ref{sec:approccio_utilizzato}, 
+per comprendere gli strumenti sopra citati, sono state eseguite delle attività di \textbf{testing}, finalizzate a:
+\begin{list}{*}
+    \item \textbf{verificare} le prestazioni di esecuzione di \textbf{Apache Druid}, all'interno di un \gls{cluster}{} \gls{Docker}{};
+   \item  \item \textbf{evidenziare} le funzionalità che tale strumento può offrire.
+\end{list}
+\noindent
+Per l'esecuzione dei \gls{cluster}{} è stato utilizzato l'apposito comando di \textbf{Docker Compose} (per motivi di spazio viene riportato solo 
+l'esecuzione del \gls{cluster}{} di \textbf{Apache Druid}, Figura \ref{fig:druid_compose}).
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/percorso/druid_cluster.png}
+  \caption{Esecuzione del cluster di Apache Druid con Docker Compose}
+  \label{fig:druid_compose}
+\end{figure}
 \subsection{Creazione di una Data Pipeline}
 \subsubsection{Confronto delle prestazioni di esecuzione tra Apache Druid e PostgreSQL}\label{sec:confronto_prestazioni1}
-Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
+Al fine di mettere in risalto le prestazioni di \textbf{Apache Druid} e confrontarle con quelle ottenute da un classico database relazione, come \textbf{PostgreSQL}, è stato creato un \gls{datasource}{} di cinque milioni di record, a partire 
 dal seguente schema relazionale.
 \begin{lstlisting}[language=SQL]
   CREATE TABLE accessi( nome text, cognome text, indirizzo text, citta text, stato text, cap int, 
@@ -200,9 +213,10 @@ dal seguente schema relazionale.
 Si fa notare che all'interno del \gls{datasource}{} è presente un \textbf{timestamp} primario, denominato \textbf{\_\_time}, che viene utilizzato da \textbf{Apache Druid} per l'esecuzione 
 efficiente delle query e il partizionamento dei dati all'interno dei segmenti di archiviazione.
 \subsubsection{Svolgimento}
-Per poter generare i dati necessari al \gls{datasource}{} è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata solo la generazione 
+Per poter generare i dati necessari al \gls{datasource}{} è stato utilizzato il produttore di eventi, sopra descritto e la libreria \gls{Faker}{}, utilizzando i seguenti metodi (per motivi di spazio viene riportata nel listato \ref{30st:file} solo la generazione 
 dei campi nome e cognome del \gls{datasource}{}).
-\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=lst:file]{producer.py}
+\pagebreak
+\begin{lstlisting}[language=Python, caption=\texttt{producer.py}, label=30st:file]{producer.py}
 fake = Faker()
 max=random.randint(4,20)  
 nomi= [fake.first_name() for _ in range(max)]
@@ -218,7 +232,6 @@ for n in range(500):
 \end{lstlisting}
 Inoltre per far che il test eseguito sia il più veritiero possibile, tutti i dati generati 
 sono stati salvati in un file denominato \textbf{data.csv} e successivamente importati all'interno di \textbf{PostgreSQL}, come illustrato nel listato \ref{20st:file}.
-\pagebreak
 \begin{lstlisting}[label=20st:file ]
   COPY accessi(nome, cognome, indirizzo, citta, stato, cap, email, telefono, eta, altezza, peso, reddito, datan, professione, istruzione, hobby, nfigli, codice_cliente, datareg, __time)
   From '/data.csv'
