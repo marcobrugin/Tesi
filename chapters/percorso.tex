@@ -336,7 +336,22 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
 \\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
 alla granularità temporale desiderata: si possono aggregare record aventi la stessa ora, minuti o secondi e considerando in seguito i  valori degli altri campi.\\
-Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, come illustrato nel listato \ref{11st:file}.
+In generale offre, a seconda del metodo d' importazione dei dati, \textbf{Apache Druid} presenta due metodi differenti di \textbf{rollup}.
+\begin{list}{*}
+  \item \textbf{rollup  perfetto}: \textbf{Apache Druid} aggrega perfettamente i dati al momento dell'\gls{injection}{};
+  \item \item \textbf{Best-effort rollup}: \textbf{Druid} potrebbe non riuscire ad aggregare perfettamente i dati 
+  di input, pertanto si potrebbe verificare che più segmenti dati contengano dati con
+  stesso \textbf{timestamp} e stesso valore di \textbf{Dimension}.
+\end{list}
+\noindent
+Al fine di garantire il \textbf{rollup perfetto}, ottenendo così le prestazioni migliori, è necessario utilizzare un metodo d'inserimento 
+che utilizzi un ulteriore passaggio di pre-elaborazione dei dati, finalizzato a determinare gli intervalli e il partizionamento da adottare 
+al momento dell'inserimento dei dati. \\
+Tale fase esegue una scansione dell'intero set d'input e aumenta il tempo necessario per l'inserimento.
+\\Mentre una caratteristica tipica di un metodo d'inserimento che utilizza il \textbf{best-effort rollup} è la pubblicazione incrementale dei dati.
+In questo \textbf{Apache Druid} finalizza e pubblica i segmenti prima che tutti i dati di una partizione temporale siano stati ricevuti. 
+ \pagebreak   \\Tutte le importazioni dati, provenienti da \textbf{Streaming} avvengono in questo modalità.\\
+\noindent Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, come illustrato nel listato \ref{11st:file}.
 \begin{lstlisting}[language=SQL,label=11st:file]
     CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
 \end{lstlisting}
