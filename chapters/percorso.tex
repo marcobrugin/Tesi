@@ -217,10 +217,32 @@ for n in range(500):
       producer.send("accessi", value = my_data) 
 \end{lstlisting}
 Inoltre per far che il test eseguito sia il più veritiero possibile, tutti i dati generati 
-sono stati salvati in un file \textbf{.csv} e successivamente importati all'interno di \textbf{PostgreSQL}.\\
+sono stati salvati in un file denominato \textbf{data.csv} e successivamente importati all'interno di \textbf{PostgreSQL}, come illustrato nel listato \ref{20st:file}.
+\pagebreak
+\begin{lstlisting}[label=20st:file ]
+  COPY accessi(nome, cognome, indirizzo, citta, stato, cap, email, telefono, eta, altezza, peso, reddito, datan, professione, istruzione, hobby, nfigli, codice_cliente, datareg, __time)
+  From '/data.csv'
+  Delimiter ','
+  csv header;
+\end{lstlisting}
+Si fa notare che i comandi, citati nel listato \ref{20st:file}, sono stati eseguiti solo dopo
+aver aperto una connessione all'unico database, presente nel \gls{container}{} \textbf{postgres}, denominato \textbf{druid}, avente come password e nome utente \textbf{druid} (Figura \ref{fig:accesso_psql}).
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/percorso/accesso_psql.png}
+  \caption{Connessione al database druid all'interno del container postgres}
+  \label{fig:accesso_psql}
+\end{figure}
+\\
 In seguito è stato anche eseguita l'\gls{injection}{} all'interno di \textbf{Apache Druid} 
 andando a utilizzare l'interfaccia web, reperibile all'indirizzo
-\textbf{http://localhost:8888/}.
+\textbf{http://localhost:8888/} (Figura \ref{fig:injection}).
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/percorso/load_data.png}
+  \caption{Interfaccia web di Apache Druid per l'injection di un datasource}
+  \label{fig:injection}
+\end{figure}
 \pagebreak
 \\
 In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
@@ -247,8 +269,6 @@ In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} c
          FROM accessi
          GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, professione, istruzione, nfigli
          ORDER BY 5 DESC
- 
-
 
  - query 6: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), 
      DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli, COUNT(*) 
@@ -256,6 +276,7 @@ In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} c
              GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli
              ORDER BY 5 DESC           
  \end{lstlisting}
+ \pagebreak
 \subsubsection{Risultati}
 I risultati ottenuti sono riportati nella tabella \ref{tab:risultati_query}.
 \begin{table}[h]
