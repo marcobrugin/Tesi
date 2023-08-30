@@ -17,32 +17,32 @@
     {json}{JSON}{JavaScript Object Notation}
 \newacronym[description={\glslink{gplg}{General Public License}}]
     {gpl}{GPL}{General Public License}
-\newglossaryentry{gplg} {
-    name=\glslink{gpl}{GPL},
-    text=General Public License,
-    sort=GPL,
-    description={in informatica con il termine di licenza \textit{Gnu Public License GNU} si intende  
-    una licenza di software libera e open-source, sviluppata dalla \textit{Free Software Foundation}, finalizzata a stabilire i termini e le condizioni 
-    di utilizzo, copia, modifica e ridistribuzione del software o di un suo derivato}
-}
-\newglossaryentry{jsong}
-{
-    name={JSON},
-    text=JavaScript Object Notation,
-    sort=JSON,
-    description={è l'acronimo di \textit{JavaScript Object Notation}, un formato di scrittura leggero basato su testo per rappresentare dati strutturati. 
-    È comunemente utilizzato per trasmettere dati indipendentemente dal linguaggio di programmazione utilizzato. \textbf{JSON} presenta una sintassi semplice e comprensibile anche agli 
-    esseri umani, attraverso la quale i dati vengono rappresentati in coppie chiave-valore, con la possibilità di poter includere 
-    oggetti, array, numeri, stringhe, booleani e valori null}
-}
-\newglossaryentry{apig}
+    \newglossaryentry{gplg} {
+        name=\glslink{gpl}{GPL},
+        text=General Public License,
+        sort=GPL,
+        description={in informatica con il termine di licenza \textit{Gnu Public License GNU} si intende  
+        una licenza di software libera e open source, sviluppata dalla \textit{Free Software Foundation}, finalizzata a stabilire i termini e le condizioni 
+        di utilizzo, copia, modifica e ridistribuzione del software o di un suo derivato}
+    }
+    \newglossaryentry{jsong}
+    {
+        name={JSON},
+        text=JavaScript Object Notation,
+        sort=JSON,
+        description={è l'acronimo di \textit{JavaScript Object Notation}, un formato di scrittura leggero basato su testo per rappresentare dati strutturati. 
+        È comunemente utilizzato per trasmettere dati indipendentemente dal linguaggio di programmazione utilizzato. \textbf{JSON} presenta una sintassi semplice e comprensibile anche agli 
+        esseri umani, attraverso la quale i dati vengono rappresentati in coppie \textbf{chiave-valore}, con la possibilità di poter includere 
+        oggetti, array, numeri, stringhe, booleani e valori null}
+    }
+    \newglossaryentry{apig}
 {
     name={API},
     text=Application Programming Interface,
     sort=API,
     description={in informatica con il termine di \textit{Application Programming Interface API} si intende un insieme di interfacce di 
     programmazione, regole, protocolli e strumenti che consentono a diverse applicazioni di comunicare tra loro. La finalità delle 
-    \textbf{API} è quella di definire un'astrazione tra hardware e programmatore o software a basso ed alto livello, in modo da facilitare
+    \textbf{API} è quella di definire un'astrazione tra hardware e programmatore o software a basso e alto livello, in modo da facilitare
     la programmazione e l'interazione tra i diversi componenti di un sistema}
 }
 \newglossaryentry{tcpg} {
@@ -51,7 +51,7 @@
     sort=TCP,
     description={è l'acronimo di \textit{Transmission Control Protocol}, uno dei principali protocolli di rete del \textit{TCP/IP}. Si tratta di un 
     protocollo al livello di trasporto, affidabile e orientato alla connessione. Viene ampiamente utilizzato per applicazioni 
-    che richiedono comunicazioni affidabili e corenti}
+    che richiedono comunicazioni affidabili e coerenti}
 }
 \newglossaryentry{olapg} {
     name=\glslink{olap}{OLAP},
@@ -59,7 +59,7 @@
     sort=olap,
     description={è l'acronimo di \textit{Online Analytical Processing}, un insieme di tecniche e strumenti che permettono di analizzare i dati in modo 
     interattivo da più prospettive. Lo scopo principale di tali tecniche è quello di fornire, attraverso aggregazioni e compattazioni dei dati, informazioni 
-    significative e approfondite finalizzate a supportare i processi decisiionali
+    significative e approfondite finalizzate a supportare i processi decisionali
     }
 }
 \newglossaryentry{ictg} {
@@ -81,7 +81,7 @@
     name=\glslink{ohs}{OH\&S},
     text=Occupational Health and Safety,
     sort=OH\&S,
-    description={in informatica, è l'acronimo di \textit{Occupational Health and Safety}, un insime di norme e procedure che si concentrano 
+    description={in informatica, è l'acronimo di \textit{Occupational Health and Safety}, un insieme di norme e procedure che si concentrano 
     sulla protezione della salute, della sicurezza e del benessere dei lavoratori all'interno di un ambiente di lavoro. Ha come obiettivi 
     fondamentali la prevenzione da incendi, incidenti e infortuni sul lavoro, garantendo un ambiente di lavoro sicuro e salubre}
 }
@@ -106,244 +106,288 @@
     name={Data Analytics},
     text=Data Analytics,
     sort=Data Analytics,
-    description={è il processo che permette di esaminare i dati per trarne conclusioni sull'informazione che contengono}
+    description={in ambito di analisi dati, si riferisce al processo di pulizia, trasformazione e analisi di grandi moli di dati, finalizzato
+    a ottenere informazioni significative e prendere decisioni aziendali più consapevoli}
 }
 \newglossaryentry{Business Innovation}
 {
     name={Business Innovation},
     text=Business Innovation,
     sort=Business Innovation,
-    description={è un processo che permette d' introdurre nuovi metodi, idee, prodotti e servizi per migliorare l'efficienza, la produttività e la competitività di un'organizzazione}
+    description={in ambito aziendale, si riferisce alla creazione e implementazione di nuovi processi, prodotti e servizi
+    che portano miglioramenti significativi all'organizzazione aziendale. La \textit{Business Innovation} ha lo scopo di portare 
+    maggiore valore per il cliente, migliore adattabilità ai cambiamenti del mercato e migliore efficienza operativa}
 }
 \newglossaryentry{Middleware}
 {
     name={Middleware},
     text=Middleware,
     sort=Middleware,
-    description={è un software che si interpone tra un sistema operativo e le applicazioni che vengono eseguite al di sopra. Il suo scopo è quello di facilitare lo sviluppo di applicazioni e di nascondere la complessità del sistema operativo sottostante}
+    description={in informatica, con tale termine ci si riferisce a un insieme di software che fungono da intermediari tra diverse applicazioni 
+    e sistemi, consentendo la comunicazione e lo scambio dati in modo efficiente. Il Middleware fornisce servizi e funzionalità comuni che 
+    semplificano lo sviluppo e l'integrazione di applicazioni eterogenee, facilitando flussi di informazioni tra sistemi diversi}
 }
 \newglossaryentry{repository}
 {
     name={repository},
     text=repository,
     sort=repository,
-    description={è un ambiente di archiviazione centralizzato in cui vengono conservati e gestiti i dati}
+    description={in informatica, con tale termine ci si riferisce a uno spazio o a una directory in cui archiviare e organizzare
+    file, documenti e altre risorse legate allo sviluppo, gestione e monitoraggio di un progetto software}
 }
 \newglossaryentry{metadati}
 {
     name={metadati},
     text=metadati,
     sort=metadati,
-    description={sono informazioni finalizzati a descrivere altre strutture dati, in modo da renderle più comprensibili e facili da individuare, analizzare e utilizzare}
+    description={i \textit{metadati} sono informazioni descrittive che forniscono l'origine, dettagli e contesto su altre risorse. Vengono ampiamente utilizzati 
+    nella organizzazione, ricerca e gestione delle informazioni} 
 }
 \newglossaryentry{working directory}
 {
     name={working directory},
     text=working directory,
     sort=working directory,
-    description={è la directory di lavoro corrente}
+    description={in informatica, con tale termine ci si riferisce alla directory corrente in cui un'applicazione o un utente sta lavorando}
 }
 \newglossaryentry{Scrum}
 {
     name={Scrum},
     text=Scrum,
     sort=Scrum,
-    description={è un framework agile per la gestione del ciclo di sviluppo del software}
+    description={nel contesto dello sviluppo software, \textit{Scrum} è un framework di gestione e dello sviluppo agile. Si basa su principi quali trasparenza, ispezione 
+    e adattamento, promuovendo il lavoro collaborativo e iterativo per raggiungere gli obiettivi specifici. Ha lo scopo di fornire un approccio 
+    flessibile e adattabile allo sviluppo di prodotti complessi}
 }
 \newglossaryentry{modello incrementale}
 {
     name={modello incrementale},
     text=modello incrementale,
     sort=modello incrementale,
-    description={è un modello di sviluppo software che prevede la consegna di funzionalità in maniera incrementale, cioè il prodotto finale viene 
-    sviluppato attraverso una serie di rilasci parziali}
+    description={nel contesto dello sviluppo software, con tale termine si intende un modello di sviluppo che prevede la consegna di funzionalità in modo incrementale, creando 
+    il prodotto finale attraverso rilasci successivi e parziali, ottenendo così feedback tempestivi e frequenti}
 }
 \newglossaryentry{sprint}
 {
     name={sprint},
     text=sprint,
     sort=sprint,
-    description={è un periodo di tempo breve, della durata di una o due settimane, in cui viene sviluppata 
-    una funzionalità del prodotto finale}
+    description={nel contesto del framework \textit{Scrum}, si intende un periodo di tempo predeterminato durante il quale il team di sviluppo lavora su una serie di attività e obiettivi specifici. In genere 
+    gli \textit{sprint} hanno una durata media di due o quattro settimane e sono progettati per promuovere un consegna iterattiva 
+    del prodotto finale}
 }
 \newglossaryentry{Product Backlog}
 {
     name={Product Backlog},
     text=Product Backlog,
     sort=Product Backlog,
-    description={è un elenco ordinato di requisiti che rappresentano le funzionalità del prodotto finale}
+    description={nel contesto del framework \textit{Scrum}, si intende una lista dinamica e prioritizzata di tutte le funzionalità, le caratteristiche, le attività e gli elementi che devono essere sviluppati e implementati in un prodotto software. È
+    il punto di partenza per la pianificazione degli \textit{sprint}}
 }
 \newglossaryentry{agile}
 {
     name={agile},
     text=agile,
     sort=agile,
-    description={è un insieme di metodi di sviluppo software che si basano su un approccio iterativo e incrementale. 
-    L'obiettivo principale dei metodi agili è quello di fornire risultati di alta qualità in modo rapido ed efficiente, consentendo ai team di adattarsi ai cambiamenti delle specifiche o dei requisiti durante il processo di sviluppo.}
+    description={nel contesto dello sviluppo software, si intende un insieme di metodi di sviluppo che si basano su un approccio iterativo e incrementale. 
+    I metodi agili pongono l'accento sulla risposta rapida ai cambiamenti, sulla consegna frequente di valore e sulla creazione di un ambiente di lavoro collaborativo e adattabile
+    I più noti sono \textit{Scrum}, Kanban, Extreme Programming (XP) e Feature-Driven Development (FDD)}
 }
 \newglossaryentry{board}
 {
     name={board},
     text=board,
     sort=board,
-    description={è una bacheca virtuale che permette di visualizzare le attività da svolgere, quelle in corso e quelle completate}
+    description={nel contesto dello sviluppo software, si intende una bacheca virtuale riportante 
+    una istantanea del progetto, con attività svolte, da svolgere e in corso di svolgimento}
 }
 \newglossaryentry{task}
 {
     name={task},
     text=task,
     sort=task,
-    description={è un compito che deve essere svolto per portare a termine un'attività più grande}
+    description={all'interno della gestione di un progetto software, si intende un'attività che deve essere svolta per raggiungere un obiettivo specifico}
 }
 \newglossaryentry{container}
 {
     name={container},
     text=container,
     sort=container,
-    description={è un'unità software standard che raggruppa il codice e tutte le sue dipendenze in modo da poter essere eseguito in modo affidabile e veloce in qualsiasi ambiente}
+    description={nel contesto della virtualizzazione, è un'unità software standard che raggruppa in modo comune il codice e tutte 
+    dipendenze con modalità comuni per essere eseguite ovunque. Per raggiungere tale scopo i \textit{container} usufruiscono di una forma 
+    di virtualizzazione (nel caso del \textit{Kernel Linux}, i \textit{namespace} e i \textit{cgroup}), per isolare i processi in esecuzione 
+    e controllare i processi che questi ultimi usufruiscono.
+    I \textit{container} nascono per essere piccoli, veloci e portabili, non hanno bisogno d'includere in ogni istanza un sistema operativo,
+    sfruttando invece le funzioni e le risorse del sistema operativo host}
 }
 \newglossaryentry{virtual machine}
 {
     name={virtual machine},
     text=virtual machine,
     sort=virtual machine,
-    description={è un ambiente computazionale autonomo e isolato che opera come una macchina fisica separata, ma è ospitato all'interno di un sistema operativo o di un altro ambiente hardware}
+    description={nel contesto della virtualizzazione, è un ambiente software isolato e autonomo che emula un elaboratore fisico completo.
+    In ogni istanza di una \textit{virtual machine} è presente un sistema operativo completo, utilizzando le risorse 
+    fisiche del sistema host. L'isolamento tra le varie \textit{virtual machine} è garantito da un 
+    ulteriore componente software, chiamato \textit{hypervisor}, che si occupa di assegnare le risorse fisiche del sistema host tra le varie \textit{virtual machine} e di gestire le comunicazioni tra esse, se permessa.\\
+    A differenza dei \textit{container}, le \textit{virtual machine} sono più grandi, più lente e meno portabili, in quanto dipendenti dall'\textit{hipervisor} utilizzato}
 }
 \newglossaryentry{on-promise}
 {
     name={on-promise},
     text=on-promise,
     sort=on-promise,
-    description={è un modello di distribuzione software in cui l'applicazione viene ospitata sul server del cliente}
+    description={nella distribuzione del software, una tecnologia \textit{on-promise} rappresenta
+     un modello in cui i servizi sono ospitati e gestiti all'interno di una 
+    organizzazione, che detiene e controlla le risorse hardware e software}
 }
 \newglossaryentry{Docker}
 {
     name={Docker},
     text=Docker,
     sort=Docker,
-    description={è un progetto open-source che automatizza il deployment di applicazioni all'interno di container software}
+    description={è una piattaforma \textit{open-source} che consente di creare, gestire applicazioni in \textit{container} e distribuirle in modo semplice e veloce
+    \textit{Docker} nasce nel 2010, quando Solomon Hykes sviluppò un progetto interno chiamato \textbf{dotCloud} presso la sua azienda di produzione software. In seguito 
+    nel 2013 \textit{Docker} è stato rilasciato come progetto \textit{open-source}, rivoluzionando il modalità delle applicazioni.}
 }
 \newglossaryentry{message broker}
 {
     name={message broker},
     text=message broker,
     sort=message broker,
-    description={è il componente intermediario che permette d' inviare e ricevere messaggi da più sorgenti verso più destinazioni. Un message broker facilita lo scambio dei messaggi 
-    tra le componenti di un sistema distribuito, consentendo di comunicare in modo asincrono e disaccoppiato}
+    description={in informatica, un \textit{message broker} è  il componente intermediario che permette d' inviare e ricevere messaggi da più sorgenti verso più destinazioni,
+    Un \textit{message broker} facilita lo scambio dei messaggi 
+    tra le componenti di un sistema distribuito, consentendo di comunicare in modo asincrono e disaccoppiato.
+    Viene particolarmente in sistemi di monitoraggio e applicazioni di \textbf{IoT}}
 }
 \newglossaryentry{streaming di eventi}
 {
     name={streaming di eventi},
     text=streaming di eventi,
     sort=streaming di eventi,
-    description={è una pratica di acquisizione dei dati in tempo reale da fonti di eventi come database, flussi
-    di eventi; memorizzando tutto ciò per un recupero futuro di tali informazioni, reagendo a
-    flussi di eventi in tempo reale}
+    description={in informatica, lo \textit{streaming di eventi} rappresenta una pratica di acquisizione dati in tempo reale da fonti diverse, 
+    tramite l'invio di eventi. Tale approccio consente l'elaborazione e l'analisi di tali dati, nel momento in cui si verificano,
+    consentendo di ottenere informazioni significative e tempestive}
 }
 \newglossaryentry{fault tolerance}
 {
     name={fault tolerance},
     text=fault tolerance,
     sort=fault tolerance,
-    description={è la capacità di un sistema di continuare a operare anche in caso di malfunzionamenti}
+    description={in informatica, con tale termine si intende la capacità di un sistema di operare in modo corretto e fornire 
+    i servizi anche in presenza di guasti o malfunzionamenti}
 }
 \newglossaryentry{open source}
 {
     name={open source},
     text=open source,
     sort=open source,
-    description={è un modello di sviluppo del software basato sulla condivisione del codice sorgente, che permette a chiunque di leggere, studiare, modificare e distribuire il software stesso o parte di esso}
+    description={in informatica, ci si riferisce a un tipo di sviluppo software in cui il codice sorgente è reso pubblico e accessibile a tutti,
+    consentendo a chiunque di leggere, studiare, modificare e ridistribuirlo.
+    Un software \textit{open source} è caratterizzato da uno sviluppo collaborativo e trasparente.\\
+    Un esempio molto noto di software \textit{open source} è il \textit{kernel Linux}}
 }
 \newglossaryentry{Apache Software Foundation}
 {
     name={Apache Software Foundation},
     text=Apache Software Foundation,
     sort=Apache Software Foundation,
-    description={è un'organizzazione non profit che supporta lo sviluppo di progetti open source}
+    description={è un'organizzazione senza scopo di lucro dedicata allo sviluppo e alla promozione di software \textit{open source}.\\
+    Fondata nel 1999, oggi è diventata un punto di riferimento per la comunità \textit{open source}, con oltre 350 progetti supportati
+    }
 }
 \newglossaryentry{topic}
 {
     name={topic},
     text=topic,
     sort=topic,
-    description={è un canale o area di comunicazione a cui vengono inviati e ricevuti messaggi categorizzati}
+    description={in un sistema di messaggistica, si intende una categoria a cui i componenti del sistema possono inviare e 
+    ricevere messaggi in modo asincrono. I \textit{topic} sono utilizzati per organizzare, classificare e filtrare i messaggi
+    }
 }
 \newglossaryentry{log}
 {
     name={log},
     text=log,
     sort=log,
-    description={è un file che registra gli eventi che si verificano durante l'esecuzione di un sistema o di un'applicazione}
+    description={in informatica, rappresenta un file o un insieme di dati, che registra eventi, azioni e informazioni rilevanti, 
+    che si verificano all'interno di un sistema}
 }
 \newglossaryentry{compattazione}
 {
     name={compattazione},
     text=compattazione,
     sort=compattazione,
-    description={è una strategia che si concentra sulla rimozione efficiente dei duplicati nei log dei topic, mantenendo solo la versione più recente di ciascun messaggio con una determinata chiave}
+    description={nel contesto dell'analisi dati, è una strategia che si concentra sulla rimozione efficiente dei duplicati nei log dei topic, mantenendo solo la versione più recente di ciascun messaggio con una determinata chiave}
 }
 \newglossaryentry{cluster}
 {
     name={cluster},
     text=cluster,
     sort=cluster,
-    description={è un insieme di elaboratori connessi tra loro che lavorano in parallelo per eseguire un compito comune}
+    description={in informatica, rappresenta un insieme di elaboratori connessi tra di loro tramite una rete, configurati 
+    per lavorare in modo collaborativo e coordinato, al fine di eseguire un compito comune}
 }
 \newglossaryentry{injection}
 {
     name={injection},
     text=injection,
     sort=injection,
-    description={è la tecnica attraverso cui si inseriscono dati da un sistema esterno ad un altro}
+    description={nel contesto dell'analisi dati, l'injection è  una pratica attraverso la quale dei dati 
+    vengono inseriti da un sistema ad un altro}
 }
 \newglossaryentry{hands-on}
 {
     name={hands-on},
     text=hands-on,
     sort=hands-on,
-    description={è un'attività pratica che permette di sperimentare quanto appena appreso}
+    description={in ambito di formazione, si intende un'attività pratica che permetta di sperimentare 
+    concetti e consolidare conoscenze teoriche appena apprese}
 }
 \newglossaryentry{volumi}
 {
     name={volumi},
     text=volumi,
     sort=volumi,
-    description={sono un'unità di archiviazione che possono essere montati e utilizzati da un container}
+    description={in ambito di virtualizzazione, legata ai \textit{container}, con volume si intende una risorsa che permette di gestire 
+    e persistere dati tra il sistema host e i \textit{container}. Inoltre i \textit{volumi} permettono di condividere e separare 
+    dati tra i \textit{container}}
 }
 \newglossaryentry{immagini Docker}
 {
     name={immagini Docker},
     text=immagini Docker,
     sort=immagini Docker,
-    description={è un pacchetto software leggero, autonomo ed eseguibile che include tutto il necessario per eseguire un'applicazione}
+    description={in ambito di virtualizzazione, legata ai \textit{container Docker}, le immagini sono pacchetti leggeri e autosufficienti,
+    contengono tutto il necessario per eseguire una applicazione. Sono le componenti essenziali dei \textit{container Docker} e consentono di 
+    creare e gestire applicazioni in modo semplice e veloce}
 }
 \newglossaryentry{enviroment}
 {
     name={enviroment},
     text=enviroment,
     sort=enviroment,
-    description={è un insieme di variabili d'ambiente che definiscono il comportamento di un processo, le risorse utilizzabili e le informazioni di configurazione}
+    description={in informatica, con \textit{enviroment}, si intende un insieme di variabili d'ambiente che definiscono il comportamento di un processo, le risorse utilizzabili e le informazioni di configurazione}
 }
 \newglossaryentry{Docker network}
 {
     name={Docker network},
     text=Docker network,
     sort=Docker network,
-    description={rappresenta un'interfaccia di rete virtuale che permette ai container di comunicare tra loro e con il mondo esterno}
+    description={in ambito \textit{Docker}, una \textit{Docker network} rappresenta un'interfaccia di rete virtuale, che permette ai \textit{container}, che la dichiarano nel proprio file di configurazione, di comunicare tra loro e, se permesso, con il sistema host}
 }
 \newglossaryentry{Kafka-Python}
 {
     name={Kafka-Python},
     text=Kafka-Python,
     sort=Kafka-Python,
-    description={è una libreria Python che consente agli sviluppatori di interagire con il sistema di messaggistica distribuita Apache Kafka utilizzando il linguaggio di programmazione Python; viene ampiamente utilizzato per la costruzione di sistemi di streaming o dove è necessario gestire grandi quantità di dati in modo scalabile e affidabile}
+    description={\textit{Kafka-Python} è una libreria Python che consente agli sviluppatori d'interagire con il sistema di messaggistica Apache Kafka, utilizzando il linguaggio di programmazione Python. Tale libreria viene ampiamente utilizzato per la costruzione di sistemi di streaming o dove è necessario gestire grandi quantità di dati in modo scalabile e affidabile}
 }
 \newglossaryentry{datasource}
 {
     name={datasource},
     text=datasource,
     sort=datasource,
-    description={in Apache Druid è un'astrazione rappresenta un insieme di dati, organizzati in tabelle, che possono essere analizzati e interrogati}
+    description={in Apache Druid, una \textit{datasource} è un'astrazione rappresenta un insieme di dati, organizzati in tabelle, che possono essere analizzati e interrogati}
 }
 
 \newglossaryentry{project management}
@@ -351,7 +395,7 @@
     name={project management},
     text=project management,
     sort=project management,
-    description={è l'insieme di pratiche, metodi, processi e strumenti utilizzati per pianificare, organizzare, eseguire, monitorare e controllare le attività necessarie per raggiungere gli obiettivi di un progetto in modo efficace ed efficiente}
+    description={nel contesto di gestione di progetto, indica l'insieme di pratiche, metodi, processi e strumenti utilizzati per pianificare, organizzare, eseguire, monitorare e controllare le attività necessarie per raggiungere gli obiettivi di un progetto in modo efficace ed efficiente}
 }
 \newglossaryentry{Faker}
 {
