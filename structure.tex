@@ -35,6 +35,9 @@
     \backmatter
     \printglossary[type=\acronymtype, title=Acronimi e abbreviazioni, toctitle=Acronimi e abbreviazioni]
     \printglossary[type=main, title=Glossario, toctitle=Glossario]
-
+    \newpage
+    \pagestyle{empty}
+    \null % o \mbox{} o \phantom{X}
+    \newpage
     \input{appendix/bibliography}
 \end{document}
