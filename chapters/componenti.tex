@@ -337,13 +337,19 @@ Per risolvere tale problema nelle Streaming \gls{Data Pipeline}{} si è andati a
 \end{list}
 
 \subsection{Approccio utilizzato}\label{sec:approccio_utilizzato}
-L'approccio comunemente utilizzato per la creazione di una Streaming \gls{Data Pipeline}{} è quello di utilizzare un \gls{message broker}{} come \textbf{Apache Kafka} e un sistema \gls{olap}{} come \textbf{Apache Druid} per l'analisi dati, operando nel seguente modo:\\
+L'approccio comunemente utilizzato per la creazione di una Streaming \gls{Data Pipeline}{} è quello di utilizzare un \gls{message broker}{} come \textbf{Apache Kafka} e un sistema \gls{olap}{} come \textbf{Apache Druid} per l'analisi dati (Figura \ref{fig:data_pipeline}), operando nel seguente modo:\\
 \begin{list}{*}
     \item \textbf{produzione dei dati}: all'interno dell'ambiente di sviluppo, i dati vengono prodotti da diverse fonti, sensori o applicazioni, e inviati al \gls{message broker}{} \textbf{Apache Kafka} 
     che ha il compito di archiviarli e successivamente distribuirli ai consumatori;
     \item \item \textbf{analisi dati}: i dati vengono letti dal \gls{message broker}{} \textbf{Apache Kafka} e inviati al sistema \gls{olap}{} \textbf{Apache Druid} che ha il compito di indicizzarli, elaborarli e renderli disponibili per eseguire query in tempo reale su di essi.
 \end{list}
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/componenti/SCHEMA_DATA_PIPELINE.png}
+    \caption{Schema di una Streaming Data Pipeline con Apache Kafka e Apache Druid}
+    \label{fig:data_pipeline}
+\end{figure}
+\clearpage
 \newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
