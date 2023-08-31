@@ -4,7 +4,7 @@ Il processo di formazione ha avuto un ruolo fondamentale nella buona riuscita de
 La causa del protrarsi del processo di formazione è stata provocata dalla mia inesperienza in merito a 
 concetti legati all'architettura \gls{eda}{},
 \textbf{Apache Kafka}, \textbf{Apache Druid} e \textbf{Docker Compose}.\\  
-Tutto il processo di formazione è stato tracciato e monitorato da me medesimo e dal tutor aziendale attraverso le \gls{board}{} offerte 
+Tutto il processo di formazione è stato tracciato e monitorato da me medesimo e dal tutor aziendale, attraverso le \gls{board}{} offerte 
 dal software di \gls{project management}{} \textbf{ClickUp} (Figura \ref{cap:ClickUp}).\\
 \begin{figure}[h]
     \centering
@@ -40,7 +40,7 @@ andando a programmare degli incontri giornalieri di circa 15 minuti finalizzati 
 \begin{list}{*}
     \item \textbf{monitorare} lo stato di avanzamento delle attività svolte, da svolgere e in corso di svolgimento;
     \item \item \textbf{risolvere} eventuali dubbi o problemi sorti durante lo svolgimento delle attività;
-    \item \textbf{definire} eventuali miglioramenti o cambiamenti da apportare alle da svolgere, o in corso di svolgimento, e al metodo 
+    \item \textbf{definire} eventuali miglioramenti o cambiamenti da apportare alle attività da svolgere, o in corso di svolgimento, e al metodo 
     di lavoro adottato.
 \end{list}
 \section{Codifica}
@@ -50,8 +50,8 @@ ho iniziato la configurazione di un \gls{cluster}{}, che fa uso di \gls{containe
 \\Seguendo la buona pratica dell'alta affidabilità, descritta del 
 paragrafo \ref{sec:alta_affidabilita}, ho configurato un \gls{cluster}{} con tre nodi \textbf{Kafka} e un nodo \textbf{Zookeeper}.\\
 Innanzitutto per far che ogni \gls{container}{} possa comunicare con gli altri è stato necessario creare una 
-\gls{Docker network}{}, denominata \textbf{kafka-druid}, nel seguente modo.
-\begin{lstlisting}[caption=\texttt{docker network create}, label=lst:file]{docker network create}
+\gls{Docker network}{}, denominata \textbf{kafka-druid}.
+\begin{lstlisting}[caption=\texttt{docker network create}, label=1000st:file]{docker network create}
 docker network create kafka-druid
 \end{lstlisting}
 Successivamente sono stati creati i nodi \textbf{Zookeeper} e \textbf{Kafka} con \textbf{Docker Compose} 
@@ -93,7 +93,7 @@ Nonostante ciò si precisa che per i test che verranno elencati di seguito,
 sono utilizzabili anche le \gls{immagini Docker}{} ufficiali di \textbf{Apache Kafka} e \textbf{Apache Zookeeper}, distribuite dalla 
 \gls{Apache Software Foundation}.
 \subsection{Configurazione del file di enviroment per il cluster di Apache Druid}
-Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} di \textbf{Apapche Druid}, come descritto nel listato \ref{8st:file}.
+Dopo aver configurato il \gls{cluster}{} di \textbf{Apache Kafka}, è stato necessario adattarne il file di \gls{enviroment}{} di \textbf{Apache Druid}, come descritto nel listato \ref{8st:file}.
 \begin{lstlisting}[caption=\texttt{enviroment}, label=8st:file]{enviroment}
 DRUID_MAXDIRECTMEMORYSIZE=3072m
 DRUID_SINGLE_NODE_CONF=nano-quickstart
@@ -256,7 +256,7 @@ andando a utilizzare l'interfaccia web, reperibile all'indirizzo
 \end{figure}
 \pagebreak
 \\
-In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
+Infine sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
 \begin{lstlisting}[language=SQL, caption=\texttt{query.sql}, label=lst:file]{query.sql}
   - query 1:  SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi
@@ -280,6 +280,8 @@ In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} c
             FROM accessi
             GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, professione, istruzione, nfigli
             ORDER BY 5 DESC
+
+
 
  - query 6:  SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli, COUNT(*) 
              FROM accessi
@@ -333,10 +335,10 @@ definizione di segmenti aggregati, creati in base a delle regole di aggregazione
 \\
 È importante sottolineare che l'operazione di \textbf{rollup} può essere configurata in base 
 alla granularità temporale desiderata: si possono aggregare record aventi la stessa ora, minuti o secondi e considerando in seguito i  valori degli altri campi.\\
-In generale offre, a seconda del metodo d' importazione dei dati, \textbf{Apache Druid} presenta due metodi differenti di \textbf{rollup}.
+In generale \textbf{Apache Druid} offre, a seconda del metodo d' importazione dei dati, due metodi differenti di \textbf{rollup}:
 \begin{list}{*}
   \item \textbf{rollup  perfetto}: \textbf{Apache Druid} aggrega perfettamente i dati al momento dell'\gls{injection}{};
-  \item \item \textbf{Best-effort rollup}: \textbf{Druid} potrebbe non riuscire ad aggregare perfettamente i dati 
+  \item \item \textbf{best-effort rollup}: \textbf{Druid} potrebbe non riuscire ad aggregare perfettamente i dati 
   di input, pertanto si potrebbe verificare che più segmenti dati contengano dati con
   stesso \textbf{timestamp} e stesso valore di \textbf{Dimension}.
 \end{list}
@@ -387,7 +389,7 @@ Per poter generare i dati necessari al \gls{datasource}{} sopra descritto,
         my_data = {"__time": accesso, "nome": nome, "cognome": cognome, "datan":  datan, "citta": citta, "stato": stato, "istruzione": istruzione,
         "hobby": hobby
         }
-        producer.send("rollup", value = my_data) 
+        producer.send("accessi_rollup", value = my_data) 
     \end{lstlisting}
 In seguito sono state eseguente le seguenti query su i tre \gls{datasource}{} creati.
 \begin{lstlisting}[language=SQL, caption=\texttt{query\_rollup.sql}, label=lst:file]{query_rollup.sql}
@@ -400,6 +402,8 @@ In seguito sono state eseguente le seguenti query su i tre \gls{datasource}{} cr
               GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), stato
               ORDER BY 4 DESC
   
+
+
   - query 3: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta, COUNT(*) 
               FROM accessi_rollup
               GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, citta
@@ -479,6 +483,7 @@ Il risultato ottenuto è illustrato in Figura \ref{fig:risultato_lookup}.
 Dai risultati ottenuti 
 si sottolinea che per ottenere lo stesso risultato all'interno di un classico \textbf{database relazionale}
 è necessario ricorrere all'unione tra due tabelle, operazione che risulta essere molto onerosa.
+\newpage
 \pagestyle{empty}
 \null % o \mbox{} o \phantom{X}
 \newpage
