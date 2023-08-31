@@ -1,19 +1,20 @@
 \chapter{Componenti di una Data Pipeline}\label{cap:Componenti di una Data Pipeline}
 \section{Apache Kafka}
 \subsection{Introduzione}
-\textbf{Apache Kafka} è una piattaforma \gls{open source}{}, da Jay Kreps, Neha Narkhede e Jun Rao presso LinkedIn e successivamente donata alla \gls{Apache Software Foundation}{} nel 2011. (Figura \ref{fig:logo_kafka}).\\
+\textbf{Apache Kafka} è una piattaforma \gls{open source}{}, ideata da Jay Kreps, Neha Narkhede e Jun Rao presso LinkedIn, una piattaforma di social media professionale,
+ e successivamente donata alla \gls{Apache Software Foundation}{} nel 2011. (Figura \ref{fig:logo_kafka}).\\
 \textbf{Apache Kafka} nasce con la necessità di LinkedIn di gestire grandi quantità di dati in tempo reale.\\ Già nel 2007 
 Jay Kreps e il suo team si resero conto che le soluzioni allora attuali, basate su database tradizionali, non erano in grado di gestire 
 un carico di lavoro crescente e la complessità del formato dei dati generati da LinkedIn.\\
 Dunque per affrontare tale sfida, nel 2010 LinkedIn iniziò a utilizzare \textbf{Apache Kafka} per gestire i dati di \gls{log}{} generati dai vari servizi. \\
 Tale adozione ha dimostrato nel tempo che \textbf{Apache Kafka} è in grado di gestire carichi di lavoro molto elevati, di scalare facilmente e di garantire un elevato livello di affidabilità nella consegna di messaggi.\\ 
 \textbf{Kafka} è sviluppato in Java e Scala e rilasciata sotto licenza Apache 2.0. La versione attuale è la 3.5.1 rilasciata il 21 luglio 2023.\\
-\textbf{Kafka} nasce originariamente come \gls{message broker}{} e permette di gestire uno \gls{streaming di eventi}{} in tempo reale. \\ 
+\textbf{Kafka} nasce originariamente come \gls{message broker}{} e permette di gestire uno flussi di messaggi in tempo reale. \\ 
 In particolare fornisce funzionalità per:
 \begin{list}{*}{}
-    \item pubblicare e sottoscrivere flussi di eventi, importandoli ed esportandoli da altri sistemi;
+    \item pubblicare e sottoscrivere flussi di messaggi, importandoli ed esportandoli da altri sistemi;
     \item archiviare tali flussi in modo affidabile e duraturo;
-    \item elabora flussi di eventi in real time o in modo retrospettivo.
+    \item elabora tali flussi in real time o in modo retrospettivo.
 \end{list}
 \begin{figure}[h]
     \centering
@@ -56,15 +57,15 @@ più \gls{message broker}{}. Tale meccanismo permette di garantire la \gls{fault
 Le repliche possono essere utilizzate a livello di partizione. \textbf{Kafka} ne designa una chiamata \textit{Leader}
 mentre le altre sono partizioni \textit{follower o in-sync}. Il numero totale di repliche incluso il
 leader costituisce \textbf{il fattore di replicazione}. \\
-Il leader e responsabile della ricezione e dell’invio
+Il leader è responsabile della ricezione e dell’invio
 dei dati, per quella partizione, mentre i \textit{follower} ricevono i dati dal leader e li replicano.\\
 \subsubsection{Produttori e consumatori}
 Il produttore \textbf{Kafka} invia i dati, con una richiesta di deposito,  direttamente al \gls{message broker}{}, \textit{Leader} della partizione. Per velocizzare la ricerca del
-\textit{Leader}, tutti i nodi possono rispondere alle richieste dei produttori fornendo \gls{metadati}{} su quali nodi sono presenti i \textit{Leader}, tale informazione consentirà al produttore d'indirizzare in modo
+\textit{Leader}, tutti i nodi possono rispondere alle richieste dei produttori fornendo \gls{metadati}{} su quali nodi sono presenti i \textit{Leader}. Tale informazione consentirà al produttore d'indirizzare in modo
 appropriato i messaggi.\\
-D'altra parte il consumatore emette una richiesta di recupero di messaggi al \gls{message broker}{} che funge da \textit{Leader} della partizione, specificando il suo offset nel registro dei messaggi.\\
+D'altra parte il consumatore emette anche una richiesta di recupero di messaggi al \gls{message broker}{} che funge da \textit{Leader} della partizione, specificando il suo offset nel registro dei messaggi.\\
 Il \gls{message broker}{} risponde con un messaggio contenente il suo offset nel registro con ogni richiesta e con una parte del registro a partire da quella posizione (Figura \ref{fig:kafka_architecture}).
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/componenti/kafka_architetcture.png}
     \caption{Architettura di Apache Kafka}
@@ -79,14 +80,14 @@ I \gls{topic}{} dei rispettivi messaggi vengono partizionati su più nodi per co
 Quando un nuovo messaggio viene emesso, quest'ultimo si aggiunge alla rispettiva partizione relativa al \gls{topic}{} e viene assegnato un numero di offset che identifica il messaggio all'interno della partizione.\\
 Grazie a tale meccanismo \textbf{Apache Kafka} garantisce che i messaggi vengano letti nell'ordine in cui sono stati scritti.
 \subsubsection{Zookeeper}
-\textbf{Zookeeper} è un prodotto \gls{open source}{} che si occupa della sincronizzazione tra i cluster distribuiti di sistemi come \textbf{Apache Kafka}. \\
+\textbf{Zookeeper} è un prodotto \gls{open source}{} che si occupa della sincronizzazione tra i \gls{cluster}{} distribuiti di sistemi come \textbf{Apache Kafka}. \\
 È progettato per gestire operazioni di sincronizzazione, gestione dello stato e configurazioni nei sistemi distribuiti, garantendo coerenza e affidabilità.\\
 Il suo funzionamento si basa sul protocollo Zookeeper Atomic Broadcast (ZAB), che è il cuore del servizio di coordinamento di \textbf{Zookeeper}.\\
 Ogni nodo invia a intervalli regolari un messaggio \textit{Keep-Alive} a \textbf{Zookeeper}, informandolo così che è vivo e funzionante. Se entro un tempo prestabilito il messaggio non viene ricevuto si presume che il nodo sia
-morto e se era un leader se ne elegge un altro.\\
+malfunzionante e se era un leader se ne elegge un altro.\\
 Inoltre \textbf{Zookeeper} permette di definire dei parametri che consentono di capire quando un nodo è guasto e quanto gli altri nodi, appartenenti a una partizione,  sono in ritardo rispetto al \textit{Leader} in termini di sincronizzazione sull'arrivo dei messaggi.\\
-Il parametro \textit{zookeeper.session.timeout.ms}, impostato a 6000 millisecondi per impostazione predefinita, indica che, se il leader non riceve l'evento \textit{Keep-Alive} entro quel periodo temporale, detrmina che quel nodo sia guasto.\\
-Il parametro \textit{replica.lag.max.messages}, indica la massima differenza consentita tra \textbf{Replica's Offset}e \textbf{Leader's Offset}. Se tale differenza è maggiore di \textit{replica.lag.max.message-1}, il nodo viene considerato in ritardo e viene rimosso dall'elenco dei nodi in sincronizzazione dal leader. \\
+Il parametro \textit{zookeeper.session.timeout.ms}, impostato a 6000 millisecondi per impostazione predefinita, indica che, se il leader non riceve l'evento \textit{Keep-Alive} entro quel periodo temporale, determina che quel nodo sia guasto.\\
+Il parametro \textit{replica.lag.max.messages}, indica la massima differenza consentita tra \textbf{Replica's Offset} e \textbf{Leader's Offset}. Se tale differenza è maggiore di \textit{replica.lag.max.message-1}, il nodo viene considerato in ritardo e viene rimosso dall'elenco dei nodi in sincronizzazione dal leader. \\
 Tutti i nodi che sono attivi e sincronizzati formano l' \textbf{In-Sync Replica Set}(\textbf{ISR}).\\
 Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettivi \gls{log}{}, questo messaggio viene considerato confermato e quindi inviato ai consumatori. \\
 In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
@@ -99,8 +100,8 @@ La conservazione può essere configurata o controllata in base alla dimensione d
 base alla durata configurata. Tale configurazione può essere impostata a grana fine o a
 grana grossa per ogni argomento o per tutti gli argomenti \cite{site:Kafka_Retention}.
 \paragraph{Retention basata sulle dimensione}
-Una volta raggiunto il tempo di conservazione configurato per il segmento, quest'ultimo viene contrassegnato per l'eliminazione o la \gls{compattazione}{} in base al criterio di pulizia configurato. Il periodo di conservazione predefinito per i segmenti è di 7 giorni.
-I parametri configurabili per la \textbf{Retention} basata sul tempo sono in ordine d'importanza e valutazione sono:
+Una volta raggiunto il tempo di conservazione configurato per il segmento, quest'ultimo viene contrassegnato per l'eliminazione o la \gls{compattazione}{} in base al criterio di pulizia configurato. Il periodo di conservazione predefinito per i segmenti è di sette giorni.
+I parametri configurabili per la \textbf{Retention} basata sul tempo in ordine d'importanza e valutazione sono:
 \begin{enumerate}
     \item $log.retention.ms$;
     \item $log.retention.minutes$;
@@ -108,9 +109,9 @@ I parametri configurabili per la \textbf{Retention} basata sul tempo sono in ord
 \end{enumerate}
 Nel momento in cui un parametro di livello di priorità superiore non è impostato si segue la politica di conservazione del parametro di livello di priorità inferiore.\\
 \paragraph{Retention basata sulla dimensione}
-In questo caso si  configura la dimensione massima di una struttura di dati di registro per una partizione di argomento. Una volta che la dimensione del registro raggiunge questa dimensione, inizia a rimuovere i segmenti dalla sua fine.\\
+Una volta che la dimensione del registro raggiunge questa dimensione, inizia a rimuovere i segmenti dalla sua fine.\\
 
-I parametri configurabili per la \textbf{Retention} basata dimensione sono in ordine d'importanza e valutazione:
+I parametri configurabili per la \textbf{Retention} basata dimensione in ordine d'importanza e valutazione sono:
 \begin{enumerate}
     \item $log.segment.bytes$: la dimensione massima di un singolo file di registro;
     \item $log.retention.check.interval.ms$: la frequenza in millisecondi con cui la pulizia del registro verifica se un registro è idoneo per l'eliminazione;
@@ -122,22 +123,22 @@ In \textbf{Kafka} esistono produttori e consumatori che producono e sottoscrivon
 sono indipendenti l’uno dall’altro. \\
 \textbf{Apache Kafka} in tale contesto può fornire una delle seguenti garanzie sulla consegna e ricezione dei messaggi:
 \begin{list}{*}
-    \item \textbf{at most once}: i messaggi vengono consegnati al consumatore al più una volta. In questo caso, i messaggi possono essere persi, ma non duplicati;
+    \item \textbf{at most once}: i messaggi vengono consegnati al consumatore al più una volta, i messaggi possono essere persi, ma non duplicati;
    \item \item  \textbf{at least once}: i messaggi vengono consegnati al consumatore almeno una volta, i messaggi possono essere duplicati, ma non persi;
-    \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta. In questo caso, i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
+    \item \textbf{exactly once}: i messaggi vengono consegnati al consumatore esattamente una volta; i messaggi non vengono né persi né duplicati, è la garanzia più costosa ma maggiormente richiesta.
 \end{list}
 \subsection{Il pattern Publisher-Subscriber}
 \textbf{Apache Kafka}, nell'elaborazione dei messaggi, implementa il pattern \textbf{Publisher-Subscriber} (Figura \ref{fig:publisher_subscriber}) che permette di gestire flussi di dati in tempo reale.\\
-Il pattern architetturale \textbf{Publisher-Subscriber} è un modello di progettazione software, utilizzato nei sistemi distribuiti, che impiegano una comunicazione asincrona tra i vari componenti.\\
-Sebbene vada ad utilizzare tecniche già preesistenti come la sottoscrizione e l'accodamento di messaggi, la  chiave di successo di tale pattern è il totale disaccoppiamento delle componenti: i componenti non sono a conoscenza dell'identità e della presenza degli altri.\\
+Il pattern \textbf{Publisher-Subscriber} è un modello di progettazione software, utilizzato nei sistemi distribuiti, che impiegano una comunicazione asincrona tra i vari componenti.\\
+Sebbene vada ad utilizzare tecniche già preesistenti come la sottoscrizione e l'accodamento di messaggi, la  chiave di successo di tale pattern è il totale disaccoppiamento delle componenti: questi ultimi non sono a conoscenza dell'identità e della presenza degli altri.\\
 Tale modello è nato dalla necessità del rendere i sistemi ridimensionabili in modo dinamico. Per raggiungere tale obiettivo, lo scambio di messaggi 
 tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{broker}, che si occupa di ricevere i messaggi dai \textbf{publisher} e di inoltrarli ai \textbf{subscriber}.\\
 \subsubsection{Vantaggi}
 \begin{itemize}
     \item \textbf{Debole accoppiamento tra le componenti}:  rende il sistema più flessibile e modificabile dinamicamente;
-    \item \textbf{Elevata scalabilità}: non esiste limite al numero di \textbf{publisher} e \textbf{subscriber} che possano comunicare;
-    \item \textbf{Utilizzo della comunicazione asincrona ad eventi}: non necessità della sincronazzazione degli attori coinvolti nella comunicazione;
-    \item \textbf{Indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico \cite{site:Pattern_publisher_subscriber}.
+    \item \textbf{elevata scalabilità}: non esiste limite al numero di \textbf{publisher} e \textbf{subscriber} che possano comunicare;
+    \item \textbf{utilizzo della comunicazione asincrona ad eventi}: non necessità della sincronazzazione degli attori coinvolti nella comunicazione;
+    \item \textbf{indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico \cite{site:Pattern_publisher_subscriber}.
 \end{itemize}
 \begin{figure}[h]
     \centering
@@ -145,31 +146,32 @@ tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{br
     \caption{Il pattern Publisher-Subscriber}
     \label{fig:publisher_subscriber}
 \end{figure}
+\pagebreak
 \subsection{Alta affidabilità}\label{sec:alta_affidabilita}
-Nel contesto si \textbf{Apache Kafka} con il termine di \textbf{alta affidabilità} ci si riferisce alla capacità di un sistema di gestire in modo
+Nel contesto di \textbf{Apache Kafka} con il termine di \textbf{alta affidabilità} ci si riferisce alla capacità di un sistema di gestire in modo
 robusto e coerente la ricezione, l'elaborazione e consegna dei messaggi anche in caso di guasti o malfunzionamenti.\\
 L'alta affidabilità fornisce anche la garanzia che i flussi di messaggi non vengano persi o corrotti.
 \subsubsection{Numero dispari di nodi}\label{sec:numero_dispari_nodi}
 \textbf{Apache Kafka} per garantire l'alta affidabilità utilizza le $repliche$: copie dei dati distribuite su più nodi.\\
-Infatti nel caso in cui ci trovi nella condizione di prendere decisioni di consenso, eleggere $Leader$ o eseguire altre operazioni di coordinamento, \textbf{Kafka} richiede il consenso 
+Infatti nel caso in cui \textbf{Kafka} si trovi nella condizione di prendere decisioni di consenso, eleggere $Leader$ o eseguire altre operazioni di coordinamento, richiede il consenso 
 da parte della maggioranza dei nodi. Pertanto per raggiungerla sempre è buona pratica utilizzare un numero di nodi dispari (3,5,7,9,...), per evitare situazioni di stallo.\\
 
 \subsection{Even Driven Architecture}
 L'\textbf{Even Driven Architecture} è un pattern architetturale basato su eventi: degli agenti, che sono in grado di ricevere tali eventi, agiscono solo nel momento in cui questi ultimi si verificheranno. 
-\\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona \cite{site:Panoramica_architettura_EDA}.
+\\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario che siano sincroni, ma possono andare a sfruttare una comunicazione di tipo asincrona \cite{site:Panoramica_architettura_EDA}.
 \subsubsection{Apache Kafka e l'architettura EDA}
 L'emissione di un evento indica che qualcosa è accaduto e può essere visto come un agglomerato di dati atomico in grado di soddisfare l'evento stesso. \\
-Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi}{} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
-\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \gls{eda}{} la chiave è andare a sfruttare il disaccoppiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. \\Inoltre grazie all'approccio sviluppato da \textbf{Kafka} un evento una volta soddisfatto, non viene eliminato, ma conservato per un periodo di tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione \cite{site:Kafka_EDA}. \\
+Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi}{}, gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
+\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \gls{eda}{}, la chiave è andare a sfruttare il disaccoppiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. \\Inoltre grazie all'approccio sviluppato da \textbf{Kafka} un evento, una volta soddisfatto, non viene eliminato, ma conservato per un periodo di tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione \cite{site:Kafka_EDA}. \\
 \pagebreak
 \section{Apache Druid}
 \textbf{Apache Druid} (Figura \ref{fig:logo_druid}) è uno strumento \gls{open source}{} di analisi \gls{olap}{} progettato per analizzare e gestire grandi moli di dati in tempo reale, in modo scalabile. \\
-Il progetto su cui si basa \textbf{Apache Druid} è stato sviluppato a partire dal 2011 da Metamarkets, una società di analisi dei dati in tempo reale per il settore pubblicitario,
+Il progetto su cui si basa \textbf{Apache Druid} è stato sviluppato a partire dal 2011 all'interno di Metamarkets, una società di analisi dei dati in tempo reale per il settore pubblicitario,
 da parte di Gian Merlino, Eric Tschetter e Fangjin Yang.\\
 L'obiettivo iniziale era quello di creare un sistema in grado di analizzare, in tempo reale, grandi quantità di dati per fornire ai clienti 
 informazioni sulle campagne pubblicitarie.\\
 Purtroppo le tecnologie allora esistenti non erano in grado di soddisfare le esigenze di Metamarkets, pertanto il team di sviluppo decise di creare un nuovo sistema che potesse soddisfare le loro esigenze, che ha preso il nome di \textbf{Druid}.\\
-\textbf{Druid} nasce per gestire dati di tipo evento, come strumento di \gls{log}{}, dati di transazione e molti altri. \\
+\textbf{Druid} nasce per gestire dati di tipo evento, come strumenti di \gls{log}{}, dati di transazione e molti altri. \\
 Nel 2012, Metamarkets ha rilasciato \textbf{Druid}{} come progetto \gls{open source}{} su GitHub, permettendo così alla comunità di contribuire e sviluppare ulteriormente la piattaforma. Nel 2015, \textbf{Druid} è diventato un progetto \gls{open source}{} ufficiale sotto l'autorità della \gls{Apache Software Foundation}{} \cite{site:Intro_Druid}.\\
 \textbf{Apache Druid} è comunemente utilizzato come back-end per le GUI di applicazioni analitiche o
 per \gls{api}{} altamente simultanee che richiedono aggregazioni veloci. \\
@@ -183,15 +185,15 @@ per \gls{api}{} altamente simultanee che richiedono aggregazioni veloci. \\
 \pagebreak
 \subsection{Casi d'uso}
 \textbf{Apache Druid} viene utilizzato in tutti quegli scenari in cui è necessario analizzare grandi quantità di dati in tempo reale, in modo scalabile, con \gls{fault tolerance}{} e con la possibilità di effettuare query complesse ad alta efficienza.\\  
-I principali campi di utilizzo di \textbf{Apache Druid} sono:
+I principali campi di utilizzo di \textbf{Apache Druid} sono elencati di seguito.
 \begin{list}{*}
-    \item \textbf{analisi dati in real-time e applicazioni dati}: \textbf{Apache Druid} viene ampliamente impiegato in sistemi di acquisizione dati in
-    tempo reale, query rapide e tempo di attività. \textbf{Druid} viene utilizzato per alimentare GUI
+    \item \textbf{Analisi dati in real-time e applicazioni dati}: \textbf{Apache Druid} viene ampliamente impiegato in sistemi di acquisizione dati in
+    tempo reale, basati su query rapide e tempo di attività. \textbf{Druid} viene utilizzato per alimentare GUI
     di applicazioni analitiche o per \gls{api}{} simultanee che necessitano di aggregazioni veloci, i migliori risultati 
-    vengono ottenuti nell'analisi di dati di tipo evento;
-    \item \item \textbf{elaborazione di metriche}: \textbf{Apache Druid} viene spesso utilizzato per effettuare misurazioni sul coinvolgimento degli
-    utenti e il monitoraggio dei dati di test, calcolando metriche, conteggi finalizzati a elaborare tendenze su grandi moli di dati;
-    \item \textbf{operazioni \gls{olap}{}}: \textbf{Apache Druid} viene utilizzato per accelerare l’esecuzione di query su grandi moli di dati e potenziare le applicazioni; è progettato per un’elevata concorrenza e query in meno di un secondo, alimentando
+    vengono ottenuti nell'analisi di dati di tipo evento.
+    \item \item \textbf{Elaborazione di metriche}: \textbf{Apache Druid} viene spesso utilizzato per effettuare misurazioni sul coinvolgimento degli
+    utenti e il monitoraggio dei dati di test, calcolando metriche, conteggi finalizzati a elaborare tendenze su grandi moli di dati.
+    \item \textbf{Operazioni \gls{olap}{}}: \textbf{Apache Druid} viene utilizzato per accelerare l’esecuzione di query su grandi moli di dati e potenziare le applicazioni; è progettato per un’elevata concorrenza e query in meno di un secondo, alimentando
     l’esplorazione interattiva dei dati attraverso un’interfaccia utente \cite{site:Use_case_Druid}.
 \end{list}
 \subsection{Architettura e funzionamento}
@@ -200,7 +202,7 @@ Le distribuzioni su singolo nodo sono ormai poco utilizzate, ma esistono altre c
 CPU e memoria, come i \gls{container}{}.
 \subsubsection{Distribuzione su cluster}
 \textbf{Apache Druid} nasce come sistema distribuito (Figura \ref{fig:druid_architecture}), scalabile, tollerante ai guasti, compatibile con il cloud. \\
-Inoltre una architettura di questo tipo un malfunzionamento di una componente non influisce immediatamente sulle altre.\\
+Inoltre in una architettura di questo tipo, un malfunzionamento di una componente non influisce immediatamente sulle altre.\\
 
 In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server: 
 \begin{list}{*}
@@ -217,10 +219,10 @@ In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server
 \pagebreak
 \paragraph{I server principali} o \textbf{Master} gestiscono l’\gls{injection}{} e la disponibilità dei dati: sono i responsabili dell’avvio
 di nuovi operazioni di \gls{injection}{} e del coordinamento della disponibilità dei dati sui \textbf{Data server}.\\
-Ogni server mantiene una connessione con a un \textbf{Zookeeper} per le informazioni sul \gls{cluster}{} corrente.
-I server \textbf{Master} eseguono al loro interno i seguenti processi:
+Ogni server mantiene una connessione con un nodo \textbf{Zookeeper} per le informazioni sul \gls{cluster}{} corrente.
+I server \textbf{Master} eseguono al loro interno i seguenti processi.
 \subparagraph{I Coordinator} hanno il compito di gestire la disponibilità dei dati dei \gls{cluster}{}, comunicano
-agli \textbf{Historical} di caricare o rilasciare segmenti in base alle configurazioni, sono i 
+agli \textbf{Historical} di caricare o rilasciare segmenti in base alle configurazioni. Sono i 
 responsabili del caricamento di nuovi segmenti, dell’eliminazione di segmenti obsoleti, della
 garanzia che i segmenti siano replicati (caricati su più nodi \textbf{Historical} diversi) un
 numero corretto  di volte e sia presente un bilanciamento dei segmenti
@@ -231,7 +233,7 @@ attività, della restituzione degli stati ai
 chiamanti. Possono essere eseguiti sia in modalità locale che su server dedicato. Gli \textbf{Overlord} hanno anche il compito di 
 creare i \textbf{Peon} per l'esecuzione delle attività. 
 \paragraph{I Server dati} eseguono le attività d'acquisizione e archiviazione dei dati interrogabili.
-I server \textbf{dati} eseguono al loro interno i seguenti processi:
+I server \textbf{dati} eseguono al loro interno i seguenti processi.
 \subparagraph{Gli Historical} hanno il compito di copiare o estrarre i file di segmento dal \textbf{Deep Storage} al disco locale in un’area
 chiamata $segment cache$ e di rispondere alle query su tali segmenti.
 Il \textbf{Coordinator} controlla l’assegnazione dei segmenti agli \textbf{Historical} e il bilanciamento dei segmenti assegnati
@@ -242,13 +244,13 @@ hanno il compito di eseguire le attività di \gls{injection}{} e di indicizzazio
 Sono i responsabili dell'inserimento di nuovi dati all'interno del \gls{cluster}{}, della lettura di dati da fonti esterne e della pubblicazione di 
 nuovi segmenti.\\
 \subparagraph{I Peon} sono i motori di esecuzione delle attività generate dai processi \textbf{MiddleManager}. \\
-Ogni \textbf{Peon} viene eseguito su una JVM separata ed è responsabile dell’esecuzione di una singola attività. 
+Ogni \textbf{Peon} viene eseguito su una \gls{jvm}{} separata ed è responsabile dell’esecuzione di una singola attività. 
 Tutti i Peon che sono stati generati da un processo \textbf{MiddleManager} vengono eseguiti sullo stesso nodo.
 \paragraph{I Server d'interrogazione} o Server query forniscono la funzionalità d'interazione con gli utenti, instradando le richieste  
 ai \textbf{server dati} o ad altri \textbf{server query}, per la loro esecuzione. \\
 I server query eseguono al loro interno i processi descritti di seguito.
 \subparagraph{I Broker} sono i processi a cui instradare le query, analizzano i \gls{metadati}{} forniti
-da \textbf{Zookeeper}, comprendono dove ricavare i dati necessari per elaborare i risultati delle query ed 
+da \textbf{Zookeeper}, comprendono dove ricavare i dati necessari per elaborano i risultati delle query ed 
 infine uniscono tutti i risultati elaborati per fornire un’unica risposta alla richiesta.\\
 \subparagraph{I Router} sono i processi che hanno il compito di instradare le query a diversi processi \textbf{Broker}. Le query
 vengono instradate in base alle regole di caricamento dei segmenti che vengono applicate.
