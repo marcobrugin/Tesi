@@ -260,31 +260,30 @@ andando a utilizzare l'interfaccia web, reperibile all'indirizzo
 \\
 In seguito sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
 \begin{lstlisting}[language=SQL, caption=\texttt{query.sql}, label=lst:file]{query.sql}
-  - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
+  - query 1:  SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi
               GROUP BY DATE_TRUNC('day', __time), citta
        
- - query 2: SELECT stato, AVG(eta), AVG(reddito)
+ - query 2:  SELECT stato, AVG(eta), AVG(reddito)
              FROM accessi
              GROUP BY stato
        
- - query 3: SELECT DATE_TRUNC('year', __time), stato, professione, istruzione, nfigli, COUNT(*)
+ - query 3:  SELECT DATE_TRUNC('year', __time), stato, professione, istruzione, nfigli, COUNT(*)
              FROM accessi
              WHERE nfigli> 0
              GROUP BY DATE_TRUNC('year', __time), stato, professione, istruzione, nfigli
              ORDER BY 5 DESC
        
- - query 4: SELECT DATE_TRUNC('hour',__time), citta,  AVG(eta)
+ - query 4:  SELECT DATE_TRUNC('hour',__time), citta,  AVG(eta)
              FROM accessi
              GROUP BY DATE_TRUNC('hour', __time), citta  
  
- - query 5: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, professione, istruzione, nfigli, COUNT(*) 
-         FROM accessi
-         GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, professione, istruzione, nfigli
-         ORDER BY 5 DESC
+ - query 5: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time),    stato, professione, istruzione, nfigli, COUNT(*) 
+            FROM accessi
+            GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), stato, professione, istruzione, nfigli
+            ORDER BY 5 DESC
 
- - query 6: SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), 
-     DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli, COUNT(*) 
+ - query 6:  SELECT DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli, COUNT(*) 
              FROM accessi
              GROUP BY DATE_TRUNC('year', __time), DATE_TRUNC('month', __time), DATE_TRUNC('day', __time), DATE_TRUNC('hour', __time), stato, professione, istruzione, nfigli
              ORDER BY 5 DESC           
