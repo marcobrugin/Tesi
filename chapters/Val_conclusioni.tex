@@ -1,11 +1,19 @@
 \chapter{Valutazioni e Conclusioni}
 \label{cap:conclusioni}
 \section{Raggiungimento degli obiettivi}
+L'oggetto del tirocinio, illustrato nel seguente documento, è stato lo studio e l'implementazione di una \gls{Data Pipeline}{}, eseguita all'interno di un ambiente che fa uso di \gls{container}{}, in grado di 
+soddisfare esigenze di scalabilità, alta efficienze e \gls{fault tolerance}{} nell'elaborazione di grandi moli di dati.\\
+Per il raggiungimento di tale obiettivo, sono state utilizzati \textbf{Apache Kafka}, come strumento di raccolta dati e 
+\textbf{Apache Druid}, come strumento di trasformazione e analisi dati.\\
+A completamento dello studio teorico condotto su tali strumenti, 
+dopo aver creato e configurato una \gls{Data Pipeline}{}, con le caratteristiche sopra decsritte, 
+sono stati eseguiti una serie di test, finalizzati a comparare 
+le prestazioni di esecuzione di uno strumento \gls{olap}{}, come \textbf{Apache Druid}, con 
+un classico database relazione, come \textbf{PostgreSQL} ed a evidenziare la facilità con cui \textbf{Druid} è in grado di 
+fornire funzionalità onerose in altri sistemi di elaborazione dati.\\
 Per quanto riguarda gli obiettivi prefissati all'inizio del periodo di stage, riportati nella sezione \ref{sec:obiettivi}, si può affermare che sono stati raggiunti tutti.\\
 In particolare sono stati soddisfatti tutti gli obiettivi obbligatori e facoltativi. Di seguito la tabella riassuntiva \ref{tab:obiettivi_raggiunti}.\\
-
-
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Tabella riassuntiva degli obiettivi raggiunti}
     \label{tab:obiettivi_raggiunti}
@@ -24,15 +32,13 @@ In particolare sono stati soddisfatti tutti gli obiettivi obbligatori e facoltat
         \textbf{F3} & Facoltativo & Soddisfatto\\\hline
     \end{tabular} 
 \end{table}
+\pagebreak
 \noindent
+La realizzazione di un prototipo di una \gls{Data Pipeline}{} ha mostrato la fattibilità della creazione di un sistema contenente un flusso automatizzato
+di dati, a partire da un sorgente di raccolta dati, come \textbf{Apache Kafka} e terminante in un sistema di analisi dati, come \textbf{Apache Druid}.
+Tutto ciò, tramite uno studio teorico delle tecnologie in esame e l'implementazione di quanto citato pocanzi, ha permesso di 
+acquisire conoscenze e competenze relative alle \textbf{architetture distribuite} e in ambito \gls{olap}{} e \gls{eda}{}.  
 
-Strumenti come \textbf{Apache Druid} risultano essere molto promettenti e 
-integrabili in attuali e futuri sistemi di monitoraggio e analisi dei dati.
-Infatti, note le potenzialità e le prestazioni che tale strumento 
-le potenzialità che uno strumento \gls{olap}{}, come \textbf{Apache Druid}, può offrire 
-nel
-Inoltre il prodotto finale ha soddisfatto sia le aspettative del tutor aziendale, che quelle dei colleghi 
-ha espresso un giudizio positivo sul lavoro svolto.\\
 \section{Valutazione del lavoro svolto}
 Nonostante la mia scarsa conoscenza dell'ambito applicativo e tecnologico in cui rientrava il progetto di stage,
 il prodotto finale sviluppato è riuscito a soddisfare le aspettative del tutor aziendale.\\
@@ -44,7 +50,7 @@ da un punto di vista teorico, ma insufficiente
 per poterli utilizzare in modo efficace dal punto di vista pratico. Ritengo che 
 le attività di \gls{hands-on}{} sono state di fondamentale importanza, in particolar modo 
 quando svolte in collaborazione con altri colleghi, perchè mi hanno permesso di 
-scoprire funzionalità e caratteristiche degli strumenti, che non sono presenti nella documentazione ufficiale.\\
+scoprire funzionalità e caratteristiche degli strumenti, che sono minimamente decsritte nella documentazione ufficiale.\\
 \section{Divario rispetto al percorso di studi}
 Nonostante, nel percorso di stage, abbia incontrato strumenti e tecnologie innovative, ritengo che il percorso di studi 
 mi abbia fornito le basi necessarie per poter completare con successo lo stage.\\
