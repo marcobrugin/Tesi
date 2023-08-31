@@ -92,7 +92,7 @@ Tutti i nodi che sono attivi e sincronizzati formano l' \textbf{In-Sync Replica 
 Se tutti i nodi in sincronizzazione hanno memorizzato un messaggio nei rispettivi \gls{log}{}, questo messaggio viene considerato confermato e quindi inviato ai consumatori. \\
 In questo modo, un sistema come \textbf{Kafka} garantisce che un messaggio di cui è stato eseguito il \textit{commit} non andrà perso, purché sia presente almeno una replica attiva e sincronizzata, in ogni momento.\\
 Un nodo non sincronizzato può ricongiungersi all'\textbf{ISR} se può sincronizzarsi completamente di nuovo, anche se ha perso alcuni dati a causa del suo arresto anomalo.
-\pagebreak
+
 \subsubsection{Politiche di retention}
 Con \textbf{retention} in \textbf{Kafka} si intende la possibilità di controllare la dimensione dei registri
 degli argomenti ed evitare di superare le dimensioni del disco esistente.\\
@@ -133,6 +133,12 @@ Il pattern \textbf{Publisher-Subscriber} è un modello di progettazione software
 Sebbene vada ad utilizzare tecniche già preesistenti come la sottoscrizione e l'accodamento di messaggi, la  chiave di successo di tale pattern è il totale disaccoppiamento delle componenti: questi ultimi non sono a conoscenza dell'identità e della presenza degli altri.\\
 Tale modello è nato dalla necessità del rendere i sistemi ridimensionabili in modo dinamico. Per raggiungere tale obiettivo, lo scambio di messaggi 
 tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{broker}, che si occupa di ricevere i messaggi dai \textbf{publisher} e di inoltrarli ai \textbf{subscriber}.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/componenti/ps-model.png}
+    \caption{Il pattern Publisher-Subscriber}
+    \label{fig:publisher_subscriber}
+\end{figure}
 \subsubsection{Vantaggi}
 \begin{itemize}
     \item \textbf{Debole accoppiamento tra le componenti}:  rende il sistema più flessibile e modificabile dinamicamente;
@@ -140,13 +146,7 @@ tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{br
     \item \textbf{utilizzo della comunicazione asincrona ad eventi}: non necessità della sincronazzazione degli attori coinvolti nella comunicazione;
     \item \textbf{indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico \cite{site:Pattern_publisher_subscriber}.
 \end{itemize}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/componenti/ps-model.png}
-    \caption{Il pattern Publisher-Subscriber}
-    \label{fig:publisher_subscriber}
-\end{figure}
-\pagebreak
+
 \subsection{Alta affidabilità}\label{sec:alta_affidabilita}
 Nel contesto di \textbf{Apache Kafka} con il termine di \textbf{alta affidabilità} ci si riferisce alla capacità di un sistema di gestire in modo
 robusto e coerente la ricezione, l'elaborazione e consegna dei messaggi anche in caso di guasti o malfunzionamenti.\\
@@ -155,7 +155,7 @@ L'alta affidabilità fornisce anche la garanzia che i flussi di messaggi non ven
 \textbf{Apache Kafka} per garantire l'alta affidabilità utilizza le $repliche$: copie dei dati distribuite su più nodi.\\
 Infatti nel caso in cui \textbf{Kafka} si trovi nella condizione di prendere decisioni di consenso, eleggere $Leader$ o eseguire altre operazioni di coordinamento, richiede il consenso 
 da parte della maggioranza dei nodi. Pertanto per raggiungerla sempre è buona pratica utilizzare un numero di nodi dispari (3,5,7,9,...), per evitare situazioni di stallo.\\
-
+\pagebreak
 \subsection{Even Driven Architecture}
 L'\textbf{Even Driven Architecture} è un pattern architetturale basato su eventi: degli agenti, che sono in grado di ricevere tali eventi, agiscono solo nel momento in cui questi ultimi si verificheranno. 
 \\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario che siano sincroni, ma possono andare a sfruttare una comunicazione di tipo asincrona \cite{site:Panoramica_architettura_EDA}.
