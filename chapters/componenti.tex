@@ -40,7 +40,7 @@ I principali campi di utilizzo di \textbf{Apache Kafka} sono:
 \textbf{Apache Kafka} nasce come sistema distribuito che opera su nodi, i quali comunicano tramite protocollo
 \gls{tcp}{} ad alte prestazioni. Data la sua natura distribuita implementa funzionalità di \gls{fault tolerance}{} con possibilità di rimpiazzo dei nodi che hanno avuto un malfunzionamento.\\  
 \textbf{Kafka} può essere distribuito e utilizzato in vari modi tra cui \gls{virtual machine}{} e \gls{container}{}, \gls{on-promise}{}, o servizi cloud.\\
-In generale \textbf{Apache Kafka} è costituito da due componenti essenziali: server e client.
+In generale \textbf{Apache Kafka} è costituito da due componenti essenziali: server e client \cite{site:Doc_Kafka}.
 \subsubsection{Server}
 \textbf{Kafka} viene eseguito come un cluster di uno o più server, che rivestono diversi ruoli. \\Alcuni svolgono la funzione di \textbf{Kafka Broker}: ricevono i messaggi dai produttori, li archiviano e inviano i messaggi ai rispettivi consumatori, al momento della sottoscrizione.
 \\ Altri invece assolvono il compito di \textbf{Kafka Connect}: importano ed esportano i
@@ -97,7 +97,7 @@ Con \textbf{retention} in \textbf{Kafka} si intende la possibilità di controlla
 degli argomenti ed evitare di superare le dimensioni del disco esistente.\\
 La conservazione può essere configurata o controllata in base alla dimensione dei \gls{log}{} o in
 base alla durata configurata. Tale configurazione può essere impostata a grana fine o a
-grana grossa per ogni argomento o per tutti gli argomenti.
+grana grossa per ogni argomento o per tutti gli argomenti \cite{site:Kafka_Retention}.
 \paragraph{Retention basata sulle dimensione}
 Una volta raggiunto il tempo di conservazione configurato per il segmento, quest'ultimo viene contrassegnato per l'eliminazione o la \gls{compattazione}{} in base al criterio di pulizia configurato. Il periodo di conservazione predefinito per i segmenti è di 7 giorni.
 I parametri configurabili per la \textbf{Retention} basata sul tempo sono in ordine d'importanza e valutazione sono:
@@ -137,7 +137,7 @@ tra i due agenti in gioco viene gestito da un intermediario, chiamato \textbf{br
     \item \textbf{Debole accoppiamento tra le componenti}:  rende il sistema più flessibile e modificabile dinamicamente;
     \item \textbf{Elevata scalabilità}: non esiste limite al numero di \textbf{publisher} e \textbf{subscriber} che possano comunicare;
     \item \textbf{Utilizzo della comunicazione asincrona ad eventi}: non necessità della sincronazzazione degli attori coinvolti nella comunicazione;
-    \item \textbf{Indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico.
+    \item \textbf{Indipendente dal protocollo di comunicazione}: è integrabile con qualsiasi protocollo di comunicazione e stack tecnologico \cite{site:Pattern_publisher_subscriber}.
 \end{itemize}
 \begin{figure}[h]
     \centering
@@ -156,11 +156,11 @@ da parte della maggioranza dei nodi. Pertanto per raggiungerla sempre è buona p
 
 \subsection{Even Driven Architecture}
 L'\textbf{Even Driven Architecture} è un pattern architetturale basato su eventi: degli agenti, che sono in grado di ricevere tali eventi, agiscono solo nel momento in cui questi ultimi si verificheranno. 
-\\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona. 
+\\Una architettura basato su eventi fornisce una serie di altri vantaggi basati sul disaccoppiamento tra il produttore e il consumatore dell'evento, i quali, nel momento dell'emissione di quest'ultimo non è necessario siano sincroni ma possono andare a sfruttare una comunicazione di tipo asincrona \cite{site:Panoramica_architettura_EDA}.
 \subsubsection{Apache Kafka e l'architettura EDA}
 L'emissione di un evento indica che qualcosa è accaduto e può essere visto come un agglomerato di dati atomico in grado di soddisfare l'evento stesso. \\
 Di solito \textbf{Apache Kafka} viene descritto anche come una piattaforma di \gls{streaming di eventi}{} gestisti come flusso continuo di dati. \\Inoltre \textbf{Kafka} memorizza tali dati in modo duraturo per il successivo recupero, analisi o elaborazione in tempo reale.
-\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \gls{eda}{} la chiave è andare a sfruttare il disaccoppiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. \\Inoltre grazie all'approccio sviluppato da \textbf{Kafka} un evento una volta soddisfatto, non viene eliminato, ma conservato per un periodo di tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione. \\
+\\D'altra parte per utilizzare \textbf{Kafka} in un sistema \gls{eda}{} la chiave è andare a sfruttare il disaccoppiamento: invece di effettuare un polling continuo di verifica della presenza di nuovi dati, basterà ascoltare il verificarsi di un evento per agire di conseguenza. \\Inoltre grazie all'approccio sviluppato da \textbf{Kafka} un evento una volta soddisfatto, non viene eliminato, ma conservato per un periodo di tempo predeterminato, pertanto un evento potrà essere letto da più consumatori e potrà essere utilizzato per soddisfare una varietà di richieste, fino alla scadenza del suo periodo di conservazione \cite{site:Kafka_EDA}. \\
 \pagebreak
 \section{Apache Druid}
 \textbf{Apache Druid} (Figura \ref{fig:logo_druid}) è uno strumento \gls{open source}{} di analisi \gls{olap}{} progettato per analizzare e gestire grandi moli di dati in tempo reale, in modo scalabile. \\
@@ -170,7 +170,7 @@ L'obiettivo iniziale era quello di creare un sistema in grado di analizzare, in 
 informazioni sulle campagne pubblicitarie.\\
 Purtroppo le tecnologie allora esistenti non erano in grado di soddisfare le esigenze di Metamarkets, pertanto il team di sviluppo decise di creare un nuovo sistema che potesse soddisfare le loro esigenze, che ha preso il nome di \textbf{Druid}.\\
 \textbf{Druid} nasce per gestire dati di tipo evento, come strumento di \gls{log}{}, dati di transazione e molti altri. \\
-Nel 2012, Metamarkets ha rilasciato \textbf{Druid}{} come progetto \gls{open source}{} su GitHub, permettendo così alla comunità di contribuire e sviluppare ulteriormente la piattaforma. Nel 2015, \textbf{Druid} è diventato un progetto \gls{open source}{} ufficiale sotto l'autorità della \gls{Apache Software Foundation}{}.\\ 
+Nel 2012, Metamarkets ha rilasciato \textbf{Druid}{} come progetto \gls{open source}{} su GitHub, permettendo così alla comunità di contribuire e sviluppare ulteriormente la piattaforma. Nel 2015, \textbf{Druid} è diventato un progetto \gls{open source}{} ufficiale sotto l'autorità della \gls{Apache Software Foundation}{} \cite{site:Intro_Druid}.\\
 \textbf{Apache Druid} è comunemente utilizzato come back-end per le GUI di applicazioni analitiche o
 per \gls{api}{} altamente simultanee che richiedono aggregazioni veloci. \\
 \textbf{Druid} è sviluppato in Java e Scala, rilasciato sotto licenza Apache 2.0. \\La versione attuale è la 27.0.0 rilasciata il 10 agosto 2023.\\
@@ -192,7 +192,7 @@ I principali campi di utilizzo di \textbf{Apache Druid} sono:
     \item \item \textbf{elaborazione di metriche}: \textbf{Apache Druid} viene spesso utilizzato per effettuare misurazioni sul coinvolgimento degli
     utenti e il monitoraggio dei dati di test, calcolando metriche, conteggi finalizzati a elaborare tendenze su grandi moli di dati;
     \item \textbf{operazioni \gls{olap}{}}: \textbf{Apache Druid} viene utilizzato per accelerare l’esecuzione di query su grandi moli di dati e potenziare le applicazioni; è progettato per un’elevata concorrenza e query in meno di un secondo, alimentando
-    l’esplorazione interattiva dei dati attraverso un’interfaccia utente.
+    l’esplorazione interattiva dei dati attraverso un’interfaccia utente \cite{site:Use_case_Druid}.
 \end{list}
 \subsection{Architettura e funzionamento}
 \textbf{Apache Druid} include molteplici configurazione sia su singolo nodo, che distribuito su un \gls{cluster}{}.\\
@@ -206,7 +206,7 @@ In generale un \gls{cluster}{} di \textbf{Apache Druid} ospita i seguenti server
 \begin{list}{*}
     \item \textbf{i server principali}: sono responsabili della gestione dei \gls{metadati}{} e delle esigenze di coordinamento del \gls{cluster}{}, possono essere collocati insieme sullo stesso server;
     \item \item \textbf{i server dati}: finalizzati a  gestire i dati effettivi all'interno \gls{cluster}{}, traggono grandi vantaggi da CPU, RAM e SSD;
-    \item  \textbf{i server d'interrogazione}: chiamati anche \textbf{Druid Broker}, accettano le richieste e le distribuiscono al resto del cluster.
+    \item  \textbf{i server d'interrogazione}: chiamati anche \textbf{Druid Broker}, accettano le richieste e le distribuiscono al resto del cluster \cite{site:Doc_Druid}.
 \end{list}
 \begin{figure}[h]   
     \centering

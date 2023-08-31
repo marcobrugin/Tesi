@@ -55,9 +55,8 @@ Innanzitutto per far che ogni \gls{container}{} possa comunicare con gli altri �
 docker network create kafka-druid
 \end{lstlisting}
 Successivamente sono stati creati i nodi \textbf{Zookeeper} e \textbf{Kafka} con \textbf{Docker Compose} 
-utilizzando il seguente file di 
-configurazione (per motivi di spazio viene riportata la definizione di un solo nodo \textbf{Kafka}, la configurazione degli altri è del tutto analoga).
-\begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=lst:file]{kafka-cluster-compose.yml}
+come illustrato nel listato \ref{90st:file} (per motivi di spazio viene riportata la definizione di un solo nodo \textbf{Kafka}, la configurazione degli altri è del tutto analoga).
+\begin{lstlisting}[caption=\texttt{kafka-cluster-compose.yml}, label=90st:file]{kafka-cluster-compose.yml}
 networks:
   kafka-druid:
     name: kafka-druid
@@ -84,7 +83,6 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-
 \end{lstlisting}
 È importante sottolineare che all'interno della configurazione, sopra descritta, 
 vengono utilizzate le \gls{immagini Docker}{} \textbf{confluentinc/cp-zookeeper:7.4.0} e \\\textbf{confluentinc/cp-kafka:7.4.0}.\\
