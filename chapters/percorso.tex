@@ -257,8 +257,8 @@ andando a utilizzare l'interfaccia web, reperibile all'indirizzo
 \end{figure}
 \pagebreak
 \\
-Infine sono state eseguite le seguenti query, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
-\begin{lstlisting}[language=SQL, caption=\texttt{query.sql}, label=lst:file]{query.sql}
+Infine sono state eseguite le seguenti query \ref{89000st:file}, sia su \textbf{Apache Druid} che su \textbf{PostgreSQL}.
+\begin{lstlisting}[language=SQL, caption=\texttt{query.sql}, label=89000st:file]{query.sql}
   - query 1:  SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi
               GROUP BY DATE_TRUNC('day', __time), citta
@@ -352,7 +352,7 @@ Tale fase esegue una scansione dell'intero set d'input e aumenta il tempo necess
 In questo \textbf{Apache Druid} finalizza e pubblica i segmenti prima che tutti i dati di una partizione temporale siano stati ricevuti. 
  \pagebreak   \\Tutte le importazioni dati, provenienti da \textbf{Streaming} avvengono in questo modalità.\\
 \noindent Per mettere in risalto la funzionalità appena descritta ho creato un \gls{datasource}{} di cinque milioni di record, come illustrato nel listato \ref{11st:file}.
-\begin{lstlisting}[language=SQL,label=11st:file]
+\begin{lstlisting}[language=SQL, caption=\texttt{table\_rollup.sql},label=11st:file]
     CREATE TABLE accessi_rollup(__time timestamp, nome text, cognome text, citta text, stato text, datan date, istruzione text, hobby text)
 \end{lstlisting}
 In questo caso si tratta di un modello molto semplice 
@@ -361,7 +361,7 @@ il numero di possibili valori, che ogni campo dati può assumere.\\
 Pertanto il confronto è stato eseguito tra il \gls{datasource}{} originale e quello a cui è stata applicata la funzionalità di \textbf{rollup}.\\
 Inoltre, per completezza, tutti i dati generati sono stati salvati e importati anche all'interno di \textbf{PostgreSQL} per avere 
 anche un confronto con un classico \textbf{database relazionale}.
-
+ 
 \pagebreak
 \subsubsection{Svolgimento}
 Per poter generare i dati necessari al \gls{datasource}{} sopra descritto, 
@@ -392,8 +392,8 @@ Per poter generare i dati necessari al \gls{datasource}{} sopra descritto,
         }
         producer.send("accessi_rollup", value = my_data) 
     \end{lstlisting}
-In seguito sono state eseguente le seguenti query su i tre \gls{datasource}{} creati.
-\begin{lstlisting}[language=SQL, caption=\texttt{query\_rollup.sql}, label=lst:file]{query_rollup.sql}
+In seguito sono state eseguente le seguenti query \ref{800st:file} su i tre \gls{datasource}{} creati.
+\begin{lstlisting}[language=SQL, caption=\texttt{query\_rollup.sql}, label=800st:file]{query_rollup.sql}
   - query 1: SELECT DATE_TRUNC('day', __time), citta, COUNT(*)
               FROM accessi_rollup
               GROUP BY DATE_TRUNC('day', __time), citta
@@ -447,7 +447,7 @@ aggiuntive provenienti da diverse fonti. \\
 In \textbf{Apache Druid} le tabelle di \textbf{lookup} sono costituite da un campo \textbf{chiave} a cui viene associato un campo \textbf{valore} che andrà a sostituire la chiave.\\
 Inoltre è necessario sottolineare che le tabelle di \textbf{lookup} non hanno cronologia e lavorano indipendentemente dall'intervallo di tempo su cui si esegue la query: restituiscono sempre il dato corrente.\\
 Per poter sperimentare tale funzionalità ho creato un \gls{datasource}{} di cinquecento record, come delineato nel listato \ref{l4st:file}.
-\begin{lstlisting}[language=SQL,label=l4st:file]
+\begin{lstlisting}[language=SQL, caption=\texttt{table\_lookup.sql}, label=l4st:file]
   CREATE TABLE accessi_lookup(__time timestamp, citta text, stato text, codice_cliente text);
 \end{lstlisting}
 In questo caso la tabella di \textbf{lookup} è stata utilizzata per  sostituire al \textit{codice\_cliente}, il \textit{nome} e il \textit{cognome} del cliente stesso.
@@ -465,7 +465,7 @@ record  creati sono stati salvati per effettuare la creazione della tabella di \
 \pagebreak
 \\
 In seguito per poter testare tale funzionalità è stata eseguita la seguente query.
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
   SELECT LOOKUP(codice_cliente,'tabella1'), datan, citta, stato
   FROM accessi_lookup
 \end{lstlisting}
