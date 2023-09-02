@@ -229,7 +229,7 @@ for n in range(500):
       }
       producer.send("accessi", value = my_data) 
 \end{lstlisting}
-Inoltre per far che il test eseguito sia il più veritiero possibile, tutti i dati generati 
+Inoltre per far si che il test eseguito sia il più veritiero possibile, tutti i dati generati 
 sono stati salvati in un file denominato \textbf{data.csv} e successivamente importati all'interno di \textbf{PostgreSQL}, come illustrato nel listato \ref{20st:file}.
 \begin{lstlisting}[language=SQL, caption=\texttt{import\_psql.sql}, label=20st:file]{import_psql.sql}
   COPY accessi(nome, cognome, indirizzo, citta, stato, cap, email, telefono, eta, altezza, peso, reddito, datan, professione, istruzione, hobby, nfigli, codice_cliente, datareg, __time)
